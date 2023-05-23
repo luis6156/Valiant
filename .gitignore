@@ -90,3 +90,6 @@ typings/
 
 # Electron-Forge
 out/
+
+# Ignore builded files
+dist-electron
