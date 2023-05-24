@@ -93,3 +93,9 @@ out/
 
 # Ignore builded files
 dist-electron
+
+dist
+
+build
+
+release
