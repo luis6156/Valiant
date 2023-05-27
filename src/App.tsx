@@ -33,7 +33,18 @@ const App = () => {
     setThemeSettings,
     currentColor,
     currentMode,
+    setCurrentColor,
+    setCurrentMode,
   } = useStateContext();
+
+  useEffect(() => {
+    const currentThemeColor = localStorage.getItem('colorMode');
+    const currentThemeMode = localStorage.getItem('themeMode');
+    if (currentThemeColor && currentThemeMode) {
+      setCurrentColor(currentThemeColor);
+      setCurrentMode(currentThemeMode);
+    }
+  }, []);
 
   return (
     <div className={currentMode === 'Dark' ? 'dark' : ''}>

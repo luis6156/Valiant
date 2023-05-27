@@ -21,6 +21,9 @@ interface ContextState {
   setThemeSettings: React.Dispatch<React.SetStateAction<boolean>>;
   setMode: (e: ChangeEvent<HTMLInputElement>) => void;
   setColor: (mode: string) => void;
+  setCurrentColor: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentMode: React.Dispatch<React.SetStateAction<string>>;
+  initialState: ContextStateMinor;
 }
 
 const StateContext = createContext<ContextState>({} as ContextState);
@@ -77,6 +80,9 @@ export const ContextProvider = ({ children }: Props) => {
         setThemeSettings,
         setMode,
         setColor,
+        setCurrentColor,
+        setCurrentMode,
+        initialState,
       }}
     >
       {children}

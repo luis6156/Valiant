@@ -589,6 +589,7 @@ export const chatData = [
     message: 'Roman Joined the Team!',
     desc: 'Congratulate him',
     time: '9:08 AM',
+    dotColor: 'red',
   },
   {
     image:
@@ -596,6 +597,7 @@ export const chatData = [
     message: 'New message received',
     desc: 'Salma sent you new message',
     time: '11:56 AM',
+    dotColor: 'blue',
   },
   {
     image:
@@ -603,6 +605,7 @@ export const chatData = [
     message: 'New Payment received',
     desc: 'Check your earnings',
     time: '4:39 AM',
+    dotColor: 'green'
   },
   {
     image:
@@ -610,6 +613,7 @@ export const chatData = [
     message: 'Jolly completed tasks',
     desc: 'Assign her new tasks',
     time: '1:12 AM',
+    dotColor: 'orange'
   },
 ];
 
