@@ -9,7 +9,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "useDefineForClassFields": true,
-    "allowJs": false,
+    "allowJs": true, // TO BE DISABLED
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,

@@ -3,6 +3,9 @@ import { release } from 'node:os'
 import { join } from 'node:path'
 import { update } from './update'
 
+// Load the environment variables from the .env file
+require('dotenv').config({ path: join(__dirname, '../../.env') });
+
 // The built directory structure
 //
 // ├─┬ dist-electron
@@ -50,8 +53,8 @@ async function createWindow() {
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
       // Consider using contextBridge.exposeInMainWorld
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: false,
+      contextIsolation: true,
     },
     width: 1280,
     height: 720,
@@ -67,6 +70,9 @@ async function createWindow() {
 
   // Test actively push message to the Electron-Renderer
   win.webContents.on('did-finish-load', () => {
+    win?.webContents.send('env-vars', {
+      licenseKey: process.env.LICENSE_KEY,
+    });
     win?.webContents.send('main-process-message', new Date().toLocaleString())
   })
 

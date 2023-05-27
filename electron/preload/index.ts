@@ -1,6 +1,13 @@
 // See the Electron documentation for details on how to use preload scripts:
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 
+const {contextBridge} = require('electron')
+
+// Expose the environment variables to the Electron Renderer context
+contextBridge.exposeInMainWorld('envVars', {
+  licenseKey: process.env.LICENSE_KEY,
+});
+
 function domReady(condition: DocumentReadyState[] = ['complete', 'interactive']) {
   return new Promise(resolve => {
     if (condition.includes(document.readyState)) {
