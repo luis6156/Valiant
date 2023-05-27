@@ -3,7 +3,7 @@ import React from 'react';
 interface Props {
   bgColor: string;
   color: string;
-  size: string;
+  size?: string;
   text: string;
   borderRadius: string;
 }
