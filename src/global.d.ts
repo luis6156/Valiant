@@ -3,3 +3,8 @@ interface Window {
     licenseKey: string;
   };
 }
+
+declare module '*.jpg' {
+  const value: any;
+  export = value;
+}
