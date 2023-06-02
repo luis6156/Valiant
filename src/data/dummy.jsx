@@ -486,7 +486,11 @@ export const links = [
       {
         name: 'cross-linked',
         icon: <FiShoppingBag />,
-      }
+      },
+      {
+        name: 'poastal',
+        icon: <FiShoppingBag />,
+      },
     ]
   },
 

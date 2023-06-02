@@ -1,6 +1,6 @@
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { release } from 'node:os';
-import { join } from 'node:path';
+import path, { dirname, join } from 'node:path';
 import { update } from './update';
 import { exec } from 'child_process';
 import fs from 'fs';
@@ -131,10 +131,15 @@ ipcMain.handle('open-win', (_, arg) => {
 });
 
 ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {
-  const scriptLocation = join(
+  const scriptLocation = path.resolve(
     __dirname,
     '../../tools/social/crosslinked/crosslinked.py'
   );
+  const namesTextLocation = path.resolve(__dirname, '../../names.txt');
+  const namesCsvLocation = path.resolve(__dirname, '../../names.csv');
+  const crossLinkedLocation = dirname(scriptLocation);
+
+  process.chdir(crossLinkedLocation);
 
   exec(
     `python ${scriptLocation} -f '${emailFormat}' ${domain}`,
@@ -157,4 +162,27 @@ ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {
       });
     }
   );
+});
+
+ipcMain.on('run-poastal', (event, { email }) => {
+  const scriptLocation = path.resolve(
+    __dirname,
+    '../../tools/social/poastal/backend/cli.py'
+  );
+  const postalLocation = dirname(scriptLocation);
+
+  process.chdir(postalLocation);
+
+  exec(`python ${scriptLocation} ${email}`, (error, stdout, stderr) => {
+    if (error) {
+      event.reply('poastal-reply', error.message);
+      return;
+    }
+    if (stderr) {
+      event.reply('poastal-reply', stderr);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    event.reply('poastal-reply', stdout);
+  });
 });

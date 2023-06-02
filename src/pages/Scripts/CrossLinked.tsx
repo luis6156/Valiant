@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 const ipcRenderer = window.ipcRenderer;
 
 const CrossLinked = () => {
-  const [results, setResults] = useState('');
+  const [results, setResults] = useState(localStorage.getItem('crossLinkedResults') || '');
   const [emailFormat, setEmailFormat] = useState('');
   const [domain, setDomain] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = () => {
+    setIsLoading(true);
     ipcRenderer.send('run-cross-linked', { emailFormat, domain });
   };
 
@@ -15,6 +17,8 @@ const CrossLinked = () => {
     ipcRenderer.on('cross-linked-reply', (data) => {
       console.log(data);
       setResults(data);
+      setIsLoading(false);
+      localStorage.setItem('crossLinkedResults', data); // Save the result to localStorage
     });
 
     return () => {
@@ -51,7 +55,7 @@ const CrossLinked = () => {
       </button>
       <div>
         <h2>Results:</h2>
-        <div>{results}</div>
+        {isLoading ? <div>Loading...</div> : <div>{results}</div>}
       </div>
     </>
   );

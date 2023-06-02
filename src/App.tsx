@@ -26,6 +26,7 @@ import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
 import CrossLinked from './pages/Scripts/CrossLinked';
+import Poastal from './pages/Scripts/Poastal';
 
 const App = () => {
   const {
@@ -112,6 +113,7 @@ const App = () => {
 
                 {/* Scripts */}
                 <Route path='/cross-linked' element={<CrossLinked />} />
+                <Route path='/poastal' element={<Poastal />} />
               </Routes>
             </div>
           </div>
