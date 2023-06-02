@@ -25,6 +25,7 @@ import {
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
+import CrossLinked from './pages/Scripts/CrossLinked';
 
 const App = () => {
   const {
@@ -108,6 +109,9 @@ const App = () => {
                 <Route path='/color-mapping' element={<ColorMapping />} />
                 <Route path='/pyramid' element={<Pyramid />} />
                 <Route path='/stacked' element={<Stacked />} />
+
+                {/* Scripts */}
+                <Route path='/cross-linked' element={<CrossLinked />} />
               </Routes>
             </div>
           </div>

@@ -481,6 +481,16 @@ export const links = [
   },
 
   {
+    title: 'Scripts',
+    links: [
+      {
+        name: 'cross-linked',
+        icon: <FiShoppingBag />,
+      }
+    ]
+  },
+
+  {
     title: 'Pages',
     links: [
       {
