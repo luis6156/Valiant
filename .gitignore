@@ -100,5 +100,7 @@ build
 
 release
 
-tools/cross-linked/names.txt
-tools/cross-linked/names.csv
+tools/social/crosslinked/names.txt
+tools/social/crosslinked/names.csv
+
+tools/social/socialscan/socialscan/results.json

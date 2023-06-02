@@ -27,6 +27,7 @@ import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
 import CrossLinked from './pages/Scripts/CrossLinked';
 import Poastal from './pages/Scripts/Poastal';
+import SocialScan from './pages/Scripts/SocialScan';
 
 const App = () => {
   const {
@@ -114,6 +115,7 @@ const App = () => {
                 {/* Scripts */}
                 <Route path='/cross-linked' element={<CrossLinked />} />
                 <Route path='/poastal' element={<Poastal />} />
+                <Route path='/social-scan' element={<SocialScan />} />
               </Routes>
             </div>
           </div>

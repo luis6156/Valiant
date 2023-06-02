@@ -146,15 +146,18 @@ ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {
     (error, stdout, stderr) => {
       if (error) {
         event.reply('cross-linked-reply', error.message);
+        console.log(error.message);
         return;
       }
       if (stderr) {
         event.reply('cross-linked-reply', stderr);
+        console.log(stderr);
         return;
       }
       fs.readFile('names.txt', 'utf8', function (err, data) {
         if (err) {
           event.reply('cross-linked-reply', err);
+          console.log(err);
           return;
         }
         console.log(`stdout: ${data}`);
@@ -176,13 +179,55 @@ ipcMain.on('run-poastal', (event, { email }) => {
   exec(`python ${scriptLocation} ${email}`, (error, stdout, stderr) => {
     if (error) {
       event.reply('poastal-reply', error.message);
+      console.log(error.message);
       return;
     }
     if (stderr) {
       event.reply('poastal-reply', stderr);
+      console.log(stderr);
       return;
     }
     console.log(`stdout: ${stdout}`);
     event.reply('poastal-reply', stdout);
+  });
+});
+
+ipcMain.on('run-socialscan', (event, { user }) => {
+  const scriptLocation = path.resolve(
+    __dirname,
+    '../../tools/social/socialscan/socialscan/__main__.py'
+  );
+  const socialscanLocation = dirname(scriptLocation);
+
+  process.chdir(socialscanLocation);
+
+  const child = exec(
+    `python ${scriptLocation} ${user} --json results.json`,
+    (error, stdout, stderr) => {
+      if (error) {
+        event.reply('socialscan-reply', error.message);
+        console.log(error.message);
+        return;
+      }
+      if (stderr) {
+        event.reply('socialscan-reply', stderr);
+        console.log(stderr);
+        return;
+      }
+    }
+  );
+
+  child.on('exit', (code) => {
+    if (code === 0) {
+      fs.readFile('results.json', 'utf8', (err, data) => {
+        if (err) {
+          event.reply('socialscan-reply', err);
+          console.log(err);
+          return;
+        }
+        console.log(`stdout: ${data}`);
+        event.reply('socialscan-reply', data);
+      });
+    }
   });
 });

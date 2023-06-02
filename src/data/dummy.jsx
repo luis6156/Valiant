@@ -491,6 +491,10 @@ export const links = [
         name: 'poastal',
         icon: <FiShoppingBag />,
       },
+      {
+        name: 'social-scan',
+        icon: <FiShoppingBag />,
+      },
     ]
   },
 

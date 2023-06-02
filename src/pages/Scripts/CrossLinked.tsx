@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ipcRenderer = window.ipcRenderer;
 
 const CrossLinked = () => {
-  const [results, setResults] = useState(localStorage.getItem('crossLinkedResults') || '');
+  const [results, setResults] = useState(
+    localStorage.getItem('crossLinkedResults') || ''
+  );
   const [emailFormat, setEmailFormat] = useState('');
   const [domain, setDomain] = useState('');
   const [isLoading, setIsLoading] = useState(false);

@@ -2,40 +2,40 @@ import { useEffect, useState } from 'react';
 
 const ipcRenderer = window.ipcRenderer;
 
-const Poastal = () => {
+const SocialScan = () => {
   const [results, setResults] = useState(
-    localStorage.getItem('poastalResults') || ''
+    localStorage.getItem('socialScanResults') || ''
   );
-  const [email, setEmail] = useState('');
+  const [user, setUser] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = () => {
     setIsLoading(true);
-    ipcRenderer.send('run-poastal', { email });
+    ipcRenderer.send('run-socialscan', { user });
   };
 
   useEffect(() => {
-    ipcRenderer.on('poastal-reply', (data) => {
+    ipcRenderer.on('socialscan-reply', (data) => {
       console.log(data);
       setResults(data);
       setIsLoading(false);
-      localStorage.setItem('poastalResults', data); // Save the result to localStorage
+      localStorage.setItem('socialScanResults', data); // Save the result to localStorage
     });
 
     return () => {
-      ipcRenderer.removeAllListeners('poastal-reply');
+      ipcRenderer.removeAllListeners('socialscan-reply');
     };
   }, []);
 
   return (
     <>
-      <div>Poastal</div>
-      <label htmlFor='email'>Enter Email:</label>
+      <div>SocialScan</div>
+      <label htmlFor='email-or-username'>Enter Email or Username:</label>
       <input
         type='text'
-        id='email'
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
+        id='email-or-username'
+        value={user}
+        onChange={(event) => setUser(event.target.value)}
         required
       />
       <button
@@ -54,4 +54,4 @@ const Poastal = () => {
   );
 };
 
-export default Poastal;
+export default SocialScan;
