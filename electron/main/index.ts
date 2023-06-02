@@ -133,7 +133,7 @@ ipcMain.handle('open-win', (_, arg) => {
 ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {
   const scriptLocation = join(
     __dirname,
-    '../../tools/cross-linked/crosslinked.py'
+    '../../tools/social/crosslinked/crosslinked.py'
   );
 
   exec(
