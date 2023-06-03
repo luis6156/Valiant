@@ -25,9 +25,14 @@ import {
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
-import CrossLinked from './pages/Scripts/CrossLinked';
-import Poastal from './pages/Scripts/Poastal';
-import SocialScan from './pages/Scripts/SocialScan';
+import CrossLinked from './pages/Scripts/Social/CrossLinked';
+import Poastal from './pages/Scripts/Social/Poastal';
+import SocialScan from './pages/Scripts/Social/SocialScan';
+import GitStalk from './pages/Scripts/Repositories/GitStalk';
+import GitRekt from './pages/Scripts/Repositories/GitRekt';
+import MSDorkDump from './pages/Scripts/Websites/MSDorkDump';
+import Photon from './pages/Scripts/Websites/Photon';
+import Webenum from './pages/Scripts/Websites/Webenum';
 
 const App = () => {
   const {
@@ -116,6 +121,13 @@ const App = () => {
                 <Route path='/cross-linked' element={<CrossLinked />} />
                 <Route path='/poastal' element={<Poastal />} />
                 <Route path='/social-scan' element={<SocialScan />} />
+
+                <Route path='/gitstalk' element={<GitStalk />} />
+                <Route path='/gitrekt' element={<GitRekt />} />
+
+                <Route path='/msdorkdump' element={<MSDorkDump />} />
+                <Route path='/photon' element={<Photon />} />
+                <Route path='/webenum' element={<Webenum />} />
               </Routes>
             </div>
           </div>

@@ -481,7 +481,7 @@ export const links = [
   },
 
   {
-    title: 'Scripts',
+    title: 'Social',
     links: [
       {
         name: 'cross-linked',
@@ -493,6 +493,38 @@ export const links = [
       },
       {
         name: 'social-scan',
+        icon: <FiShoppingBag />,
+      },
+    ]
+  },
+
+  {
+    title: 'Repositories',
+    links: [
+      {
+        name: 'gitstalk',
+        icon: <FiShoppingBag />,
+      },
+      {
+        name: 'gitrekt',
+        icon: <FiShoppingBag />,
+      },
+    ]
+  },
+
+  {
+    title: 'Websites',
+    links: [
+      {
+        name: 'msdorkdump',
+        icon: <FiShoppingBag />,
+      },
+      {
+        name: 'photon',
+        icon: <FiShoppingBag />,
+      },
+      {
+        name: 'webenum',
         icon: <FiShoppingBag />,
       },
     ]

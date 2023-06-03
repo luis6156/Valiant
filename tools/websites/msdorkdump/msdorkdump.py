@@ -45,18 +45,18 @@ def banner():
     styles = [Fore.LIGHTBLACK_EX, Fore.LIGHTBLUE_EX, Fore.LIGHTCYAN_EX,
               Fore.LIGHTGREEN_EX, Fore.LIGHTMAGENTA_EX, Fore.LIGHTWHITE_EX]
     random_index = random.randint(0, len(styles)-1)
-    print(styles[random_index] + "")
-    print('██████╗  ██████╗ ██████╗ ██╗  ██╗  ██████╗ ██╗   ██╗███╗   ███╗██████╗ ')
-    print('██╔══██╗██╔═══██╗██╔══██╗██║ ██╔╝  ██╔══██╗██║   ██║████╗ ████║██╔══██╗')
-    print('██║  ██║██║   ██║██████╔╝█████╔╝   ██║  ██║██║   ██║██╔████╔██║██████╔╝')
-    print('██║  ██║██║   ██║██╔══██╗██╔═██╗   ██║  ██║██║   ██║██║╚██╔╝██║██╔═══╝ ')
-    print('██████╔╝╚██████╔╝██║  ██║██║  ██╗  ██████╔╝╚██████╔╝██║ ╚═╝ ██║██║     ')
-    print('╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝   \n')
-    print('                       Google Dork File Finder                         ')
-    print('                            Version 1.0.1                              ')
-    print('                       A project by The Mayor                          ')
-    print('                  python3 msdorkdump.py -h to start                    ' + Style.RESET_ALL)
-    print("-" * 73)
+    # print(styles[random_index] + "")
+    # print('██████╗  ██████╗ ██████╗ ██╗  ██╗  ██████╗ ██╗   ██╗███╗   ███╗██████╗ ')
+    # print('██╔══██╗██╔═══██╗██╔══██╗██║ ██╔╝  ██╔══██╗██║   ██║████╗ ████║██╔══██╗')
+    # print('██║  ██║██║   ██║██████╔╝█████╔╝   ██║  ██║██║   ██║██╔████╔██║██████╔╝')
+    # print('██║  ██║██║   ██║██╔══██╗██╔═██╗   ██║  ██║██║   ██║██║╚██╔╝██║██╔═══╝ ')
+    # print('██████╔╝╚██████╔╝██║  ██║██║  ██╗  ██████╔╝╚██████╔╝██║ ╚═╝ ██║██║     ')
+    # print('╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝   \n')
+    # print('                       Google Dork File Finder                         ')
+    # print('                            Version 1.0.1                              ')
+    # print('                       A project by The Mayor                          ')
+    # print('                  python3 msdorkdump.py -h to start                    ' + Style.RESET_ALL)
+    # print("-" * 73)
 
 
 def msdorker():

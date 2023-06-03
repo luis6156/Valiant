@@ -231,3 +231,128 @@ ipcMain.on('run-socialscan', (event, { user }) => {
     }
   });
 });
+
+ipcMain.on('run-gitstalk', (event, { username }) => {
+  const scriptLocation = path.resolve(
+    __dirname,
+    '../../tools/repositories/gitstalk/gitstalk.py'
+  );
+  const gitStalkLocation = dirname(scriptLocation);
+
+  process.chdir(gitStalkLocation);
+
+  exec(`python ${scriptLocation} ${username}`, (error, stdout, stderr) => {
+    if (error) {
+      event.reply('gitstalk-reply', error.message);
+      console.log(error.message);
+      return;
+    }
+    if (stderr) {
+      event.reply('gitstalk-reply', stderr);
+      console.log(stderr);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    event.reply('gitstalk-reply', stdout);
+  });
+});
+
+ipcMain.on('run-gitrekt', (event, { url }) => {
+  const scriptLocation = path.resolve(
+    __dirname,
+    '../../tools/repositories/gitrekt/gitrekt.py'
+  );
+  const gitRektLocation = dirname(scriptLocation);
+
+  process.chdir(gitRektLocation);
+
+  exec(`python ${scriptLocation} -u ${url}`, (error, stdout, stderr) => {
+    if (error) {
+      event.reply('gitrekt-reply', error.message);
+      console.log(error.message);
+      return;
+    }
+    if (stderr) {
+      event.reply('gitrekt-reply', stderr);
+      console.log(stderr);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    event.reply('gitrekt-reply', stdout);
+  });
+});
+
+ipcMain.on('run-msdorkdump', (event, { url }) => {
+  const scriptLocation = path.resolve(
+    __dirname,
+    '../../tools/websites/msdorkdump/msdorkdump.py'
+  );
+  const msdorkdumpLocation = dirname(scriptLocation);
+
+  process.chdir(msdorkdumpLocation);
+
+  exec(`python ${scriptLocation} -t ${url}`, (error, stdout, stderr) => {
+    if (error) {
+      event.reply('msdorkdump-reply', error.message);
+      console.log(error.message);
+      return;
+    }
+    if (stderr) {
+      event.reply('msdorkdump-reply', stderr);
+      console.log(stderr);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    event.reply('msdorkdump-reply', stdout);
+  });
+});
+
+ipcMain.on('run-photon', (event, { url }) => {
+  const scriptLocation = path.resolve(
+    __dirname,
+    '../../tools/websites/photon/photon.py'
+  );
+  const photonLocation = dirname(scriptLocation);
+
+  process.chdir(photonLocation);
+
+  exec(`python ${scriptLocation} -u ${url}`, (error, stdout, stderr) => {
+    if (error) {
+      event.reply('photon-reply', error.message);
+      console.log(error.message);
+      return;
+    }
+    if (stderr) {
+      event.reply('photon-reply', stderr);
+      console.log(stderr);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    event.reply('photon-reply', stdout);
+  });
+});
+
+ipcMain.on('run-webenum', (event, { url }) => {
+  const scriptLocation = path.resolve(
+    __dirname,
+    '../../tools/websites/webenum/w3b3num.py'
+  );
+  const webenumLocation = dirname(scriptLocation);
+
+  process.chdir(webenumLocation);
+
+  exec(`python ${scriptLocation} ${url}`, (error, stdout, stderr) => {
+    if (error) {
+      event.reply('webenum-reply', error.message);
+      console.log(error.message);
+      return;
+    }
+    if (stderr) {
+      event.reply('webenum-reply', stderr);
+      console.log(stderr);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    event.reply('webenum-reply', stdout);
+  });
+});
