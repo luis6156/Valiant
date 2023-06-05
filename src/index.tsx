@@ -4,7 +4,6 @@ import 'tailwindcss/tailwind.css';
 
 import './index.css';
 import App from './App';
-import { ContextProvider } from './contexts/ContextProvider'
 
 import { registerLicense } from '@syncfusion/ej2-base';
 
@@ -20,8 +19,6 @@ if (licenseKey) {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ContextProvider>
-      <App />
-    </ContextProvider>
+    <App />
   </React.StrictMode>
 );
