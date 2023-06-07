@@ -2,7 +2,11 @@ import React, { useRef } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 
-const ForgotPassword = () => {
+interface Props {
+  onLoginClick: () => void;
+}
+
+const ForgotPassword = ({ onLoginClick }: Props) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const [error, setError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
@@ -33,26 +37,39 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <h1>Password Reset</h1>
-      {message && <div>{message}</div>}
-      {error && <div>{error}</div>}
-      <form onSubmit={handleSubmit}>
+      <div className='d-flex justify-content-center margin-login'>
         <div>
-          <label htmlFor='email'>Email</label>
-          <input ref={emailRef} type='email' name='email' id='email' required />
+          <h1>Password Reset</h1>
+          <form className='mt-4' onSubmit={handleSubmit}>
+            <div className='mb-4'>
+              <input
+                className='form-control'
+                ref={emailRef}
+                type='email'
+                name='email'
+                id='email'
+                placeholder='Email'
+                required
+              />
+            </div>
+            <div>
+              <button
+                className='btn btn-primary w-100'
+                disabled={loading}
+                type='submit'
+              >
+                Send Reset Link
+              </button>
+            </div>
+          </form>
+          <div className='mt-4 d-flex align-items-center mt-2'>
+            <Link to='#' onClick={onLoginClick}>
+              Go back to login
+            </Link>
+          </div>
+          {message && <div className='mt-4'>{message}</div>}
+          {error && <div className='mt-4'>{error}</div>}
         </div>
-        <div>
-          <button disabled={loading} type='submit'>Reset Password</button>
-        </div>
-      </form>
-      <div>
-        Need an account? <Link to='/register'>Sign Up</Link>
-      </div>
-      <div>
-        Login? <Link to='/login'>Login</Link>
-      </div>
-      <div>
-        Dashboard? <Link to='/'>Dashboard</Link>
       </div>
     </>
   );

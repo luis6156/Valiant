@@ -1,129 +1,32 @@
-import React, { useRef } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
+import { useState } from 'react';
 
 import '../../styles/auth/auth.scss';
+import LoginCard from './LoginCard';
+import LoginForm from './LoginForm';
+import ForgotPassword from './ForgotPassword';
 
 const Login = () => {
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const [error, setError] = React.useState('');
-  const [loading, setLoading] = React.useState(false);
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    if (!emailRef.current || !passwordRef.current) {
-      setError('Fields cannot be empty');
-      return;
-    }
-
-    try {
-      setError('');
-      setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      navigate('/');
-    } catch (error) {
-      console.log(error);
-      setError('Failed to login');
-    }
-
-    setLoading(false);
-  }
+  const handleForgotPasswordOrLoginClick = () => {
+    setShowForgotPassword((showForgotPassword) => !showForgotPassword);
+  };
 
   return (
     <>
       <div className='container-fluid h-100'>
         <div className='row h-100'>
-          <div className='col d-flex justify-content-center margin-login'>
-            <div>
-              <h1>Sign In</h1>
-              <p>Continue with Google or enter your details</p>
-              <button className='btn btn-google btn-primary w-100 mt-4'>
-                <Icon height='25' width='25' icon='flat-color-icons:google' />
-                <span className='ms-2 btn-google-text'>Log in with Google</span>
-              </button>
-              <div className='d-flex align-items-center mt-4'>
-                <hr className='custom-hr my-0' />
-                <p className='mx-1 my-0'>or</p>
-                <hr className='custom-hr my-0' />
-              </div>
-              <form className='mt-4' onSubmit={handleSubmit}>
-                <div className='mb-4'>
-                  <input
-                    className='form-control'
-                    ref={emailRef}
-                    type='email'
-                    name='email'
-                    id='email'
-                    placeholder='Email'
-                    required
-                  />
-                </div>
-                <div className='mb-3'>
-                  <input
-                    className='form-control'
-                    ref={passwordRef}
-                    type='password'
-                    name='password'
-                    id='password'
-                    placeholder='Password'
-                    required
-                  />
-                </div>
-                <div className='mb-4 d-flex justify-content-between align-items-center'>
-                  <div className='form-check'>
-                    <input
-                      type='checkbox'
-                      className='form-check-input'
-                      id='remember'
-                    />
-                    <label className='form-check-label' htmlFor='remember'>
-                      Remember Me
-                    </label>
-                  </div>
-                  <div>
-                    <Link to='/forgot-password'>Forgot password</Link>
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className='btn btn-primary w-100'
-                    disabled={loading}
-                    type='submit'
-                  >
-                    Login
-                  </button>
-                </div>
-              </form>
-              <div className='mt-4 d-flex align-items-center mt-2'>
-                <p className='me-2'>Don't have an account?</p>
-                <Link to='/register'>Sign up now</Link>
-              </div>
-              {error && <div className='mt-4'>{error}</div>}
-            </div>
+          <div className='col'>
+            {showForgotPassword ? (
+              <ForgotPassword onLoginClick={handleForgotPasswordOrLoginClick} />
+            ) : (
+              <LoginForm
+                onForgotPasswordClick={handleForgotPasswordOrLoginClick}
+              />
+            )}
           </div>
-          <div className='col auth-card login-auth-card d-flex flex-column align-items-center mb-0 overflow-hidden position-relative h-100'>
-            <h1 className='logo-title'>Valiant</h1>
-            <p className='p-subtitle'>by Data Pilots</p>
-            <img
-              className='img-plane mt-auto'
-              src='/images/plane.svg'
-              alt='plane'
-            />
-            <img
-              className='img-cloud-front'
-              src='/images/cloud_1.svg'
-              alt='cloud'
-            />
-            <img
-              className='img-cloud-back'
-              src='/images/cloud_2.svg'
-              alt='cloud'
-            />
+          <div className='col p-0'>
+            <LoginCard />
           </div>
         </div>
       </div>

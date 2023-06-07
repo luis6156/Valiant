@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './styles/app.css';
@@ -8,13 +7,14 @@ import Dashboard from './pages/Dashboard';
 import Register from './pages/Auth/Register';
 import Login from './pages/Auth/Login';
 import PrivateRoute from './components/PrivateRoute';
-import ForgotPassword from './pages/Auth/ForgotPassword';
 import UpdateProfile from './pages/Auth/UpdateProfile';
+import ContextProvider from './contexts/ContextProvider';
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <ContextProvider>
           <Routes>
             <Route element={<PrivateRoute />}>
               <Route path='/' element={<Dashboard />} />
@@ -22,8 +22,8 @@ const App = () => {
             </Route>
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
-            <Route path='/forgot-password' element={<ForgotPassword />} />
           </Routes>
+        </ContextProvider>
       </AuthProvider>
     </BrowserRouter>
   );
