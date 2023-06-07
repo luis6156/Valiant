@@ -30,10 +30,18 @@
 
 .margin-login {
   margin-top: 15vh !important;
+
+  @media (min-height: 900px) {
+    margin-top: 20vh !important;
+  }
 }
 
 .margin-signup {
-  margin-top: 11vh !important;
+  margin-top: 13vh !important;
+
+  @media (min-height: 900px) {
+    margin-top: 20vh !important;
+  }
 }
 
 .custom-hr {
