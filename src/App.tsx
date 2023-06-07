@@ -9,12 +9,14 @@ import Login from './pages/Auth/Login';
 import PrivateRoute from './components/PrivateRoute';
 import UpdateProfile from './pages/Auth/UpdateProfile';
 import ContextProvider from './contexts/ContextProvider';
+import Toolbar from './components/Toolbar';
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
         <ContextProvider>
+          <Toolbar />
           <Routes>
             <Route element={<PrivateRoute />}>
               <Route path='/' element={<Dashboard />} />

@@ -64,7 +64,7 @@ async function createWindow() {
     titleBarOverlay: {
       color: '#111111', // #212121
       symbolColor: '#F74A39', // #cecece
-      height: 20
+      height: 30
     }
   });
 
