@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import "variables";
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif !important;
+  background-color: var(--background-color) !important;
+}
+
+h1 {
+  font-weight: 800 !important;
+  color: var(--h1-color) !important;
+}
+
+hr {
+  color: var(--p-color) !important;
+}
+
+p {
+  margin: 0 !important;
+  color: var(--p-color) !important;
+  font-weight: 500 !important;
+}
+
+label {
+  color: var(--h1-color) !important;
+}
+
+input {
+  background-color: var(--input-color) !important;
+  border-color: var(--input-color) !important;
+  font-weight: 600 !important;
+}
+
+input::placeholder {
+  color: var(--low-contrast-color) !important;
+}
+
+input:focus {
+  color: var(--highest-contrast-color) !important;
+  box-shadow: 0 0 0 2px var(--primary-color) !important;
+}
+
+input:focus,
+input:not(:placeholder-shown) {
+  color: var(--highest-contrast-color) !important;
+}
+
+a {
+  color: var(--secondary-color) !important;
+}
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-color-selected) !important;
+  border-color: var(--primary-color-selected) !important;
+}
+
+.img-plane {
+  position: absolute;
+  z-index: 2;
+  bottom: 10vh;
+  width: 7vh;
+  height: auto;
+  animation: planeAnimation 10s ease-in-out infinite;
+}
+
+.img-cloud-front {
+  position:absolute;
+  z-index: 3;
+  height: 25vh;
+  width: auto;
+  bottom: 0;
+  animation: slideAnimationRight 5s ease-in-out infinite;
+}
+
+.img-cloud-back {
+  filter: brightness(80%);
+  position:absolute;
+  z-index: 1;
+  height: 30vh;
+  width: auto;
+  bottom: 0;
+  animation: slideAnimationLeft 20s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes slideAnimationRight {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(70px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideAnimationLeft {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-60px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes planeAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-60px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@import 'bootstrap/scss/bootstrap';

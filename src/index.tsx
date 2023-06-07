@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'tailwindcss/tailwind.css';
 
-import './index.css';
+// Import our custom CSS
+import './styles/index.scss'
+
+// Import all of Bootstrap's JS
+import * as bootstrap from 'bootstrap'
+
 import App from './App';
 
 import { registerLicense } from '@syncfusion/ej2-base';

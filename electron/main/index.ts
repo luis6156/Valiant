@@ -49,7 +49,7 @@ const indexHtml = join(process.env.DIST, 'index.html');
 async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
-    icon: join(process.env.PUBLIC, 'favicon.ico'),
+    icon: join(__dirname, '../../public/icons/small-airplane.ico'),
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -60,6 +60,12 @@ async function createWindow() {
     },
     width: 1280,
     height: 720,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#111111', // #212121
+      symbolColor: '#F74A39', // #cecece
+      height: 20
+    }
   });
 
   if (url) {

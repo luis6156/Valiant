@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import './App.css';
+import './styles/app.css';
 
 import AuthProvider from './contexts/AuthContext';
 import Dashboard from './pages/Dashboard';
@@ -15,7 +15,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <section>
           <Routes>
             <Route element={<PrivateRoute />}>
               <Route path='/' element={<Dashboard />} />
@@ -25,7 +24,6 @@ const App = () => {
             <Route path='/login' element={<Login />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
           </Routes>
-        </section>
       </AuthProvider>
     </BrowserRouter>
   );

@@ -1,6 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { User } from 'firebase/auth';
 
 const PrivateRoute = () => {
   const { currentUser } = useAuth();
