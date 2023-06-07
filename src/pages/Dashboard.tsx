@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import Sidebar from '@/components/Sidebar';
 
 const Dashboard = () => {
   const [error, setError] = useState('');
@@ -20,6 +21,7 @@ const Dashboard = () => {
 
   return (
     <>
+      <Sidebar />
       <div>Dashboard</div>
       {error && <div>{error}</div>}
       <strong>Email: </strong>

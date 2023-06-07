@@ -1,0 +1,61 @@
+@import 'variables';
+
+.sidebar-btn {
+  color: var(--button-color);
+  cursor: pointer;
+}
+
+.icon-lg {
+  font-size: 1.8rem;
+}
+
+.icon-md {
+  font-size: 1.5rem;
+}
+
+.classic-btn {
+  transition: color 0.3s ease;
+}
+
+.classic-btn:hover {
+  color: var(--higher-contrast-color) !important;
+}
+
+.btn-overlay {
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160%;
+  height: 0;
+  background-color: #F74A39;
+  transition: height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+  z-index: -1;
+  opacity: 0;
+  border-radius: 30px;
+}
+
+.smart-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.smart-btn:hover {
+  color: var(--highest-contrast-color) !important;
+}
+
+.smart-btn:hover .btn-overlay {
+  height: 500%;
+  opacity: 100%;
+}
+
+.smart-btn:hover ~ #movable-div {
+  transform: translateY(calc(500% - 1.8rem)); /* Adjust the value to match the overlay height and margin */
+}
+
+.settings-icons-margin {
+  margin-top: 30vh;
+}
