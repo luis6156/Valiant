@@ -19,7 +19,7 @@ const Dashboard = () => {
               handleIconClick={handleIconClick}
             />
           </div>
-          <div className='col-md-11'>
+          <div className='col-md ps-0 pe-3'>
             <div className='mt-3 mb-3'>
               <Header
                 title='Dashboard'
