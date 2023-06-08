@@ -1,6 +1,10 @@
 @import 'variables';
 
-h2 {
-  font-weight: 600 !important;
-  color: var(--h2-color) !important;
+.notifications {
+  color: var(--title-page-color);
+  font-size: 1.2rem;
+}
+
+.dropdown-toggle.dropdown-toggle-no-caret::after {
+  display: none;
 }

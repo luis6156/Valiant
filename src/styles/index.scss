@@ -7,6 +7,11 @@ body,
   height: 100%;
 }
 
+::selection {
+  background-color: var(--primary-color);
+  color: var(--h1-color);
+}
+
 .col-sidebar {
   width: 5rem !important;
 }
@@ -56,6 +61,11 @@ body {
 h1 {
   font-weight: 800 !important;
   color: var(--h1-color) !important;
+}
+
+h2 {
+  font-weight: 600 !important;
+  color: var(--h2-color) !important;
 }
 
 hr {
@@ -111,6 +121,22 @@ a {
   color: var(--lowest-contrast-color) !important;
 }
 
+.btn-info {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  font-weight: 700 !important;
+  color: var(--title-page-color) !important;
+}
+
+.btn-info:hover {
+  background-color: var(--info-button-hover-color) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-color-selected) !important;
+  border-color: var(--primary-color-selected) !important;
+}
+
 .btn-secondary:hover {
   background-color: var(--secondary-button-hover-color) !important;
   border-color: var(--secondary-button-hover-color) !important;
@@ -119,6 +145,25 @@ a {
 
 .btn-secondary:hover .btn-secondary-icon {
   color: var(--lowest-2-contrast-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--dropdown-color) !important;
+  border: 1px solid var(--dropdown-border-color) !important;
+}
+
+.dropdown-divider {
+  background-color: var(--details-color) !important;
+}
+
+.dropdown-item {
+  font-weight: 500 !important;
+  color: var(--title-page-color) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--primary-color) !important;
+  color: var(--h1-color) !important;
 }
 
 .btn-icon {
@@ -132,11 +177,6 @@ a {
   margin-bottom: 0.1rem;
   margin-right: 0.2rem;
   color: var(--lowest-contrast-color) !important;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-color-selected) !important;
-  border-color: var(--primary-color-selected) !important;
 }
 
 h4.header-main {
