@@ -1,46 +1,177 @@
 import { Icon } from '@iconify/react';
-import React from 'react';
 
 import '../../src/styles/sidebar.scss';
+import { useState } from 'react';
 
-const Sidebar = () => {
+interface Props {
+  activeIcon:
+    | 'dashboard'
+    | 'scripts-search'
+    | 'scripts-import'
+    | 'scripts-status'
+    | 'pipes-search'
+    | 'pipes-create'
+    | 'pipes-status'
+    | 'import-export'
+    | 'settings'
+    | 'info';
+  setActiveIcon: (
+    icon:
+      | 'dashboard'
+      | 'scripts-search'
+      | 'scripts-import'
+      | 'scripts-status'
+      | 'pipes-search'
+      | 'pipes-create'
+      | 'pipes-status'
+      | 'import-export'
+      | 'settings'
+      | 'info'
+  ) => void;
+}
+
+const Sidebar = ({ activeIcon, setActiveIcon }: Props) => {
+  const [topOffset, setTopOffset] = useState('');
+
+  const handleIconClick = (
+    icon:
+      | 'dashboard'
+      | 'import-export'
+      | 'settings'
+      | 'info'
+      | 'scripts-search'
+      | 'scripts-import'
+      | 'scripts-status'
+      | 'pipes-search'
+      | 'pipes-create'
+      | 'pipes-status'
+  ) => {
+    setActiveIcon(icon);
+    console.log(icon);
+
+    if (icon === 'scripts-search' || icon === 'pipes-search') {
+      setTopOffset('btn-circle-search');
+    } else if (icon === 'scripts-import' || icon === 'pipes-create') {
+      setTopOffset('btn-circle-create');
+    } else if (icon === 'scripts-status' || icon === 'pipes-status') {
+      setTopOffset('btn-circle-status');
+    }
+  };
+
   return (
     <>
       <div className='mt-5 d-flex flex-column align-items-center justify-content-center position-relative'>
         <div className='sidebar-btn classic-btn'>
-          <Icon className='icon-lg' icon='material-symbols:dashboard-rounded' />
+          <Icon
+            onClick={() => handleIconClick('dashboard')}
+            className={`icon-lg ${activeIcon === 'dashboard' && 'active-icon'}`}
+            icon='material-symbols:dashboard-rounded'
+          />
         </div>
-        <div className='sidebar-btn mt-4 smart-btn position-relative'>
-          <Icon className='icon-lg' icon='mdi:script' />
-          <div className='btn-circle'></div>
+        <div
+          id='movable-div'
+          className={`sidebar-btn mt-4 smart-btn position-relative ${
+            activeIcon.includes('script') ? 'active-icon' : ''
+          }`}
+        >
+          <Icon
+            onClick={() => handleIconClick('scripts-search')}
+            className='icon-lg'
+            icon='mdi:script'
+          />
+          <div
+            className={`btn-circle ${
+              activeIcon.includes('script') ? topOffset : ''
+            }`}
+          ></div>
           <div className='d-flex flex-column icon-group'>
-            <Icon className='icon-md' icon='majesticons:search' />
-            <Icon className='icon-md' icon='gridicons:create' />
-            <Icon className='icon-md' icon='fluent:shifts-activity-24-filled' />
+            <Icon
+              onClick={() => handleIconClick('scripts-search')}
+              className={`icon-md ${
+                activeIcon === 'scripts-search' && 'active-icon'
+              }`}
+              icon='majesticons:search'
+            />
+            <Icon
+              onClick={() => handleIconClick('scripts-import')}
+              className={`icon-md ${
+                activeIcon === 'scripts-import' && 'active-icon'
+              }`}
+              icon='gridicons:create'
+            />
+            <Icon
+              onClick={() => handleIconClick('scripts-status')}
+              className={`icon-md ${
+                activeIcon === 'scripts-status' && 'active-icon'
+              }`}
+              icon='fluent:shifts-activity-24-filled'
+            />
           </div>
           <div className='btn-overlay'></div>
         </div>
         <div
           id='movable-div'
-          className='sidebar-btn mt-4 smart-btn position-relative'
+          className={`sidebar-btn mt-4 smart-btn position-relative ${
+            activeIcon.includes('pipes') ? 'active-icon' : ''
+          }`}
         >
-          <Icon className='icon-lg' icon='eos-icons:pipeline' />
-          <div className='btn-circle'></div>
+          <Icon
+            onClick={() => handleIconClick('pipes-search')}
+            className='icon-lg'
+            icon='eos-icons:pipeline'
+          />
+          <div
+            className={`btn-circle ${
+              activeIcon.includes('pipes') ? topOffset : ''
+            }`}
+          ></div>
           <div className='d-flex flex-column icon-group'>
-            <Icon className='mt-3 icon-md' icon='majesticons:search' />
-            <Icon className='mt-3 icon-md' icon='gridicons:create' />
-            <Icon className='mt-3 icon-md' icon='fluent:shifts-activity-24-filled' />
+            <Icon
+              onClick={() => handleIconClick('pipes-search')}
+              className={`icon-md ${
+                activeIcon === 'pipes-search' && 'active-icon'
+              }`}
+              icon='majesticons:search'
+            />
+            <Icon
+              onClick={() => handleIconClick('pipes-create')}
+              className={`icon-md ${
+                activeIcon === 'pipes-create' && 'active-icon'
+              }`}
+              icon='gridicons:create'
+            />
+            <Icon
+              onClick={() => handleIconClick('pipes-status')}
+              className={`icon-md ${
+                activeIcon === 'pipes-status' && 'active-icon'
+              }`}
+              icon='fluent:shifts-activity-24-filled'
+            />
           </div>
           <div className='btn-overlay'></div>
         </div>
         <div id='movable-div' className='sidebar-btn classic-btn mt-4'>
-          <Icon className='icon-lg' icon='tabler:arrows-diff' />
+          <Icon
+            onClick={() => handleIconClick('import-export')}
+            className={`icon-lg ${
+              activeIcon === 'import-export' && 'active-icon'
+            }`}
+            icon='tabler:arrows-diff'
+          />
         </div>
         <div className='sidebar-btn classic-btn settings-icons-margin'>
-          <Icon className='icon-lg' icon='mingcute:settings-2-line' />
+          <Icon
+            onClick={() => handleIconClick('settings')}
+            className={`icon-lg ${activeIcon === 'settings' && 'active-icon'}`}
+            icon='mingcute:settings-2-line'
+          />
         </div>
         <div className='sidebar-btn classic-btn mt-4'>
-          <Icon className='icon-lg' icon='fluent:info-24-filled' />
+          <Icon
+            onClick={() => handleIconClick('info')}
+            className={`icon-lg ${activeIcon === 'info' && 'active-icon'}`}
+            icon='fluent:info-24-filled'
+          />
         </div>
       </div>
     </>

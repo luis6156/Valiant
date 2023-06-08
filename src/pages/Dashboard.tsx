@@ -5,6 +5,18 @@ import Sidebar from '@/components/Sidebar';
 
 const Dashboard = () => {
   const [error, setError] = useState('');
+  const [activeIcon, setActiveIcon] = useState<
+    | 'dashboard'
+    | 'scripts-search'
+    | 'scripts-import'
+    | 'scripts-status'
+    | 'pipes-search'
+    | 'pipes-create'
+    | 'pipes-status'
+    | 'import-export'
+    | 'settings'
+    | 'info'
+  >('dashboard');
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -21,7 +33,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Sidebar />
+      <Sidebar setActiveIcon={setActiveIcon} activeIcon={activeIcon} />
       <div>Dashboard</div>
       {error && <div>{error}</div>}
       <strong>Email: </strong>
