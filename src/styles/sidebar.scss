@@ -6,7 +6,7 @@
 }
 
 .icon-lg {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
 .icon-md {
@@ -14,7 +14,7 @@
 }
 
 .classic-btn {
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease-in-out;
 }
 
 .classic-btn:hover {
@@ -23,16 +23,76 @@
 
 .btn-overlay {
   position: absolute;
-  top: -30%;
+  top: -37%;
   left: 50%;
   transform: translateX(-50%);
-  width: 160%;
+  width: 170%;
   height: 0;
-  background-color: #F74A39;
-  transition: height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+  background-color: var(--primary-color);
+  z-index: -2;
+  opacity: 0;
+  border-radius: 50px;
+  transition: height 0.4s ease, opacity 0.4s ease;
+}
+
+.smart-btn:hover .btn-overlay {
+  height: 580%;
+  opacity: 100%;
+}
+
+.smart-btn:not(:hover) .btn-overlay {
+  transition-delay: 0s;
+  height: 160%;
+  opacity: 0;
+}
+
+.smart-btn .icon-group {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  display: none;
+}
+
+.smart-btn:hover .icon-group {
+  opacity: 100%;
+  pointer-events: auto;
+  transition-duration: 0.2s;
+  transition-delay: 0.1s;
+}
+
+.smart-btn:not(:hover) .icon-group {
+  transition-duration: 0.1s;
+  transition-delay: 0s; /* No delay for reverse animation */
+  opacity: 0;
+}
+
+.icon-group {
+  margin-top: 2.3rem;
+  color: #f8f8f8;
+}
+
+.icon-group .icon-md {
+  margin-top: 1rem; /* Adjust the spacing as needed */
+}
+
+.btn-circle {
+  position: absolute;
+  top: -25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 150%;
+  background-color: var(--button-color-selected);
   z-index: -1;
   opacity: 0;
-  border-radius: 30px;
+  border-radius: 50%;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.smart-btn:hover .btn-circle {
+  opacity: 100%;
 }
 
 .smart-btn {
@@ -40,20 +100,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1;
+  z-index: 2;
+  transition: transform 0.3s ease-in-out;
 }
 
 .smart-btn:hover {
-  color: var(--highest-contrast-color) !important;
-}
-
-.smart-btn:hover .btn-overlay {
-  height: 500%;
-  opacity: 100%;
+  color: #f8f8f8 !important;
 }
 
 .smart-btn:hover ~ #movable-div {
-  transform: translateY(calc(500% - 1.8rem)); /* Adjust the value to match the overlay height and margin */
+  transform: translateY(calc(535% - 1.8rem));
 }
 
 .settings-icons-margin {

@@ -8,38 +8,39 @@ const Sidebar = () => {
     <>
       <div className='mt-5 d-flex flex-column align-items-center justify-content-center position-relative'>
         <div className='sidebar-btn classic-btn'>
-          <Icon
-            className='icon-lg'
-            icon='material-symbols:dashboard-rounded'
-          />
+          <Icon className='icon-lg' icon='material-symbols:dashboard-rounded' />
         </div>
         <div className='sidebar-btn mt-4 smart-btn position-relative'>
           <Icon className='icon-lg' icon='mdi:script' />
-          {/* <div className='btn-circle'></div> */}
+          <div className='btn-circle'></div>
+          <div className='d-flex flex-column icon-group'>
+            <Icon className='icon-md' icon='majesticons:search' />
+            <Icon className='icon-md' icon='gridicons:create' />
+            <Icon className='icon-md' icon='fluent:shifts-activity-24-filled' />
+          </div>
           <div className='btn-overlay'></div>
         </div>
-        <div id='movable-div' className='sidebar-btn mt-4 smart-btn position-relative'>
+        <div
+          id='movable-div'
+          className='sidebar-btn mt-4 smart-btn position-relative'
+        >
           <Icon className='icon-lg' icon='eos-icons:pipeline' />
-          {/* <div className='btn-circle'></div> */}
+          <div className='btn-circle'></div>
+          <div className='d-flex flex-column icon-group'>
+            <Icon className='mt-3 icon-md' icon='majesticons:search' />
+            <Icon className='mt-3 icon-md' icon='gridicons:create' />
+            <Icon className='mt-3 icon-md' icon='fluent:shifts-activity-24-filled' />
+          </div>
           <div className='btn-overlay'></div>
         </div>
         <div id='movable-div' className='sidebar-btn classic-btn mt-4'>
-          <Icon
-            className='icon-lg'
-            icon='tabler:arrows-diff'
-          />
+          <Icon className='icon-lg' icon='tabler:arrows-diff' />
         </div>
         <div className='sidebar-btn classic-btn settings-icons-margin'>
-          <Icon
-            className='icon-lg'
-            icon='mingcute:settings-2-line'
-          />
+          <Icon className='icon-lg' icon='mingcute:settings-2-line' />
         </div>
         <div className='sidebar-btn classic-btn mt-4'>
-          <Icon
-            className='icon-lg'
-            icon='fluent:info-24-filled'
-          />
+          <Icon className='icon-lg' icon='fluent:info-24-filled' />
         </div>
       </div>
     </>

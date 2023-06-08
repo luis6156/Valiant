@@ -8,7 +8,7 @@ const RegisterCard = () => {
           <b className='accent-color'>Pentesting</b> may help you and your
           business. Thank you for choosing us!
         </p>
-        <p className='p-quote-author'>- Data Pilots Team</p>
+        <p className='p-quote-author'>— Data Pilots Team</p>
         <img
           className='img-cloud-front'
           src='/images/cloud_1.svg'
