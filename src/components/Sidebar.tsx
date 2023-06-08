@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react';
 
 import '../../src/styles/sidebar.scss';
-import { useState } from 'react';
 
 interface Props {
   activeIcon:
@@ -15,49 +14,23 @@ interface Props {
     | 'import-export'
     | 'settings'
     | 'info';
-  setActiveIcon: (
+  topOffset: string;
+  handleIconClick: (
     icon:
       | 'dashboard'
+      | 'import-export'
+      | 'settings'
+      | 'info'
       | 'scripts-search'
       | 'scripts-import'
       | 'scripts-status'
       | 'pipes-search'
       | 'pipes-create'
       | 'pipes-status'
-      | 'import-export'
-      | 'settings'
-      | 'info'
   ) => void;
 }
 
-const Sidebar = ({ activeIcon, setActiveIcon }: Props) => {
-  const [topOffset, setTopOffset] = useState('');
-
-  const handleIconClick = (
-    icon:
-      | 'dashboard'
-      | 'import-export'
-      | 'settings'
-      | 'info'
-      | 'scripts-search'
-      | 'scripts-import'
-      | 'scripts-status'
-      | 'pipes-search'
-      | 'pipes-create'
-      | 'pipes-status'
-  ) => {
-    setActiveIcon(icon);
-    console.log(icon);
-
-    if (icon === 'scripts-search' || icon === 'pipes-search') {
-      setTopOffset('btn-circle-search');
-    } else if (icon === 'scripts-import' || icon === 'pipes-create') {
-      setTopOffset('btn-circle-create');
-    } else if (icon === 'scripts-status' || icon === 'pipes-status') {
-      setTopOffset('btn-circle-status');
-    }
-  };
-
+const Sidebar = ({ activeIcon, topOffset, handleIconClick }: Props) => {
   return (
     <>
       <div className='mt-5 d-flex flex-column align-items-center justify-content-center position-relative'>

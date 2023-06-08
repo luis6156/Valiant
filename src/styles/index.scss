@@ -55,12 +55,12 @@ h1 {
 }
 
 hr {
-  color: var(--p-color) !important;
+  color: var(--hr-color) !important;
 }
 
 p {
   margin: 0 !important;
-  color: var(--p-color) !important;
+  color: var(--details-color) !important;
   font-weight: 500 !important;
 }
 
@@ -75,7 +75,7 @@ input {
 }
 
 input::placeholder {
-  color: var(--low-contrast-color) !important;
+  color: var(--lower-contrast-color) !important;
 }
 
 input:focus {
@@ -99,9 +99,46 @@ a {
   font-size: 1rem !important;
 }
 
+.btn-secondary {
+  background-color: var(--secondary-button-color) !important;
+  border-color: var(--secondary-button-color) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  color: var(--lowest-contrast-color) !important;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-button-hover-color) !important;
+  border-color: var(--secondary-button-hover-color) !important;
+  color: var(--lowest-2-contrast-color) !important;
+}
+
+.btn-secondary:hover .btn-secondary-icon {
+  color: var(--lowest-2-contrast-color) !important;
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+  margin-bottom: 0.1rem;
+  margin-right: 0.2rem;
+}
+
+.btn-secondary-icon {
+  font-size: 1.1rem;
+  margin-bottom: 0.1rem;
+  margin-right: 0.2rem;
+  color: var(--lowest-contrast-color) !important;
+}
+
 .btn-primary:hover {
   background-color: var(--primary-color-selected) !important;
   border-color: var(--primary-color-selected) !important;
+}
+
+h4.header-main {
+  color: var(--title-page-color) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
 }
 
 .img-plane {

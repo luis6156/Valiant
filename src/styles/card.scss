@@ -1,0 +1,42 @@
+@import 'variables';
+
+.welcome-banner {
+  background-color: #1a1a1a;
+  border-radius: 30px;
+  height: 13.5rem;
+}
+
+.welcome-borders {
+  border-right: #C5C5C5 2px solid;
+  border-left:#C5C5C5 2px solid;
+}
+
+.welcome-content {
+  height: 85%;
+  width: 100%;
+}
+
+.welcome-btn {
+  bottom: 5%;
+}
+
+h4 {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline 2px;
+}
+
+.welcome-description {
+  font-size: 0.9rem;
+}
+
+.welcome-btn-gap {
+  margin-right: 0.9rem;
+}
+
+.welcome-icon {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
+  margin-right: 0.4rem;
+}
