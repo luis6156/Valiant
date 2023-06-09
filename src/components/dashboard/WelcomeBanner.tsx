@@ -63,7 +63,7 @@ const WelcomeBanner = ({ handleIconClick }: Props) => {
               </div>
               <p className='welcome-description'>
                 Utilize more scripts to better assess vulnerabilities by
-                aggregation or piping, whilst also creating more data points.
+                aggregation or piping, creating more data points.
               </p>
               <div className='position-absolute welcome-btn'>
                 <button

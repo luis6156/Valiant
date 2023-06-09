@@ -1,3 +1,4 @@
+import FloatingLabelInput from '@/components/FloatingLabelInput';
 import { useAuth } from '@/contexts/AuthContext';
 import { Icon } from '@iconify/react';
 import React, { useRef } from 'react';
@@ -21,6 +22,7 @@ const RegisterForm = () => {
       !passwordConfirmRef.current
     ) {
       setError('Fields cannot be empty');
+      console.log(emailRef.current, passwordRef.current, passwordConfirmRef.current)
       return;
     }
 
@@ -59,36 +61,30 @@ const RegisterForm = () => {
           </div>
           <form className='mt-4' onSubmit={handleSubmit}>
             <div className='mb-4'>
-              <input
-                className='form-control'
-                ref={emailRef}
+              <FloatingLabelInput
+                required={true}
+                label='Email Address'
                 type='email'
+                ref={emailRef}
                 name='email'
-                id='email'
-                placeholder='Email'
-                required
               />
             </div>
             <div className='mb-4'>
-              <input
-                className='form-control'
-                ref={passwordRef}
+              <FloatingLabelInput
+                required={true}
+                label='Password'
                 type='password'
+                ref={passwordRef}
                 name='password'
-                id='password'
-                placeholder='Password'
-                required
               />
             </div>
             <div className='mb-5'>
-              <input
-                className='form-control'
-                ref={passwordConfirmRef}
+              <FloatingLabelInput
+                required={true}
+                label='Confirm Password'
                 type='password'
+                ref={passwordConfirmRef}
                 name='passwordConfirm'
-                id='passwordConfirm'
-                placeholder='Confirm Password'
-                required
               />
             </div>
             <div>

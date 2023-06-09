@@ -1,3 +1,4 @@
+import FloatingLabelInput from '@/components/FloatingLabelInput';
 import { useAuth } from '@/contexts/AuthContext';
 import { Icon } from '@iconify/react';
 import React, { useRef } from 'react';
@@ -53,25 +54,21 @@ const LoginForm = ({ onForgotPasswordClick }: Props) => {
           </div>
           <form className='mt-4' onSubmit={handleSubmit}>
             <div className='mb-4'>
-              <input
-                className='form-control'
+              <FloatingLabelInput
+                required={true}
                 ref={emailRef}
-                type='email'
                 name='email'
-                id='email'
-                placeholder='Email'
-                required
+                type='email'
+                label='Email Address'
               />
             </div>
-            <div className='mb-3'>
-              <input
-                className='form-control'
+            <div className='mb-4'>
+              <FloatingLabelInput
+                required={true}
                 ref={passwordRef}
-                type='password'
                 name='password'
-                id='password'
-                placeholder='Password'
-                required
+                type='password'
+                label='Password'
               />
             </div>
             <div className='mb-4 d-flex justify-content-between align-items-center'>

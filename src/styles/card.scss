@@ -3,13 +3,17 @@
 .github-card {
   background-color: var(--card-color) !important;
   border-radius: 30px;
-  height: 11.5rem !important;
+  height: 12rem !important;
   width: 24rem !important;
 }
 
+.github-card:hover .github-title {
+  text-decoration: underline !important;
+}
+
 .github-card-skeleton {
-  height: 11.5rem !important;
-  width: 22rem !important;
+  height: 12rem !important;
+  width: 24rem !important;
 }
 
 .github-card-none {
@@ -18,6 +22,35 @@
   width: 100% !important;
   border-radius: 30px;
   background-color: var(--card-color) !important;
+}
+
+.github-color-big {
+  position: absolute;
+  left: 10%;
+  bottom: 0;
+  background-color: var(--secondary-color);
+  width: 65%;
+  height: 5px;
+  border-radius: 10px 0 0 0;
+}
+
+.github-color-medium {
+  position: absolute;
+  left: 65%;
+  bottom: 0;
+  background-color: var(--primary-color);
+  width: 15%;
+  height: 5px;
+}
+
+.github-color-small {
+  position: absolute;
+  left: 80%;
+  bottom: 0;
+  background-color: var(--lowest-2-contrast-color);
+  width: 10%;
+  height: 5px;
+  border-radius: 0 10px 0 0;
 }
 
 .filters-icon {
@@ -49,7 +82,31 @@
   }
 }
 
-.github-card:hover .github-icon {
+.github-stats {
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+}
+
+.github-icon-pos {
+  margin-left: auto !important;
+  justify-content: flex-end !important;
+}
+
+.github-icon {
+  color: var(--h2-color);
+  font-size: 0.8rem;
+  margin-right: 0.3rem;
+}
+
+.github-icon-blink {
+  font-size: 1rem !important;
+  color: var(--h2-color);
+  font-size: 1.2rem;
+  transition: color 0.1s ease-in-out;
+  margin-bottom: 0.3rem;
+}
+
+.github-card:hover .github-icon-blink {
   animation: iconBlink 1s ease-in-out infinite;
 }
 
@@ -69,13 +126,6 @@
   padding: 1rem 1.5rem;
 }
 
-.github-icon {
-  color: var(--h2-color);
-  font-size: 1.2rem;
-  transition: color 0.1s ease-in-out;
-  margin-bottom: 0.3rem;
-}
-
 .github-arrow {
   width: fit-content !important;
   height: fit-content !important;
@@ -91,10 +141,6 @@
 .github-arrow:hover {
   background-color: transparent !important;
   border: #323232 solid 1px !important;
-}
-
-.github-icon:hover {
-  color: var(--icon-glow-color);
 }
 
 .filters {
@@ -119,22 +165,37 @@ btn-info.filters {
 .github-title {
   color: var(--h2-color);
   font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.github-description {
-  margin-top: 0.8rem;
-  color: var(--details-color);
-  font-size: 0.9rem;
   font-weight: 500;
 }
 
-.github-tag-margin {
-  margin-top: 1rem;
+.github-description {
+  margin-top: 0.3rem;
+  color: var(--details-color);
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 .github-tags-wrapper {
-  bottom: 1rem;
+  bottom: 12.5%;
+}
+
+.github-language-wrapper {
+  margin-top: 0.1rem;
+}
+
+.github-language {
+  border-radius: 50%;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.3rem;
+}
+
+.github-language-primary {
+  background-color: var(--primary-color);
+}
+
+.github-language-secondary {
+  background-color: var(--secondary-color);
 }
 
 .github-tag {
@@ -143,7 +204,7 @@ btn-info.filters {
   border-radius: 30px;
   padding: 0.2rem 0.5rem;
   font-weight: 700 !important;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: var(--secondary-color-contrast);
   margin-right: 0.5rem;
 }

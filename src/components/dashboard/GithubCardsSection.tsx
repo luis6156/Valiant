@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import GithubCard from './GithubCard';
 import { Icon } from '@iconify/react';
 
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { start } from 'repl';
+import FloatingLabelInput from '../FloatingLabelInput';
 
 const FETCH_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 const ipcRenderer = window.ipcRenderer;
@@ -14,6 +14,8 @@ interface Repository {
   description: string;
   html_url: string;
   topics: string[];
+  stargazers_count: number;
+  language: string;
 }
 
 const GithubCardsSection = () => {
@@ -112,7 +114,13 @@ const GithubCardsSection = () => {
   };
 
   function getNumCardsToShow() {
-    return window.innerWidth >= 1600 ? 4 : 3;
+    if (window.innerWidth < 1200) {
+      return 2;
+    } else if (window.innerWidth < 1600) {
+      return 3;
+    } else {
+      return 4;
+    }
   }
 
   return (
@@ -120,10 +128,38 @@ const GithubCardsSection = () => {
       <div className='d-flex justify-content-between align-items-center mb-3'>
         <h5 className='header-main'>New GitHub Scripts from last month!</h5>
         <div className='d-flex align-items-center me-3'>
-          <button className='btn btn-info filters d-flex align-items-center'>
+          <button
+            data-bs-toggle='dropdown'
+            aria-expanded='false'
+            data-bs-auto-close='outside'
+            className='btn btn-info dropdown-toggle filters d-flex align-items-center'
+          >
             <Icon className='filters-icon' icon='fluent:filter-16-filled' />
             <div className='filters-text'>Filters</div>
           </button>
+          <div className='dropdown-menu p-5'>
+            <form>
+              <div className='mt-3 mb-4'>
+                <FloatingLabelInput
+                  required={false}
+                  ref={null}
+                  name='text'
+                  type='start_date'
+                  label='Start Date (YYYY-MM-DD)'
+                />
+              </div>
+              <div className='mb-4'>
+                <FloatingLabelInput
+                  required={false}
+                  ref={null}
+                  name='text'
+                  type='end_date'
+                  label='End Date (YYYY-MM-DD)'
+                />
+              </div>
+              <button className='mb-1 btn btn-primary w-100'>Apply</button>
+            </form>
+          </div>
         </div>
       </div>
       <div className='d-flex align-items-center'>
@@ -140,7 +176,9 @@ const GithubCardsSection = () => {
           {isLoading ? (
             Array.from({ length: numCardsToShow }).map((_, index) => (
               <div
-                className={`${numCardsToShow === 3 ? 'col-md-4' : 'col-md-3'}`}
+                className={`d-flex justify-content-center col-md-${
+                  numCardsToShow === 3 ? '4' : numCardsToShow === 2 ? '6' : '3'
+                }`}
                 key={index}
               >
                 <Skeleton className='github-card-skeleton' />
@@ -160,9 +198,14 @@ const GithubCardsSection = () => {
               .slice(startIndex, startIndex + numCardsToShow)
               .map((repository, index) => (
                 <div
-                  className={`d-flex justify-content-center ${
-                    numCardsToShow === 3 ? 'col-md-4' : 'col-md-3'
-                  }`}
+                  className={`d-flex justify-content-center
+                    col-md-${
+                      numCardsToShow === 3
+                        ? '4'
+                        : numCardsToShow === 2
+                        ? '6'
+                        : '3'
+                    }`}
                   key={index}
                 >
                   <GithubCard
@@ -170,6 +213,8 @@ const GithubCardsSection = () => {
                     description={repository.description}
                     url={repository.html_url}
                     tags={repository.topics}
+                    stars={repository.stargazers_count}
+                    language={repository.language}
                   />
                 </div>
               ))

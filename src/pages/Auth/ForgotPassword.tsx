@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import FloatingLabelInput from '@/components/FloatingLabelInput';
 
 interface Props {
   onLoginClick: () => void;
@@ -42,14 +43,12 @@ const ForgotPassword = ({ onLoginClick }: Props) => {
           <h1>Password Reset</h1>
           <form className='mt-4' onSubmit={handleSubmit}>
             <div className='mb-4'>
-              <input
-                className='form-control'
+              <FloatingLabelInput
+                required={true}
                 ref={emailRef}
-                type='email'
                 name='email'
-                id='email'
-                placeholder='Email'
-                required
+                type='email'
+                label='Email Address'
               />
             </div>
             <div>

@@ -1,0 +1,62 @@
+@import 'variables';
+
+.form-floating-custom {
+  position: relative;
+
+  input {
+    background-color: transparent !important;
+    padding: 0.6rem !important;
+    box-shadow: none !important;
+    border-color: var(--lowest-contrast-color) !important;
+  }
+
+  input:hover {
+    border-color: transparent !important;
+    outline: 1.5px solid var(--h2-color);
+  }
+
+  input:focus {
+    border-color: transparent !important;
+    outline: 1.5px solid var(--primary-color);
+  }
+
+  label {
+    position: absolute !important;
+    top: 50%;
+    left: 3%;
+    transform: translateY(-50%);
+    pointer-events: none !important;
+    transition: all 0.2s !important;
+    opacity: 1 !important;
+    transform-origin: top left !important;
+    padding: 0 0.2rem;
+    z-index: 1 !important;
+    color: var(--medium-high-contrast-color) !important;
+    font-weight: 600;
+  }
+
+  label::before {
+    content: '';
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: var(--background-color) !important;
+    z-index: -1 !important;
+    background-clip: padding-box !important;
+  }
+
+  input:focus + label {
+    opacity: 1;
+    transform: translateY(-160%) scale(0.8) translateX(-2%);
+    padding: 0 0.5rem !important;
+  }
+
+  &.focused label,
+  input:not(:placeholder-shown) + label {
+    font-size: 0.8rem !important;
+    transform: translateY(-160%) scale(0.8) translateX(-2%);
+    padding: 0 0.5rem !important;
+  }
+}
