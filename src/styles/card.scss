@@ -140,7 +140,7 @@
 
 .github-arrow:hover {
   background-color: transparent !important;
-  border: #323232 solid 1px !important;
+  border: var(--lowest-special-contrast-color) solid 1px !important;
 }
 
 .filters {
@@ -149,7 +149,7 @@
 
 .filters:hover {
   background-color: transparent !important;
-  border: #323232 solid 1px !important;
+  border: var(--lowest-special-contrast-color) solid 1px !important;
 }
 
 .btn-info.filters.disabled {
@@ -158,7 +158,7 @@
 
 btn-info.filters {
   background-color: red !important;
-  border: #323232 solid 1px !important;
+  border: var(--lowest-special-contrast-color) solid 1px !important;
 }
 
 .github-title {
