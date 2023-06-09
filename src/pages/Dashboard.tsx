@@ -1,9 +1,10 @@
 import Sidebar from '@/components/Sidebar';
 import Header from '@/components/Header';
-import WelcomeBanner from '@/components/WelcomeBanner';
+import WelcomeBanner from '@/components/dashboard/WelcomeBanner';
 import { useActiveIcon } from '@/hooks/useActiveIcon';
 
 import '../styles/dashboard.scss';
+import GithubCardsSection from '@/components/dashboard/GithubCardsSection';
 
 const Dashboard = () => {
   const { activeIcon, topOffset, handleIconClick } = useActiveIcon();
@@ -27,6 +28,9 @@ const Dashboard = () => {
               />
             </div>
             <WelcomeBanner handleIconClick={handleIconClick} />
+            <div className='mt-4'>
+            <GithubCardsSection />
+            </div>
           </div>
         </div>
       </div>

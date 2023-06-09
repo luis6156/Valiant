@@ -1,14 +1,162 @@
 @import 'variables';
 
+.github-card {
+  background-color: var(--card-color) !important;
+  border-radius: 30px;
+  height: 11.5rem !important;
+  width: 24rem !important;
+}
+
+.github-card-skeleton {
+  height: 11.5rem !important;
+  width: 22rem !important;
+}
+
+.github-card-none {
+  padding: 1rem 1.2rem;
+  height: 5rem !important;
+  width: 100% !important;
+  border-radius: 30px;
+  background-color: var(--card-color) !important;
+}
+
+.filters-icon {
+  color: var(--title-page-color) !important;
+  font-size: 1.2rem;
+  margin-right: 0.1rem;
+}
+
+.filters-text {
+  color: var(--title-page-color) !important;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.react-loading-skeleton {
+  --base-color: var(--auth-card-color) !important;
+  --highlight-color: var(--lowest-2-contrast-color) !important;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.github-card:hover .github-icon {
+  animation: iconBlink 1s ease-in-out infinite;
+}
+
+@keyframes iconBlink {
+  0% {
+    color: var(--icon-glow-color);
+  }
+  50% {
+    color: var(--h2-color);
+  }
+  100% {
+    color: var(--icon-glow-color);
+  }
+}
+
+.github-padding {
+  padding: 1rem 1.5rem;
+}
+
+.github-icon {
+  color: var(--h2-color);
+  font-size: 1.2rem;
+  transition: color 0.1s ease-in-out;
+  margin-bottom: 0.3rem;
+}
+
+.github-arrow {
+  width: fit-content !important;
+  height: fit-content !important;
+  padding: 0 !important;
+  color: var(--primary-color) !important;
+  font-size: 1.8rem !important;
+}
+
+.btn-info.github-arrow.disabled {
+  color: var(--h2-color) !important;
+}
+
+.github-arrow:hover {
+  background-color: transparent !important;
+  border: #323232 solid 1px !important;
+}
+
+.github-icon:hover {
+  color: var(--icon-glow-color);
+}
+
+.filters {
+  padding: 0.2rem !important;
+  color: red !important;
+}
+
+.filters:hover {
+  background-color: transparent !important;
+  border: #323232 solid 1px !important;
+}
+
+.btn-info.filters.disabled {
+  color: var(--h2-color) !important;
+}
+
+btn-info.filters {
+  background-color: red !important;
+  border: #323232 solid 1px !important;
+}
+
+.github-title {
+  color: var(--h2-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.github-description {
+  margin-top: 0.8rem;
+  color: var(--details-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.github-tag-margin {
+  margin-top: 1rem;
+}
+
+.github-tags-wrapper {
+  bottom: 1rem;
+}
+
+.github-tag {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  border-radius: 30px;
+  padding: 0.2rem 0.5rem;
+  font-weight: 700 !important;
+  font-size: 0.8rem;
+  color: var(--secondary-color-contrast);
+  margin-right: 0.5rem;
+}
+
 .welcome-banner {
-  background-color: #1a1a1a;
+  background-color: var(--card-color);
   border-radius: 30px;
   height: 13.5rem;
 }
 
 .welcome-borders {
-  border-right: #C5C5C5 2px solid;
-  border-left:#C5C5C5 2px solid;
+  border-right: #c5c5c5 2px solid;
+  border-left: #c5c5c5 2px solid;
 }
 
 .welcome-content {

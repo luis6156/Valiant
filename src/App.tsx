@@ -8,7 +8,7 @@ import PrivateRoute from './components/PrivateRoute';
 import UpdateProfile from './pages/Auth/UpdateProfile';
 import ContextProvider from './contexts/ContextProvider';
 import Toolbar from './components/Toolbar';
-import WelcomeBanner from './components/WelcomeBanner';
+import GithubCardsSection from './components/dashboard/GithubCardsSection';
 
 const App = () => {
   return (

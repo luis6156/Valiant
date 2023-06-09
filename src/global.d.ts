@@ -7,6 +7,9 @@ interface Window {
     on: (channel: string, callback: (data: any) => void) => void;
     removeAllListeners: (channel: string) => void;
   };
+  shell: {
+    openExternal: (url: string) => void;
+  };
 }
 
 declare module '*.jpg' {

@@ -59,13 +59,13 @@ async function createWindow() {
       contextIsolation: true,
     },
     width: 1280,
-    height: 720,
+    height: 850,
     titleBarStyle: 'hidden',
     titleBarOverlay: {
       color: '#111111', // #212121
       symbolColor: '#F74A39', // #cecece
-      height: 30
-    }
+      height: 30,
+    },
   });
 
   if (url) {
@@ -134,6 +134,33 @@ ipcMain.handle('open-win', (_, arg) => {
   } else {
     childWindow.loadFile(indexHtml, { hash: arg });
   }
+});
+
+ipcMain.on('open-external-link', (event, { href }) => {
+  console.log('open-external-link', href);
+  shell.openExternal(href);
+});
+
+ipcMain.on('fs-exists-sync-github-monthly', (event, {}) => {
+  event.reply(
+    'fs-exists-sync-github-monthly-reply',
+    fs.existsSync(join(__dirname, '../../src/data/github-monthly.json'))
+  );
+});
+
+ipcMain.on('fs-readfile-sync-github-monthly', (event, {}) => {
+  event.reply(
+    'fs-readfile-sync-github-monthly-reply',
+    fs.readFileSync(
+      join(__dirname, '../../src/data/github-monthly.json'),
+      'utf8'
+    )
+  );
+});
+
+ipcMain.on('fs-writefile-sync-github-monthly', (event, { data }) => {
+  fs.writeFileSync(join(__dirname, '../../src/data/github-monthly.json'), data);
+  console.log(join(__dirname, '../../src/data/github-monthly.json'));
 });
 
 ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {

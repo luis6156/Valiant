@@ -39,7 +39,6 @@ const Header = ({ title, subtitle }: Props) => {
               type='button'
               data-bs-toggle='dropdown'
               aria-expanded='false'
-              data-bs-offset='10,20'
             >
               <Icon
                 className='notifications'
@@ -48,9 +47,7 @@ const Header = ({ title, subtitle }: Props) => {
             </button>
             <ul className='dropdown-menu dropdown-menu-end'>
               <li>
-                <p className='dropdown-item disabled'>
-                  None
-                </p>
+                <p className='dropdown-item disabled'>None</p>
               </li>
             </ul>
           </div>
