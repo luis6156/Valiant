@@ -132,7 +132,7 @@ const GithubCardsSection = () => {
             data-bs-toggle='dropdown'
             aria-expanded='false'
             data-bs-auto-close='outside'
-            className='btn btn-info dropdown-toggle filters d-flex align-items-center'
+            className='btn btn-info dropdown-toggle dropdown-toggle-no-caret filters d-flex align-items-center'
           >
             <Icon className='filters-icon' icon='fluent:filter-16-filled' />
             <div className='filters-text'>Filters</div>

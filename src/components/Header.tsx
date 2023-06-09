@@ -35,7 +35,7 @@ const Header = ({ title, subtitle }: Props) => {
         <div className='col-md-6 d-flex justify-content-end align-items-center'>
           <div className='dropdown'>
             <button
-              className='btn btn-info dropdown-toggle dropdown-toggle-no-caret'
+              className='btn btn-info dropdown-toggle dropdown-toggle-no-caret filters'
               type='button'
               data-bs-toggle='dropdown'
               aria-expanded='false'
@@ -53,7 +53,7 @@ const Header = ({ title, subtitle }: Props) => {
           </div>
           <div className='dropdown'>
             <button
-              className='btn btn-info dropdown-toggle'
+              className='btn btn-info dropdown-toggle filters'
               type='button'
               data-bs-toggle='dropdown'
               aria-expanded='false'
