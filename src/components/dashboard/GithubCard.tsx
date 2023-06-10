@@ -25,7 +25,7 @@ const GithubCard = ({
       ? `${description.substring(0, 100)}...`
       : description || 'No description provided, please visit the GitHub page.';
   const limitedTitle =
-    title && title.length > 22 ? `${title.substring(0, 22)}...` : title;
+    title && title.length > 35 ? `${title.substring(0, 35)}...` : title;
 
   return (
     <div className='welcome-banner github-card position-relative'>

@@ -53,6 +53,34 @@
   border-radius: 0 10px 0 0;
 }
 
+.github-tag {
+  position: relative;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.github-tag:hover .github-close-circle {
+  background-color: var(--lowest-2-contrast-color);
+}
+
+.github-tag:hover .github-close {
+  color: var(--secondary-color);
+}
+
+.github-close-circle {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.github-close {
+  font-size: 0.9rem;
+}
+
 .filters-icon {
   color: var(--title-page-color) !important;
   font-size: 1.2rem;
@@ -206,6 +234,10 @@ btn-info.filters {
   font-size: 0.7rem;
   color: var(--secondary-color-contrast);
   margin-right: 0.5rem;
+}
+
+.dropdown-filters-cards {
+  max-width: 15rem !important;
 }
 
 .welcome-banner {

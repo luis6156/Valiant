@@ -24,12 +24,12 @@ const Dashboard = () => {
             <div className='mt-3 mb-3'>
               <Header
                 title='Dashboard'
-                subtitle='Welcome to your feed for OSINT recommendations'
+                subtitle='Welcome to your feed for everything OSINT'
               />
             </div>
             <WelcomeBanner handleIconClick={handleIconClick} />
             <div className='mt-4'>
-            <GithubCardsSection />
+              <GithubCardsSection />
             </div>
           </div>
         </div>

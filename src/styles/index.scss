@@ -102,9 +102,20 @@ label {
 }
 
 input {
-  background-color: var(--input-color) !important;
-  border-color: var(--input-color) !important;
   font-weight: 600 !important;
+}
+
+textarea {
+  font-weight: 600 !important;
+}
+
+textarea:focus {
+  color: var(--highest-contrast-color) !important;
+}
+
+textarea:focus,
+textarea:not(:placeholder-shown) {
+  color: var(--highest-contrast-color) !important;
 }
 
 input::placeholder {

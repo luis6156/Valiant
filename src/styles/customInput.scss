@@ -3,19 +3,19 @@
 .form-floating-custom {
   position: relative;
 
-  input {
+  input, textarea {
     background-color: transparent !important;
     padding: 0.6rem !important;
     box-shadow: none !important;
     border-color: var(--lowest-contrast-color) !important;
   }
 
-  input:hover {
+  input:hover, textarea:hover {
     border-color: transparent !important;
     outline: 1.5px solid var(--h2-color);
   }
 
-  input:focus {
+  input:focus, textarea:focus {
     border-color: transparent !important;
     outline: 1.5px solid var(--primary-color);
   }
@@ -47,16 +47,37 @@
     background-clip: padding-box !important;
   }
 
-  input:focus + label {
+  input:focus + label,
+  textarea:focus + label {
     opacity: 1;
-    transform: translateY(-160%) scale(0.8) translateX(-2%);
+    transform: translateY(-160%) scale(0.8) translateX(5%);
     padding: 0 0.5rem !important;
   }
 
   &.focused label,
-  input:not(:placeholder-shown) + label {
+  input:not(:placeholder-shown) + label,
+  textarea:not(:placeholder-shown) + label {
     font-size: 0.8rem !important;
-    transform: translateY(-160%) scale(0.8) translateX(-2%);
+    transform: translateY(-160%) scale(0.8) translateX(5%);
     padding: 0 0.5rem !important;
   }
+
+  textarea ~ label {
+    top: 1.4rem;
+  }
+}
+
+.textarea-limited {
+  resize: none;
+  height: 12rem !important;
+}
+
+.form-text {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--medium-high-contrast-color);
+}
+
+.form-text-icon {
+  color: var(--medium-high-contrast-color);
 }

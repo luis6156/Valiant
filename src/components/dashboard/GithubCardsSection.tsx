@@ -5,6 +5,8 @@ import { Icon } from '@iconify/react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import FloatingLabelInput from '../FloatingLabelInput';
+import AttentionText from '../AttentionText';
+import FloatingLabelTextarea from '../FloatingLabelTextarea';
 
 const FETCH_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 const ipcRenderer = window.ipcRenderer;
@@ -126,7 +128,7 @@ const GithubCardsSection = () => {
   return (
     <>
       <div className='d-flex justify-content-between align-items-center mb-3'>
-        <h5 className='header-main'>New GitHub Scripts from last month!</h5>
+        <h5 className='header-main'>New GitHub Scripts from last month</h5>
         <div className='d-flex align-items-center me-3'>
           <button
             data-bs-toggle='dropdown'
@@ -137,25 +139,38 @@ const GithubCardsSection = () => {
             <Icon className='filters-icon' icon='fluent:filter-16-filled' />
             <div className='filters-text'>Filters</div>
           </button>
-          <div className='dropdown-menu p-5'>
+          <div className='dropdown-menu dropdown-menu-end dropdown-filters-cards p-3'>
             <form>
-              <div className='mt-3 mb-4'>
+              <div className='mt-3 mb-3'>
                 <FloatingLabelInput
                   required={false}
                   ref={null}
-                  name='text'
-                  type='start_date'
-                  label='Start Date (YYYY-MM-DD)'
+                  name='start-date'
+                  type='text'
+                  label='Start Date'
                 />
               </div>
-              <div className='mb-4'>
+              <div className='mb-3'>
                 <FloatingLabelInput
                   required={false}
                   ref={null}
-                  name='text'
-                  type='end_date'
-                  label='End Date (YYYY-MM-DD)'
+                  name='end-date'
+                  type='text'
+                  label='End Date'
                 />
+              </div>
+              <div className='mb-3 github-tags-filter-container'>
+                <FloatingLabelInput
+                  required={false}
+                  ref={null}
+                  name='topics'
+                  type='text'
+                  label='Topics'
+                  createPills={true}
+                />
+              </div>
+              <div className='mb-3'>
+                <AttentionText text='Date format is YYYY-MM-DD' />
               </div>
               <button className='mb-1 btn btn-primary w-100'>Apply</button>
             </form>
