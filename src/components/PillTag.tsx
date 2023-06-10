@@ -11,6 +11,7 @@ const PillTag = ({ pillValues, handleTagClick }: Props) => {
     <div className='d-flex flex-wrap justify-content-center'>
       {pillValues.map((pillValue, index) => (
         <div
+          key={index}
           onClick={() => handleTagClick(index)}
           className='github-tag cursor-pointer d-flex align-items-center mt-1'
         >

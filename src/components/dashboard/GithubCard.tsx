@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react';
 
 import '../../styles/card.scss';
 import ExternalLink from '../ExternalLink';
+import { useEffect, useState } from 'react';
 
 interface Props {
   title: string;
@@ -20,25 +21,46 @@ const GithubCard = ({
   stars,
   language,
 }: Props) => {
+  const [numTags, setNumTags] = useState(4);
   const limitedDescription =
     description && description.length > 100
       ? `${description.substring(0, 100)}...`
       : description || 'No description provided, please visit the GitHub page.';
-  const limitedTitle =
-    title && title.length > 35 ? `${title.substring(0, 35)}...` : title;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setNumTags(getNumTagsToShow());
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  function getNumTagsToShow() {
+    if (window.innerWidth < 850) {
+      return 3;
+    } else {
+      return 4;
+    }
+  }
 
   return (
     <div className='welcome-banner github-card position-relative'>
       <div className='github-padding'>
         <div className='d-flex justify-content-between'>
           <div className='github-title'>
-            {limitedTitle.split('/').map((part, index) => (
+            {title.split('/').map((part, index) => (
               <ExternalLink href={url} underline={false} key={index}>
                 {index > 0 && (
                   <>
                     /
                     <br />
-                    <strong>{part}</strong>
+                    <strong>
+                      {part.length > 20 ? `${part.slice(0, 20)}...` : part}
+                    </strong>
                   </>
                 )}
                 {index === 0 && part}
@@ -49,7 +71,9 @@ const GithubCard = ({
           <div className='d-flex flex-column align-items-end mt-1'>
             <div className='d-flex align-items-center'>
               <Icon className='github-icon' icon='octicon:star-16' />
-              <div className='github-description github-stats m-0'>{stars}</div>
+              <div className='github-description github-stats m-0'>
+                {stars > 1000 ? `${Number(stars / 1000).toFixed(1)}k` : stars}
+              </div>
             </div>
             <div className='github-language-wrapper d-flex align-items-center'>
               {language && (
@@ -73,10 +97,10 @@ const GithubCard = ({
         <div className='github-tags-wrapper d-flex position-absolute'>
           {tags
             .sort((a, b) => a.length - b.length)
-            .slice(0, 4)
+            .slice(0, numTags)
             .map((tag, index) => (
               <div key={index} className='github-tag'>
-                {tag}
+                {tag.length > 7 ? `${tag.slice(0, 7)}...` : tag}
               </div>
             ))}
           {/* <div className='github-icon-pos'>

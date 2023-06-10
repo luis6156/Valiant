@@ -5,6 +5,7 @@ import { useActiveIcon } from '@/hooks/useActiveIcon';
 
 import '../styles/dashboard.scss';
 import GithubCardsSection from '@/components/dashboard/GithubCardsSection';
+import GithubFiltersProvider from '@/contexts/GithubFiltersContext';
 
 const Dashboard = () => {
   const { activeIcon, topOffset, handleIconClick } = useActiveIcon();
@@ -28,9 +29,11 @@ const Dashboard = () => {
               />
             </div>
             <WelcomeBanner handleIconClick={handleIconClick} />
-            <div className='mt-4'>
-              <GithubCardsSection />
-            </div>
+            <GithubFiltersProvider>
+              <div className='mt-4'>
+                <GithubCardsSection />
+              </div>
+            </GithubFiltersProvider>
           </div>
         </div>
       </div>

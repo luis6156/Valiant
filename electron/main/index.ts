@@ -141,26 +141,29 @@ ipcMain.on('open-external-link', (event, { href }) => {
   shell.openExternal(href);
 });
 
-ipcMain.on('fs-exists-sync-github-monthly', (event, {}) => {
+ipcMain.on('fs-exists-sync', (event, { fileName }) => {
+  console.log(
+    `checking if file exists ${join(__dirname, '../../src/data/', fileName)}`
+  );
   event.reply(
-    'fs-exists-sync-github-monthly-reply',
-    fs.existsSync(join(__dirname, '../../src/data/github-monthly.json'))
+    'fs-exists-sync-reply',
+    fs.existsSync(join(__dirname, '../../src/data/', fileName))
   );
 });
 
-ipcMain.on('fs-readfile-sync-github-monthly', (event, {}) => {
+ipcMain.on('fs-readfile-sync', (event, { fileName }) => {
+  console.log(`reading file ${join(__dirname, '../../src/data/', fileName)}`);
   event.reply(
-    'fs-readfile-sync-github-monthly-reply',
-    fs.readFileSync(
-      join(__dirname, '../../src/data/github-monthly.json'),
-      'utf8'
-    )
+    'fs-readfile-sync-reply',
+    fs.readFileSync(join(__dirname, '../../src/data/', fileName), 'utf8')
   );
 });
 
-ipcMain.on('fs-writefile-sync-github-monthly', (event, { data }) => {
-  fs.writeFileSync(join(__dirname, '../../src/data/github-monthly.json'), data);
-  console.log(join(__dirname, '../../src/data/github-monthly.json'));
+ipcMain.on('fs-writefile-sync', (event, { data, fileName }) => {
+  fs.writeFileSync(join(__dirname, '../../src/data/', fileName), data);
+  console.log(
+    `writing to file ${join(__dirname, '../../src/data/', fileName)}`
+  );
 });
 
 ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {

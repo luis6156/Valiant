@@ -1,4 +1,10 @@
-import { ChangeEvent, useState, RefObject, forwardRef } from 'react';
+import {
+  ChangeEvent,
+  useState,
+  forwardRef,
+  useEffect,
+  Ref,
+} from 'react';
 
 import AttentionText from './AttentionText';
 
@@ -11,14 +17,35 @@ interface Props {
   name: string;
   required: boolean;
   helpText?: string;
-  createPills?: boolean;
+  defaultValue?: string;
+  maxLength?: number;
+  pillValues?: string[];
+  setPillValues?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
-  ({ label, type, name, required, helpText, createPills }: Props, ref) => {
-    const [value, setValue] = useState('');
+  (
+    {
+      label,
+      type,
+      name,
+      required,
+      helpText,
+      defaultValue,
+      maxLength,
+      pillValues = [],
+      setPillValues,
+    }: Props,
+    ref: Ref<HTMLInputElement>
+  ) => {
+    const [value, setValue] = useState(defaultValue || '');
     const [isFocused, setIsFocused] = useState(false);
-    const [pillValues, setPillValues] = useState<string[]>([]);
+
+    useEffect(() => {
+      if (defaultValue === undefined) return;
+
+      setValue(defaultValue || '');
+    }, [defaultValue]);
 
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === ' ' || event.key === 'Enter') {
@@ -27,16 +54,18 @@ const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
         const trimmedValue = value.trim();
         if (trimmedValue !== '' && pillValues.length < 5) {
           console.log(trimmedValue);
-          setPillValues([...pillValues, trimmedValue]);
+          setPillValues?.([...pillValues, trimmedValue]);
           setValue('');
         }
       }
     };
 
     const handleTagClick = (index: number) => {
-      const updatedPillValues = [...pillValues];
-      updatedPillValues.splice(index, 1);
-      setPillValues(updatedPillValues);
+      if (setPillValues) {
+        const updatedPillValues = [...pillValues];
+        updatedPillValues.splice(index, 1);
+        setPillValues(updatedPillValues);
+      }
     };
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +95,8 @@ const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
             ref={ref}
-            onKeyDown={createPills ? handleKeyPress : undefined}
+            onKeyDown={setPillValues ? handleKeyPress : undefined}
+            maxLength={maxLength ? maxLength : undefined}
           />
           <label htmlFor='floatingInput'>{label}</label>
         </div>

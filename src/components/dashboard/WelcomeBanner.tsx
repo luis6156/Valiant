@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import '../../styles/card.scss';
 import { Icon } from '@iconify/react';
 
@@ -18,6 +19,28 @@ interface Props {
 }
 
 const WelcomeBanner = ({ handleIconClick }: Props) => {
+  const [isSmallBtn, setIsSmallBtn] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallBtn(getBtnSizeToShow());
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  function getBtnSizeToShow() {
+    if (window.innerWidth < 900) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   return (
     <div className='container-fluid welcome-banner'>
       <div className='row h-100'>
@@ -35,14 +58,14 @@ const WelcomeBanner = ({ handleIconClick }: Props) => {
               <div className='position-absolute welcome-btn'>
                 <button
                   onClick={() => handleIconClick('scripts-search')}
-                  className='btn btn-primary welcome-btn-gap'
+                  className={`btn btn-primary welcome-btn-gap ${isSmallBtn && 'btn-sm'}`}
                 >
                   <Icon className='btn-icon' icon='majesticons:search' />
                   Explore
                 </button>
                 <button
                   onClick={() => handleIconClick('scripts-import')}
-                  className='btn btn-secondary'
+                  className={`btn btn-secondary ${isSmallBtn && 'btn-sm'}`}
                 >
                   <Icon
                     className='btn-secondary-icon'
@@ -68,14 +91,14 @@ const WelcomeBanner = ({ handleIconClick }: Props) => {
               <div className='position-absolute welcome-btn'>
                 <button
                   onClick={() => handleIconClick('pipes-search')}
-                  className='btn btn-primary welcome-btn-gap'
+                  className={`btn btn-primary welcome-btn-gap ${isSmallBtn && 'btn-sm'}`}
                 >
                   <Icon className='btn-icon' icon='majesticons:search' />
                   Explore
                 </button>
                 <button
                   onClick={() => handleIconClick('pipes-create')}
-                  className='btn btn-secondary'
+                  className={`btn btn-secondary ${isSmallBtn && 'btn-sm'}`}
                 >
                   <Icon
                     className='btn-secondary-icon'
@@ -101,7 +124,7 @@ const WelcomeBanner = ({ handleIconClick }: Props) => {
               <div className='position-absolute welcome-btn'>
                 <button
                   onClick={() => handleIconClick('import-export')}
-                  className='btn btn-primary'
+                  className={`btn btn-primary ${isSmallBtn && 'btn-sm'}`}
                 >
                   <Icon className='btn-icon' icon='majesticons:search' />
                   Import or Export
