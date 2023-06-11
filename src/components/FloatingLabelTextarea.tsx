@@ -11,10 +11,11 @@ import '../styles/card.scss';
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   required: boolean;
+  isResizable?: boolean;
 }
 
 const FloatingLabelTextarea = forwardRef<HTMLTextAreaElement, Props>(
-  ({ label, required, ...rest }: Props, ref) => {
+  ({ label, required, isResizable, ...rest }: Props, ref) => {
     const [value, setValue] = useState('');
     const [isFocused, setIsFocused] = useState(false);
 
@@ -36,7 +37,9 @@ const FloatingLabelTextarea = forwardRef<HTMLTextAreaElement, Props>(
           <textarea
             {...rest}
             required={required}
-            className='form-control textarea-filter'
+            className={`form-control textarea-filter ${
+              !isResizable ? 'textarea-limited' : ''
+            }`}
             id='floatingTextarea'
             placeholder=' '
             value={value}

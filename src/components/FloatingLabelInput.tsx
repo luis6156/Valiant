@@ -1,10 +1,4 @@
-import {
-  ChangeEvent,
-  useState,
-  forwardRef,
-  useEffect,
-  Ref,
-} from 'react';
+import { ChangeEvent, useState, forwardRef, useEffect, Ref } from 'react';
 
 import AttentionText from './AttentionText';
 
@@ -39,6 +33,7 @@ const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
     ref: Ref<HTMLInputElement>
   ) => {
     const [value, setValue] = useState(defaultValue || '');
+    const [isHovered, setIsHovered] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
 
     useEffect(() => {
@@ -100,7 +95,11 @@ const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
           />
           <label htmlFor='floatingInput'>{label}</label>
         </div>
-        {helpText && <AttentionText text={helpText} />}
+        {helpText && isFocused && (
+          <div className='help-text mt-2'>
+            <AttentionText text={helpText} />
+          </div>
+        )}
         {pillValues.length > 0 && (
           <div className='mt-2'>
             <PillTag pillValues={pillValues} handleTagClick={handleTagClick} />

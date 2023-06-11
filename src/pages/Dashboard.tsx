@@ -1,43 +1,26 @@
 import Sidebar from '@/components/Sidebar';
-import Header from '@/components/Header';
-import WelcomeBanner from '@/components/dashboard/WelcomeBanner';
-import { useActiveIcon } from '@/hooks/useActiveIcon';
+import Home from './Home';
+import ScriptsImport from './ScriptsImport';
 
 import '../styles/dashboard.scss';
-import GithubCardsSection from '@/components/dashboard/GithubCardsSection';
-import GithubFiltersProvider from '@/contexts/GithubFiltersContext';
-import GithubListSection from '@/components/dashboard/GithubListSection';
+import { useSidebar } from '@/contexts/SidebarContext';
 
 const Dashboard = () => {
-  const { activeIcon, topOffset, handleIconClick } = useActiveIcon();
+  const { activeIcon } = useSidebar();
 
   return (
     <>
       <div className='container-fluid'>
         <div className='row'>
           <div className='col-md-1 col-sidebar'>
-            <Sidebar
-              activeIcon={activeIcon}
-              topOffset={topOffset}
-              handleIconClick={handleIconClick}
-            />
+            <Sidebar />
           </div>
           <div className='col-md ps-0 pe-3'>
-            <div className='mt-3 mb-3'>
-              <Header
-                title='Dashboard'
-                subtitle='Welcome to your feed for everything OSINT'
-              />
-            </div>
-            <WelcomeBanner handleIconClick={handleIconClick} />
-            <GithubFiltersProvider>
-              <div className='mt-4'>
-                <GithubCardsSection />
-              </div>
-              <div className='mt-4'>
-                <GithubListSection />
-              </div>
-            </GithubFiltersProvider>
+            {activeIcon === 'dashboard' ? (
+              <Home />
+            ) : activeIcon === 'scripts-import' ? (
+              <ScriptsImport />
+            ) : null}
           </div>
         </div>
       </div>

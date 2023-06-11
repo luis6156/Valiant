@@ -68,9 +68,22 @@
   }
 }
 
+.form-floating-custom.focused + .help-text {
+  animation: fadeIn 0.6s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .textarea-limited {
-  resize: none;
-  height: 12rem !important;
+  resize: none !important;
+  height: 7rem !important;
 }
 
 .form-text {

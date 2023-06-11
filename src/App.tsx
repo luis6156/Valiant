@@ -8,23 +8,24 @@ import PrivateRoute from './components/PrivateRoute';
 import UpdateProfile from './pages/Auth/UpdateProfile';
 import ContextProvider from './contexts/ContextProvider';
 import Toolbar from './components/Toolbar';
-import ScriptsImport from './pages/ScriptsImport';
+import SidebarProvider from './contexts/SidebarContext';
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
         <ContextProvider>
-          <Toolbar />
-          <Routes>
-            <Route element={<PrivateRoute />}>
-              <Route path='/' element={<Dashboard />} />
-              <Route path='/scripts-import' element={<ScriptsImport />} />
-              <Route path='/update-profile' element={<UpdateProfile />} />
-            </Route>
-            <Route path='/register' element={<Register />} />
-            <Route path='/login' element={<Login />} />
-          </Routes>
+          <SidebarProvider>
+            <Toolbar />
+            <Routes>
+              <Route element={<PrivateRoute />}>
+                <Route path='/' element={<Dashboard />} />
+                <Route path='/update-profile' element={<UpdateProfile />} />
+              </Route>
+              <Route path='/register' element={<Register />} />
+              <Route path='/login' element={<Login />} />
+            </Routes>
+          </SidebarProvider>
         </ContextProvider>
       </AuthProvider>
     </BrowserRouter>

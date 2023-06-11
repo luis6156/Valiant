@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, createContext, useContext } from 'react';
 
 type IconType =
   | 'dashboard'
@@ -12,7 +12,21 @@ type IconType =
   | 'settings'
   | 'info';
 
-export const useActiveIcon = () => {
+interface SidebarContextProps {
+  activeIcon: IconType;
+  topOffset: string;
+  handleIconClick: (icon: IconType) => void;
+}
+
+const SidebarContext = createContext<SidebarContextProps>(
+  {} as SidebarContextProps
+);
+
+export function useSidebar() {
+  return useContext(SidebarContext);
+}
+
+const SidebarProvider = ({ children }: any) => {
   const [activeIcon, setActiveIcon] = useState<IconType>('dashboard');
   const [topOffset, setTopOffset] = useState('');
 
@@ -29,5 +43,11 @@ export const useActiveIcon = () => {
     }
   };
 
-  return { activeIcon, topOffset, handleIconClick };
+  return (
+    <SidebarContext.Provider value={{ activeIcon, topOffset, handleIconClick }}>
+      {children}
+    </SidebarContext.Provider>
+  );
 };
+
+export default SidebarProvider;

@@ -1,36 +1,11 @@
 import { Icon } from '@iconify/react';
 
 import '../../src/styles/sidebar.scss';
+import { useSidebar } from '@/contexts/SidebarContext';
 
-interface Props {
-  activeIcon:
-    | 'dashboard'
-    | 'scripts-search'
-    | 'scripts-import'
-    | 'scripts-status'
-    | 'pipes-search'
-    | 'pipes-create'
-    | 'pipes-status'
-    | 'import-export'
-    | 'settings'
-    | 'info';
-  topOffset: string;
-  handleIconClick: (
-    icon:
-      | 'dashboard'
-      | 'import-export'
-      | 'settings'
-      | 'info'
-      | 'scripts-search'
-      | 'scripts-import'
-      | 'scripts-status'
-      | 'pipes-search'
-      | 'pipes-create'
-      | 'pipes-status'
-  ) => void;
-}
+const Sidebar = () => {
+  const { activeIcon, topOffset, handleIconClick } = useSidebar();
 
-const Sidebar = ({ activeIcon, topOffset, handleIconClick }: Props) => {
   return (
     <>
       <div className='mt-5 d-flex flex-column align-items-center justify-content-center position-relative'>

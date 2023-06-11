@@ -1,24 +1,10 @@
 import { useEffect, useState } from 'react';
 import '../../styles/card.scss';
 import { Icon } from '@iconify/react';
+import { useSidebar } from '@/contexts/SidebarContext';
 
-interface Props {
-  handleIconClick: (
-    icon:
-      | 'dashboard'
-      | 'import-export'
-      | 'settings'
-      | 'info'
-      | 'scripts-search'
-      | 'scripts-import'
-      | 'scripts-status'
-      | 'pipes-search'
-      | 'pipes-create'
-      | 'pipes-status'
-  ) => void;
-}
-
-const WelcomeBanner = ({ handleIconClick }: Props) => {
+const WelcomeBanner = () => {
+  const { handleIconClick } = useSidebar();
   const [isSmallBtn, setIsSmallBtn] = useState(false);
 
   useEffect(() => {
@@ -40,7 +26,7 @@ const WelcomeBanner = ({ handleIconClick }: Props) => {
       return false;
     }
   }
-  
+
   return (
     <div className='container-fluid welcome-banner'>
       <div className='row h-100'>
@@ -58,7 +44,9 @@ const WelcomeBanner = ({ handleIconClick }: Props) => {
               <div className='position-absolute welcome-btn'>
                 <button
                   onClick={() => handleIconClick('scripts-search')}
-                  className={`btn btn-primary welcome-btn-gap ${isSmallBtn && 'btn-sm'}`}
+                  className={`btn btn-primary welcome-btn-gap ${
+                    isSmallBtn && 'btn-sm'
+                  }`}
                 >
                   <Icon className='btn-icon' icon='majesticons:search' />
                   Explore
@@ -91,7 +79,9 @@ const WelcomeBanner = ({ handleIconClick }: Props) => {
               <div className='position-absolute welcome-btn'>
                 <button
                   onClick={() => handleIconClick('pipes-search')}
-                  className={`btn btn-primary welcome-btn-gap ${isSmallBtn && 'btn-sm'}`}
+                  className={`btn btn-primary welcome-btn-gap ${
+                    isSmallBtn && 'btn-sm'
+                  }`}
                 >
                   <Icon className='btn-icon' icon='majesticons:search' />
                   Explore
