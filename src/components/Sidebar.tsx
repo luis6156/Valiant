@@ -60,21 +60,21 @@ const Sidebar = ({ activeIcon, topOffset, handleIconClick }: Props) => {
           <div className='d-flex flex-column icon-group'>
             <Icon
               onClick={() => handleIconClick('scripts-search')}
-              className={`icon-md ${
+              className={`icon-md icon-group-item ${
                 activeIcon === 'scripts-search' && 'active-icon'
               }`}
               icon='majesticons:search'
             />
             <Icon
               onClick={() => handleIconClick('scripts-import')}
-              className={`icon-md ${
+              className={`icon-md icon-group-item ${
                 activeIcon === 'scripts-import' && 'active-icon'
               }`}
               icon='gridicons:create'
             />
             <Icon
               onClick={() => handleIconClick('scripts-status')}
-              className={`icon-md ${
+              className={`icon-md icon-group-item ${
                 activeIcon === 'scripts-status' && 'active-icon'
               }`}
               icon='fluent:shifts-activity-24-filled'
@@ -101,21 +101,21 @@ const Sidebar = ({ activeIcon, topOffset, handleIconClick }: Props) => {
           <div className='d-flex flex-column icon-group'>
             <Icon
               onClick={() => handleIconClick('pipes-search')}
-              className={`icon-md ${
+              className={`icon-group-item icon-md ${
                 activeIcon === 'pipes-search' && 'active-icon'
               }`}
               icon='majesticons:search'
             />
             <Icon
               onClick={() => handleIconClick('pipes-create')}
-              className={`icon-md ${
+              className={`icon-group-item icon-md ${
                 activeIcon === 'pipes-create' && 'active-icon'
               }`}
               icon='gridicons:create'
             />
             <Icon
               onClick={() => handleIconClick('pipes-status')}
-              className={`icon-md ${
+              className={`icon-group-item icon-md ${
                 activeIcon === 'pipes-status' && 'active-icon'
               }`}
               icon='fluent:shifts-activity-24-filled'

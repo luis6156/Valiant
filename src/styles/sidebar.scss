@@ -77,6 +77,14 @@
   color: #f8f8f8;
 }
 
+.icon-group-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.icon-group-item:hover {
+  transform: scale(1.2) !important;
+}
+
 .icon-group .icon-md {
   margin-top: 1rem;
 }
