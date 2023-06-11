@@ -8,6 +8,7 @@
     padding: 0.6rem !important;
     box-shadow: none !important;
     border-color: var(--lowest-contrast-color) !important;
+    transition: outline 0.1s ease-in !important; 
   }
 
   input:hover, textarea:hover {

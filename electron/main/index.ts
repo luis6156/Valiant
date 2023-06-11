@@ -59,7 +59,7 @@ async function createWindow() {
       contextIsolation: true,
     },
     width: 1280,
-    height: 850,
+    height: 950,
     titleBarStyle: 'hidden',
     titleBarOverlay: {
       color: '#111111', // #212121
@@ -141,29 +141,33 @@ ipcMain.on('open-external-link', (event, { href }) => {
   shell.openExternal(href);
 });
 
-ipcMain.on('fs-exists-sync', (event, { fileName }) => {
+ipcMain.handle('fs-exists-sync', async (event, { fileName }) => {
   console.log(
     `checking if file exists ${join(__dirname, '../../src/data/', fileName)}`
   );
-  event.reply(
-    'fs-exists-sync-reply',
-    fs.existsSync(join(__dirname, '../../src/data/', fileName))
-  );
+
+  const exists = fs.existsSync(join(__dirname, '../../src/data/', fileName));
+
+  return exists;
 });
 
-ipcMain.on('fs-readfile-sync', (event, { fileName }) => {
+ipcMain.handle('fs-readfile-sync', async (event, { fileName }) => {
   console.log(`reading file ${join(__dirname, '../../src/data/', fileName)}`);
-  event.reply(
-    'fs-readfile-sync-reply',
-    fs.readFileSync(join(__dirname, '../../src/data/', fileName), 'utf8')
+
+  const fileData = fs.readFileSync(
+    join(__dirname, '../../src/data/', fileName),
+    'utf8'
   );
+
+  return fileData;
 });
 
-ipcMain.on('fs-writefile-sync', (event, { data, fileName }) => {
-  fs.writeFileSync(join(__dirname, '../../src/data/', fileName), data);
+ipcMain.handle('fs-writefile-sync', async (event, { data, fileName }) => {
   console.log(
     `writing to file ${join(__dirname, '../../src/data/', fileName)}`
   );
+
+  fs.writeFileSync(join(__dirname, '../../src/data/', fileName), data);
 });
 
 ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {

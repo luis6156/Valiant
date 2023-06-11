@@ -1,0 +1,78 @@
+@import 'variables';
+
+.github-row {
+  background-color: var(--card-color) !important;
+  border-radius: 10px 15px 15px 10px;
+  height: 5.8rem !important;
+  width: 100% !important;
+  position: relative;
+}
+
+.github-row-skeleton {
+  background-color: var(--card-color) !important;
+  border-radius: 10px 10px 10px 10px;
+  height: 5.8rem !important;
+  width: 100% !important;
+}
+
+.github-row-accent {
+  position: absolute;
+  background-color: var(--primary-color);
+  border-radius: 50px 0 0 50px;
+  top: 0%;
+  left: 0%;
+  width: 0.6rem;
+  height: 100%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.github-row-icon-brand {
+  font-size: 1.3rem;
+  color: var(--h1-color);
+}
+
+.github-row-title-error {
+  color: var(--h2-color);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.github-row-title {
+  color: var(--h2-color);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.github-row:hover .github-row-title {
+  text-decoration: underline !important;
+}
+
+.github-row:hover .github-row-accent {
+  background-color: var(--secondary-color);
+}
+
+.github-row-description {
+  margin-top: 0.3rem;
+  color: var(--details-color);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.github-row-stats {
+  margin-top: 0.6rem;
+}
+
+.github-row-icon {
+  color: var(--h2-color);
+  font-size: 1rem;
+}
+
+.github-row-icon-text {
+  color: var(--h2-color);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.github-row-icon-text-lower {
+  color: var(--details-color);
+}

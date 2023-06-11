@@ -12,6 +12,26 @@ body,
   color: var(--h1-color);
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+  height: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: transparent;
+}
+
 @media (min-width: 768px) {
   .col-md-4 {
     flex: 0 0 33.333333% !important;
@@ -24,6 +44,10 @@ body,
     flex: 0 0 25% !important;
     max-width: 25% !important;
   }
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .col-sidebar {
@@ -43,7 +67,7 @@ body,
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: 9998;
 }
 
 .toolbar-maximized {
@@ -134,6 +158,42 @@ input:not(:placeholder-shown) {
 
 a {
   color: var(--secondary-color) !important;
+}
+
+option {
+  background-color: var(--background-color) !important;
+  color: var(--highest-contrast-color) !important;
+  font-weight: 500;
+}
+
+.form-select-option {
+  background-color: var(--lowest-2-contrast-color) !important;
+  color: var(--highest-contrast-color) !important;
+  height: 1rem !important;
+  border-radius: 0.25rem !important;
+  transition: background-color 0.1s ease-in !important;
+}
+
+.form-select {
+  background-color: transparent !important;
+  border-color: var(--lowest-contrast-color) !important;
+  color: var(--highest-contrast-color) !important;
+  box-shadow: none !important;
+  transition: outline 0.1s ease-in !important;
+  font-weight: 600 !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  padding-left: 0.5rem !important;
+}
+
+.form-select:hover {
+  border-color: transparent !important;
+  outline: 1.5px solid var(--h2-color);
+}
+
+.form-select:focus {
+  border-color: var(--primary-color) !important;
+  outline: 1.5px solid var(--primary-color);
 }
 
 .btn-primary {

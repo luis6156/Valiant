@@ -25,6 +25,12 @@
   background-color: var(--card-color) !important;
 }
 
+.github-card:hover .github-color-big,
+.github-card:hover .github-color-medium,
+.github-card:hover .github-color-small {
+  height: 8px;
+}
+
 .github-color-big {
   position: absolute;
   left: 10%;
@@ -33,6 +39,7 @@
   width: 65%;
   height: 5px;
   border-radius: 10px 0 0 0;
+  transition: height 0.2s ease-in-out;
 }
 
 .github-color-medium {
@@ -42,6 +49,7 @@
   background-color: var(--primary-color);
   width: 15%;
   height: 5px;
+  transition: height 0.2s ease-in-out;
 }
 
 .github-color-small {
@@ -52,14 +60,11 @@
   width: 10%;
   height: 5px;
   border-radius: 0 10px 0 0;
+  transition: height 0.2s ease-in-out;
 }
 
 .github-tag {
   position: relative;
-}
-
-.cursor-pointer {
-  cursor: pointer;
 }
 
 .github-tag:hover .github-close-circle {

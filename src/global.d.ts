@@ -6,6 +6,7 @@ interface Window {
     send: (channel: string, data: any) => void;
     on: (channel: string, callback: (data: any) => void) => void;
     removeAllListeners: (channel: string) => void;
+    invoke: (channel: string, data: any) => Promise<any>;
   };
   shell: {
     openExternal: (url: string) => void;

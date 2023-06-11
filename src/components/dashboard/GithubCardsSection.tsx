@@ -6,31 +6,49 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import FloatingLabelInput from '../FloatingLabelInput';
 import AttentionText from '../AttentionText';
+import { Repository, useFetchGithubData } from '@/utils/githubApiUtils';
 import { useGithubFilters } from '@/contexts/GithubFiltersContext';
-import useFetchOnThreshold from '@/hooks/useFetchOnThreshold';
-import { useFetchGithubData } from '@/utils/githubApiUtils';
 
 const GITHUB_CARDS_FILE = 'github-cards.json';
 const STD_CARD_TAGS = ['osint'];
 
 const GithubCardsSection = () => {
   const [numCardsToShow, setNumCardsToShow] = useState(getNumCardsToShow());
+  const [startIndex, setStartIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [cards, setCards] = useState<Repository[]>([]);
   const {
-    error,
-    isLoading,
-    tagsCards,
-    setStartIndex,
-    startIndex,
-    isFilterApplied,
-    handleFilterCardsSubmit,
-    handleResetFilters,
     startDateCards,
+    setStartDateCards,
     endDateCards,
+    setEndDateCards,
+    tagsCards,
+    setTagsCards,
+  } = useGithubFilters();
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
+  const [lastFetchTsCards, setLastFetchTsCards] = useState(Date.now());
+  const startDateRef = useRef<HTMLInputElement | null>(null);
+  const endDateRef = useRef<HTMLInputElement | null>(null);
+  const [error, setError] = useState('');
+  const { handleFilterCardsSubmit, handleResetFilters } = useFetchGithubData({
+    fileName: GITHUB_CARDS_FILE,
+    defaultTags: STD_CARD_TAGS,
+    isFilterApplied,
+    setCards,
+    lastFetchTsCards,
+    setStartDateCards,
+    setEndDateCards,
+    setTagsCards,
+    setIsFilterApplied,
+    setLastFetchTsCards,
+    setIsLoading,
     startDateRef,
     endDateRef,
-    setTagsCards,
-    cards,
-  } = useFetchGithubData(GITHUB_CARDS_FILE, STD_CARD_TAGS);
+    tagsCards,
+    setError,
+    setStartIndex,
+    consoleMessage: 'fetched data from github api for github monthly cards',
+  });
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,7 +84,7 @@ const GithubCardsSection = () => {
     <>
       <div className='d-flex justify-content-between align-items-center mb-3'>
         {isFilterApplied ? (
-          <h5 className='header-main'>GitHub Scripts custom filters</h5>
+          <h5 className='header-main'>New GitHub Scripts custom filters</h5>
         ) : (
           <h5 className='header-main'>New GitHub Scripts from last month</h5>
         )}
@@ -121,14 +139,14 @@ const GithubCardsSection = () => {
                   text='Date format is YYYY-MM-DD'
                 />
               </div>
-              <button className='mb-3 btn btn-primary w-100'>Apply</button>
-              <button
-                onClick={handleResetFilters}
-                className='mb-1 btn btn-secondary w-100'
-              >
-                Restore
-              </button>
+              <button className='mb-2 btn btn-primary w-100'>Apply</button>
             </form>
+            <button
+              onClick={handleResetFilters}
+              className='mb-1 btn btn-secondary w-100'
+            >
+              Restore
+            </button>
           </div>
         </div>
       </div>

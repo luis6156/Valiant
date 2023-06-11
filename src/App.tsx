@@ -8,6 +8,7 @@ import PrivateRoute from './components/PrivateRoute';
 import UpdateProfile from './pages/Auth/UpdateProfile';
 import ContextProvider from './contexts/ContextProvider';
 import Toolbar from './components/Toolbar';
+import ScriptsImport from './pages/ScriptsImport';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Routes>
             <Route element={<PrivateRoute />}>
               <Route path='/' element={<Dashboard />} />
+              <Route path='/scripts-import' element={<ScriptsImport />} />
               <Route path='/update-profile' element={<UpdateProfile />} />
             </Route>
             <Route path='/register' element={<Register />} />
