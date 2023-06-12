@@ -47,7 +47,6 @@ const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
 
         const trimmedValue = value.trim();
         if (trimmedValue !== '' && pillValues.length < 5) {
-          console.log(trimmedValue);
           setPillValues?.([...pillValues, trimmedValue]);
           setValue('');
         }

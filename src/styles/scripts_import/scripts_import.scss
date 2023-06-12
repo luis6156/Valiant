@@ -1,11 +1,18 @@
 @import '../variables';
 
 .script-import-right {
-  // height: 85vh;
+  height: 85vh;
   position: relative;
   border-radius: 30px;
+  // background-color: #151515;
   overflow: hidden;
   z-index: 0;
+}
+
+.import-steps-title {
+  font-size: 1.2rem;
+  font-weight: 600 !important;
+  color: var(--title-page-color) !important;
 }
 
 .scripts-import-button-icon {
@@ -18,36 +25,36 @@
   color: var(--low-contrast-color);
 }
 
-// .script-import-right::before {
-//   content: '';
-//   position: absolute;
-//   background-image: url('/images/waves.svg');
-//   background-repeat: no-repeat;
-//   background-size: cover;
-//   background-position: center;
-//   opacity: 0.2;
-//   top: 0;
-//   left: 0;
-//   bottom: 0;
-//   right: 0;
-//   z-index: -1;
-//   animation: glowAnimation 3s infinite linear;
-// }
+.script-import-right::before {
+  content: '';
+  position: absolute;
+  background-image: url('/images/waves.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.05;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  animation: glowAnimation 3s infinite linear;
+}
 
-// @keyframes glowAnimation {
-//   0% {
-//     opacity: 0.3;
-//     filter: brightness(100%);
-//   }
-//   50% {
-//     opacity: 0.5;
-//     filter: brightness(150%);
-//   }
-//   100% {
-//     opacity: 0.3;
-//     filter: brightness(100%);
-//   }
-// }
+@keyframes glowAnimation {
+  0% {
+    opacity: 0.1;
+    filter: brightness(100%);
+  }
+  50% {
+    opacity: 0.05;
+    filter: brightness(150%);
+  }
+  100% {
+    opacity: 0.1;
+    filter: brightness(100%);
+  }
+}
 
 .import-steps-p {
   font-size: 0.8rem;

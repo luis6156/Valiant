@@ -1,18 +1,14 @@
 import FloatingLabelInput from '@/components/FloatingLabelInput';
 import FloatingLabelTextarea from '@/components/FloatingLabelTextarea';
-import React, {
-  ForwardedRef,
-  forwardRef,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import { FormDataType } from './ScriptsImport';
 
 interface Props {
-  formData: {
-    scriptPage: string;
-    scriptName: string;
-    scriptDescription: string;
-  };
+  formData: FormDataType;
+  inputTags: string[];
+  setInputTags: React.Dispatch<React.SetStateAction<string[]>>;
+  outputTags: string[];
+  setOutputTags: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export interface Refs {
@@ -22,7 +18,10 @@ export interface Refs {
 }
 
 const ScriptsImportPageOne = forwardRef<Refs, Props>(
-  ({ formData }: Props, ref) => {
+  (
+    { formData, inputTags, setInputTags, outputTags, setOutputTags }: Props,
+    ref
+  ) => {
     const scriptPageRef = useRef<HTMLInputElement>(null);
     const scriptNameRef = useRef<HTMLInputElement>(null);
     const scriptDescRef = useRef<HTMLTextAreaElement>(null);
@@ -35,11 +34,11 @@ const ScriptsImportPageOne = forwardRef<Refs, Props>(
 
     return (
       <>
-        <h4 className='link-no-underline mb-1'>Let's introduce ourselves</h4>
+        <p className='import-steps-title mb-1'>Let's introduce ourselves</p>
         <p className='import-steps-p mb-3'>
-          Provide basic information about the script
+          Provide some basic information about the script
         </p>
-        <div className='mb-3'>
+        <div className='mb-4'>
           <FloatingLabelInput
             required={true}
             ref={scriptPageRef}
@@ -50,7 +49,7 @@ const ScriptsImportPageOne = forwardRef<Refs, Props>(
             helpText='Provide the path to the Github page where your scripts are located for easier management. The link does not have to be from GitHub, but it must be a valid link.'
           />
         </div>
-        <div className='mb-3'>
+        <div className='mb-4'>
           <FloatingLabelInput
             required={true}
             ref={scriptNameRef}
@@ -61,7 +60,7 @@ const ScriptsImportPageOne = forwardRef<Refs, Props>(
             maxLength={20}
           />
         </div>
-        <div className='mb-3'>
+        <div className='mb-4'>
           <FloatingLabelTextarea
             required={true}
             ref={scriptDescRef}
@@ -70,6 +69,30 @@ const ScriptsImportPageOne = forwardRef<Refs, Props>(
             maxLength={200}
             isResizable={false}
             defaultValue={formData.scriptDescription}
+          />
+        </div>
+        <div className='mb-4'>
+          <FloatingLabelInput
+            required={true}
+            name='input-tags'
+            type='text'
+            label='Input Tags'
+            maxLength={10}
+            helpText='Used to provide a preview in the brief cards about what inputs your script will need/take.'
+            pillValues={inputTags}
+            setPillValues={setInputTags}
+          />
+        </div>
+        <div className='mb-4'>
+          <FloatingLabelInput
+            required={true}
+            name='output-tags'
+            type='text'
+            label='Output Tags'
+            maxLength={10}
+            helpText='Used to provide a preview in the brief cards about what outputs your script will provide.'
+            pillValues={outputTags}
+            setPillValues={setOutputTags}
           />
         </div>
       </>
