@@ -134,6 +134,20 @@ input {
   font-weight: 600 !important;
 }
 
+input[type="range"]:focus, input[type="range"]:not(:placeholder-shown) {
+  outline: none !important;
+  border: none !important;
+}
+
+input[type="range"]:focus {
+  box-shadow: none !important;
+}
+
+$form-range-track-bg: var(--slider-color-dynamic) !important;
+$form-range-thumb-box-shadow: none !important;
+$form-range-thumb-focus-box-shadow: 0 0 0 1px var(--highest-contrast-color) !important;
+$form-range-thumb-bg: var(--medium-high-contrast-color) !important;
+
 textarea {
   font-weight: 600 !important;
 }

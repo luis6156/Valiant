@@ -1,7 +1,14 @@
 import FloatingLabelInput from '@/components/FloatingLabelInput';
 import FloatingLabelTextarea from '@/components/FloatingLabelTextarea';
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, {
+  ChangeEvent,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { FormDataType } from './ScriptsImport';
+import AttentionText from '@/components/AttentionText';
 
 interface Props {
   formData: FormDataType;
@@ -15,6 +22,8 @@ export interface Refs {
   scriptPageRef: React.RefObject<HTMLInputElement>;
   scriptNameRef: React.RefObject<HTMLInputElement>;
   scriptDescRef: React.RefObject<HTMLTextAreaElement>;
+  scriptSpeedRef: React.RefObject<HTMLInputElement>;
+  scriptSuccessRateRef: React.RefObject<HTMLInputElement>;
 }
 
 const ScriptsImportPageOne = forwardRef<Refs, Props>(
@@ -25,12 +34,59 @@ const ScriptsImportPageOne = forwardRef<Refs, Props>(
     const scriptPageRef = useRef<HTMLInputElement>(null);
     const scriptNameRef = useRef<HTMLInputElement>(null);
     const scriptDescRef = useRef<HTMLTextAreaElement>(null);
+    const scriptSpeedRef = useRef<HTMLInputElement>(null);
+    const scriptSuccessRateRef = useRef<HTMLInputElement>(null);
 
     useImperativeHandle(ref, () => ({
       scriptPageRef,
       scriptNameRef,
       scriptDescRef,
+      scriptSpeedRef,
+      scriptSuccessRateRef,
     }));
+
+    useEffect(() => {
+      const slider = scriptSpeedRef.current;
+
+      if (slider) {
+        updateSliderBackground({
+          target: slider,
+        } as React.ChangeEvent<HTMLInputElement>);
+      }
+
+      const sliderSuc = scriptSuccessRateRef.current;
+
+      if (sliderSuc) {
+        updateSliderBackground({
+          target: sliderSuc,
+        } as React.ChangeEvent<HTMLInputElement>);
+      }
+    }, []); // Call the function once during initialization
+
+    function updateSliderBackground(event: ChangeEvent<HTMLInputElement>) {
+      const slider = event.target as HTMLInputElement;
+
+      // Get the slider value
+      const value = slider.value;
+      let color = '';
+
+      if (value === '0') {
+        color = '#D43B3B';
+      } else if (value === '1') {
+        color = '#FF7D33';
+      } else if (value === '2') {
+        color = '#FFEB33';
+      } else if (value === '3') {
+        color = '#98FF7E';
+      } else if (value === '4') {
+        color = '#5FFF45';
+      }
+
+      console.log(value);
+
+      // Set the background color based on the calculated hue, saturation, and lightness
+      slider.style.setProperty('--slider-color-dynamic', `${color}`);
+    }
 
     return (
       <>
@@ -94,6 +150,40 @@ const ScriptsImportPageOne = forwardRef<Refs, Props>(
             pillValues={outputTags}
             setPillValues={setOutputTags}
           />
+        </div>
+        <div className='mt-3 mb-3'>
+          <label htmlFor='script-speed' className='form-label'>
+            Script Speed
+          </label>
+          <input
+            required={true}
+            ref={scriptSpeedRef}
+            type='range'
+            className='form-range'
+            min='0'
+            max='4'
+            id='script-speed'
+            defaultValue={formData.scriptSpeed}
+            onChange={updateSliderBackground}
+          />
+          <AttentionText text='Provide the usual speed range in which the script operations complete. It does not have to be completely accurate.' />
+        </div>
+        <div className='mt-3 mb-3'>
+          <label htmlFor='script-success-rate' className='form-label'>
+            Script Success Rate
+          </label>
+          <input
+            required={true}
+            ref={scriptSuccessRateRef}
+            type='range'
+            className='form-range'
+            min='0'
+            max='4'
+            id='script-success-rate'
+            defaultValue={formData.scriptSuccessRate}
+            onChange={updateSliderBackground}
+          />
+          <AttentionText text='Provide how successful the script is at returning results in most scenarios. It does not have to be completely accurate.' />
         </div>
       </>
     );

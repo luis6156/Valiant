@@ -10,6 +10,8 @@ export type FormDataType = {
   scriptPage: string;
   scriptName: string;
   scriptDescription: string;
+  scriptSpeed: string;
+  scriptSuccessRate: string;
 };
 
 const ScriptsImport = () => {
@@ -33,14 +35,26 @@ const ScriptsImport = () => {
       scriptsImportStepOneRef.current?.scriptNameRef.current?.value;
     const scriptDesc =
       scriptsImportStepOneRef.current?.scriptDescRef.current?.value;
+    const scriptSpeed =
+      scriptsImportStepOneRef.current?.scriptSpeedRef.current?.value;
+    const scriptSuccessRate =
+      scriptsImportStepOneRef.current?.scriptSuccessRateRef.current?.value;
 
-    if (scriptPage && scriptName && scriptDesc) {
+    if (
+      scriptPage &&
+      scriptName &&
+      scriptDesc &&
+      scriptSpeed &&
+      scriptSuccessRate
+    ) {
       setError('');
 
       setFormData({
         scriptPage,
         scriptName,
         scriptDescription: scriptDesc,
+        scriptSpeed,
+        scriptSuccessRate,
       });
 
       setStep(step + 1);
