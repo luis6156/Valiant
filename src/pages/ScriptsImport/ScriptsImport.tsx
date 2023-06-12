@@ -1,6 +1,6 @@
 import Header from '@/components/Header';
 
-import '../styles/scripts_import/scripts_import.scss';
+import '../../styles/scripts_import/scripts_import.scss';
 import { Icon } from '@iconify/react';
 import { createRef, useEffect, useRef, useState } from 'react';
 import AttentionText from '@/components/AttentionText';

@@ -1,6 +1,6 @@
 import Sidebar from '@/components/Sidebar';
 import Home from './Home';
-import ScriptsImport from './ScriptsImport';
+import ScriptsImport from './ScriptsImport/ScriptsImport';
 
 import '../styles/dashboard.scss';
 import { useSidebar } from '@/contexts/SidebarContext';
