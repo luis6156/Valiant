@@ -24,7 +24,7 @@
   label {
     position: absolute !important;
     top: 50%;
-    left: 3%;
+    left: 0.5rem;
     transform: translateY(-50%);
     pointer-events: none !important;
     transition: all 0.2s !important;
@@ -93,6 +93,7 @@
 }
 
 .form-text-icon {
+  font-size: 1.2rem;
   color: var(--medium-high-contrast-color);
 }
 

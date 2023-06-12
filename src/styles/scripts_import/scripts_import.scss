@@ -1,11 +1,115 @@
 @import '../variables';
 
 .script-import-right {
-  background-color: red;
-  height: 85vh;
+  // height: 85vh;
+  position: relative;
+  border-radius: 30px;
+  overflow: hidden;
+  z-index: 0;
 }
+
+.scripts-import-button-icon {
+  font-size: 1.5rem;
+  color: var(--h1-color);
+}
+
+.scripts-import-button-icon-back {
+  font-size: 1.5rem;
+  color: var(--low-contrast-color);
+}
+
+// .script-import-right::before {
+//   content: '';
+//   position: absolute;
+//   background-image: url('/images/waves.svg');
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   background-position: center;
+//   opacity: 0.2;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   z-index: -1;
+//   animation: glowAnimation 3s infinite linear;
+// }
+
+// @keyframes glowAnimation {
+//   0% {
+//     opacity: 0.3;
+//     filter: brightness(100%);
+//   }
+//   50% {
+//     opacity: 0.5;
+//     filter: brightness(150%);
+//   }
+//   100% {
+//     opacity: 0.3;
+//     filter: brightness(100%);
+//   }
+// }
+
+.import-steps-p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+} 
 
 .input-title {
   font-size: 1.2rem;
   font-weight: 600 !important;
+}
+
+.checkpoint-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkpoint-circle.active {
+  background-color: var(--primary-color);
+}
+
+.checkpoint-icon {
+  color: var(--lowest-contrast-color);
+  font-size: 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkpoint-icon.active {
+  color: var(--h1-color);
+}
+
+.checkpoint-text {
+  color: var(--h2-color) !important;
+  font-weight: 600 !important;
+}
+
+.checkpoint-text-small {
+  font-size: 0.8rem;
+  font-weight: 500 !important;
+}
+
+.checkpoint-line {
+  border-radius: 50px;
+  margin-left: 1.15rem;
+  width: 3px;
+  height: 7rem;
+  background-color: var(--medium-high-contrast-color);
+  transition: all 0.3s ease-in-out;
+}
+
+.checkpoint-line.active {
+  background-color: var(--primary-color);
+}
+
+.checkpoint-line-side {
+  border-radius: 50px;
+  margin-left: 1.15rem;
+  width: 3px;
+  height: 45rem;
+  background-color: var(--medium-high-contrast-color);
 }

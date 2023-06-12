@@ -33,7 +33,6 @@ const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
     ref: Ref<HTMLInputElement>
   ) => {
     const [value, setValue] = useState(defaultValue || '');
-    const [isHovered, setIsHovered] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
 
     useEffect(() => {
