@@ -8,77 +8,74 @@ import React, {
   useState,
 } from 'react';
 import { FormDataType } from './ScriptsImport';
-import AttentionText from '@/components/AttentionText';
 import { Icon } from '@iconify/react';
-import FlagRow, { FlagsRowRefs } from './FlagRow';
+import ColumnRow, { ColumnRowRefs } from './ColumnRow';
+import FloatingLabelInput from '@/components/FloatingLabelInput';
 
 interface Props {
   formData: FormDataType;
-  requiredFlags: boolean[];
-  setRequiredFlags: React.Dispatch<React.SetStateAction<boolean[]>>;
+  columnsType: string[];
+  setColumnsType: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export interface RefsStepTwo {
-  scriptFileRef: React.RefObject<HTMLInputElement>;
-  scriptFlagsRowsRefs: React.RefObject<FlagsRowRefs>[];
+export interface RefsStepThree {
+  scriptColumnSeparatorRef: React.RefObject<HTMLInputElement>;
+  scriptColumnsTypeRefs: React.RefObject<ColumnRowRefs>[];
 }
 
-const ScriptsImportPageThree = forwardRef<RefsStepTwo, Props>(
-  ({ formData, requiredFlags, setRequiredFlags }: Props, ref) => {
-    const scriptFileRef = useRef<HTMLInputElement>(null);
-    const [scriptFlagsRowsRefs, setScriptFlagsRowsRefs] = useState<
-      React.RefObject<FlagsRowRefs>[]
-    >([createRef<FlagsRowRefs>()]);
+const ScriptsImportPageThree = forwardRef<RefsStepThree, Props>(
+  ({ formData, columnsType, setColumnsType }: Props, ref) => {
+    const scriptColumnSeparatorRef = useRef<HTMLInputElement>(null);
+    const [scriptColumnRowsRefs, setScriptColumnRowsRefs] = useState<
+      React.RefObject<ColumnRowRefs>[]
+    >([createRef<ColumnRowRefs>()]);
 
     useEffect(() => {
-      if (scriptFlagsRowsRefs.length === 1 && requiredFlags.length === 0) {
-        setRequiredFlags([false]);
-      } else if (formData.scriptFlags.length > 0) {
-        setScriptFlagsRowsRefs(
-          formData.scriptFlags.map(() => createRef<FlagsRowRefs>())
+      if (scriptColumnRowsRefs.length === 1 && columnsType.length === 0) {
+        setColumnsType(['string']);
+      } else if (formData.scriptColumns && formData.scriptColumns.length > 0) {
+        setScriptColumnRowsRefs(
+          formData.scriptColumns.map(() => createRef<ColumnRowRefs>())
         );
 
-        setRequiredFlags(
-          formData.scriptFlags.map(
-            (_, index) => formData.scriptFlags[index].required
+        setColumnsType(
+          formData.scriptColumns.map(
+            (_, index) => formData.scriptColumns[index].type
           )
         );
       }
     }, []);
 
     useImperativeHandle(ref, () => ({
-      scriptFileRef,
-      scriptFlagsRowsRefs,
+      scriptColumnSeparatorRef,
+      scriptColumnsTypeRefs: scriptColumnRowsRefs,
     }));
 
     const handleAddFlag = () => {
-      setScriptFlagsRowsRefs((prevFlagsRowsRefs) => [
-        ...prevFlagsRowsRefs,
-        createRef<FlagsRowRefs>(),
+      setScriptColumnRowsRefs((prevColumnRowsRefs) => [
+        ...prevColumnRowsRefs,
+        createRef<ColumnRowRefs>(),
       ]);
 
-      setRequiredFlags((prevRequiredFlags) => [...prevRequiredFlags, false]);
+      setColumnsType((prevColumnsType) => [...prevColumnsType, 'string']);
     };
 
     const handleRemoveFlag = (index: number) => {
-      if (scriptFlagsRowsRefs.length > 1) {
-        setRequiredFlags((prevRequiredFlags) =>
-          prevRequiredFlags.filter((_, i) => i !== index)
+      if (scriptColumnRowsRefs.length > 1) {
+        setColumnsType((prevColumnsType) =>
+          prevColumnsType.filter((_, i) => i !== index)
         );
 
-        setScriptFlagsRowsRefs((prevFlagsRowsRefs) => {
+        setScriptColumnRowsRefs((prevColumnRowsRefs) => {
           // Shift the values for flag rows above the removed index
-          for (let i = index; i < prevFlagsRowsRefs.length - 1; i++) {
-            const flagsRowRef = prevFlagsRowsRefs[i].current!;
-            const nextFlagsRowRef = prevFlagsRowsRefs[i + 1].current!;
-
-            flagsRowRef.flagRef.current!.value =
-              nextFlagsRowRef.flagRef.current!.value;
-            flagsRowRef.descriptionRef.current!.value =
-              nextFlagsRowRef.descriptionRef.current!.value;
+          for (let i = index; i < prevColumnRowsRefs.length - 1; i++) {
+            const columnRowRef = prevColumnRowsRefs[i].current!;
+            const nextColumnRowRef = prevColumnRowsRefs[i + 1].current!;
+            columnRowRef.columnRef.current!.value =
+              nextColumnRowRef.columnRef.current!.value;
           }
 
-          return prevFlagsRowsRefs.slice(0, -1); // Remove the last row
+          return prevColumnRowsRefs.slice(0, -1); // Remove the last row
         });
       }
     };
@@ -90,23 +87,38 @@ const ScriptsImportPageThree = forwardRef<RefsStepTwo, Props>(
           Tell us what the script output will look like
         </p>
         <div className='mt-4 mb-4'>
+          <div className='mt-4 mb-4'>
+            <FloatingLabelInput
+              helpText='Provide all the separators used to split the data into the columns. Please start with "space" if you need it.'
+              defaultValue={`${
+                formData.scriptOutputColsSeparator
+                  ? formData.scriptOutputColsSeparator
+                  : ''
+              }`}
+              label={'Column Separator'}
+              type={'text'}
+              name={'script-col-separator'}
+              required={true}
+              ref={scriptColumnSeparatorRef}
+            />
+          </div>
           <div className='d-flex mb-1'>
-            <div className='flag-container ps-1'>
-              <p className=''>Flag</p>
+            <div className='ps-1'>
+              <p className=''>Name</p>
             </div>
             <div className='ps-1 mb-2'>
-              <p className=''>Input Description</p>
+              <p className=''>Type</p>
             </div>
           </div>
-          {scriptFlagsRowsRefs.map((flagsRowRefs, index) => (
-            <FlagRow
+          {scriptColumnRowsRefs.map((columnRowRef, index) => (
+            <ColumnRow
               formData={formData}
               key={index}
               index={index}
               handleRemoveFlag={handleRemoveFlag}
-              requiredFlags={requiredFlags}
-              setRequiredFlags={setRequiredFlags}
-              ref={flagsRowRefs}
+              columnsType={columnsType}
+              setColumnsType={setColumnsType}
+              ref={columnRowRef}
             />
           ))}
           <div className='d-flex mt-2 align-items-center'>
@@ -116,7 +128,6 @@ const ScriptsImportPageThree = forwardRef<RefsStepTwo, Props>(
             >
               <Icon className='flag-icon-add' icon='ic:round-plus' />
             </button>
-            <AttentionText text='The asterix button sets a flag as required.' />
           </div>
         </div>
       </>

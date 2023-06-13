@@ -53,7 +53,13 @@ const FlagRow = forwardRef<FlagsRowRefs, Props>(
         <div className='d-flex justify-content-between'>
           <div className='flag-container'>
             <input
-              defaultValue={`${formData.scriptFlags ? formData.scriptFlags[index]?.flag : '' }`}
+              defaultValue={`${
+                formData.scriptFlags
+                  ? formData.scriptFlags[index]?.flag
+                    ? formData.scriptFlags[index]?.flag
+                    : ''
+                  : ''
+              }`}
               placeholder={`${index === 0 ? '-i' : ''}`}
               type='text'
               className='form-control me-2'
@@ -62,7 +68,13 @@ const FlagRow = forwardRef<FlagsRowRefs, Props>(
           </div>
           <div className='w-100 ps-3 pe-2'>
             <input
-              defaultValue={`${formData.scriptFlags ? formData.scriptFlags[index]?.description : '' }`}
+              defaultValue={`${
+                formData.scriptFlags
+                  ? formData.scriptFlags[index]?.description
+                    ? formData.scriptFlags[index]?.description
+                    : ''
+                  : ''
+              }`}
               placeholder={`${index === 0 ? 'Provide the input file' : ''}`}
               type='text'
               className='form-control'

@@ -7,12 +7,22 @@ import AttentionText from '@/components/AttentionText';
 import ScriptsImportPageOne, { RefsStepOne } from './ScriptsImportPageOne';
 import ScriptsImportPageTwo, { RefsStepTwo } from './ScriptsImportPageTwo';
 import { FlagsRowRefs } from './FlagRow';
-import ScriptsImportPageThree from './ScriptsImportPageThree';
+import ScriptsImportPageThree, {
+  RefsStepThree,
+} from './ScriptsImportPageThree';
+import { ColumnRowRefs } from './ColumnRow';
+import { set } from 'lodash';
+import ScriptsImportPageFour from './ScriptsImportPageFour';
 
 export type ScriptFlag = {
   flag: string;
   description: string;
   required: boolean;
+};
+
+export type ScriptColumn = {
+  name: string;
+  type: string;
 };
 
 export type FormDataType = {
@@ -23,8 +33,8 @@ export type FormDataType = {
   scriptSuccessRate: string;
   scriptPath: string;
   scriptFlags: ScriptFlag[];
+  scriptColumns: ScriptColumn[];
   scriptExecutable: string;
-  scriptOutputCols: string[];
   scriptOutputColsSeparator: string;
 };
 
@@ -33,10 +43,12 @@ const ScriptsImport = () => {
   const [inputTags, setInputTags] = useState<string[]>([]);
   const [outputTags, setOutputTags] = useState<string[]>([]);
   const [scriptRequiredFlags, setScriptRequiredFlags] = useState<boolean[]>([]);
+  const [scriptColumnsType, setScriptColumnsType] = useState<string[]>([]);
   const [step, setStep] = useState<number>(1);
   const [error, setError] = useState<string>('');
   const scriptsImportStepOneRef = createRef<RefsStepOne>();
   const scriptsImportStepTwoRef = useRef<RefsStepTwo>(null);
+  const scriptsImportStepThreeRef = useRef<RefsStepThree>(null);
 
   useEffect(() => {
     console.log(formData);
@@ -91,7 +103,7 @@ const ScriptsImport = () => {
     const scriptFileFlags =
       scriptsImportStepTwoRef.current?.scriptFlagsRowsRefs;
 
-    if (scriptFile && scriptExecutable) {
+    if ((scriptFile || formData.scriptPath) && scriptExecutable) {
       setError('');
 
       if (scriptFileFlags) {
@@ -118,7 +130,7 @@ const ScriptsImport = () => {
         setFormData({
           ...formData,
           scriptExecutable,
-          scriptPath: scriptFile.path,
+          scriptPath: scriptFile?.path || formData.scriptPath,
           scriptFlags: flags,
         });
 
@@ -126,6 +138,44 @@ const ScriptsImport = () => {
       }
     } else {
       setError('Script file path and executable name are required.');
+    }
+  };
+
+  const handleContinueClickThirdStep = () => {
+    const scriptOutputColsSeparator =
+      scriptsImportStepThreeRef.current?.scriptColumnSeparatorRef.current
+        ?.value;
+    const scriptColumns =
+      scriptsImportStepThreeRef.current?.scriptColumnsTypeRefs;
+
+    if (scriptOutputColsSeparator && scriptColumns) {
+      setError('');
+
+      const columns: ScriptColumn[] = [];
+
+      scriptColumns.forEach(
+        (columnRef: React.RefObject<ColumnRowRefs> | null, index: number) => {
+          const columnName = columnRef?.current?.columnRef.current?.value || '';
+          const columnType = scriptColumnsType[index];
+
+          columns.push({
+            name: columnName,
+            type: columnType,
+          });
+        }
+      );
+
+      setFormData({
+        ...formData,
+        scriptOutputColsSeparator,
+        scriptColumns: columns,
+      });
+
+      setStep(4);
+    } else {
+      setError(
+        'Columns separator and at least a column definition is required.'
+      );
     }
   };
 
@@ -160,8 +210,16 @@ const ScriptsImport = () => {
                 requiredFlags={scriptRequiredFlags}
                 setRequiredFlags={setScriptRequiredFlags}
               />
-            ) : step === 3 ? null : // <ScriptsImportPageThree />
-            null}
+            ) : step === 3 ? (
+              <ScriptsImportPageThree
+                ref={scriptsImportStepThreeRef}
+                formData={formData}
+                columnsType={scriptColumnsType}
+                setColumnsType={setScriptColumnsType}
+              />
+            ) : step === 4 ? (
+              <ScriptsImportPageFour />
+            ) : null}
           </div>
           <div className='col-md-3 script-import-right'>
             <div className='container h-100'>
@@ -269,34 +327,6 @@ const ScriptsImport = () => {
                     </div>
 
                     <div className='d-flex mt-5'>
-                      {/* <button
-                        onClick={handleGoBack}
-                        className={`${
-                          step <= 1 ? 'invisible' : ''
-                        } btn btn-secondary me-3`}
-                      >
-                        <div className='d-flex align-items-center justify-content-center me-3'>
-                          <Icon
-                            className='scripts-import-button-icon-back'
-                            icon='ic:round-arrow-left'
-                          />
-                          Back
-                        </div>
-                      </button>
-
-                      <button
-                        onClick={handleContinueClickFirstStep}
-                        className='btn btn-primary'
-                      >
-                        <div className='d-flex align-items-center justify-content-center'>
-                          Continue
-                          <Icon
-                            className='scripts-import-button-icon'
-                            icon='ic:round-arrow-right'
-                          />
-                        </div>
-                      </button> */}
-
                       <button
                         className={`btn btn-info github-arrow d-flex align-items-center ${
                           step === 1 ? 'disabled' : ''
@@ -315,6 +345,8 @@ const ScriptsImport = () => {
                             ? handleContinueClickFirstStep
                             : step === 2
                             ? handleContinueClickSecondStep
+                            : step === 3
+                            ? handleContinueClickThirdStep
                             : undefined
                         }
                       >

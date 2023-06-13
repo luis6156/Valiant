@@ -36,7 +36,7 @@ const ScriptsImportPageTwo = forwardRef<RefsStepTwo, Props>(
     useEffect(() => {
       if (scriptFlagsRowsRefs.length === 1 && requiredFlags.length === 0) {
         setRequiredFlags([false]);
-      } else if (formData.scriptFlags.length > 0) {
+      } else if (formData.scriptFlags && formData.scriptFlags.length > 0) {
         setScriptFlagsRowsRefs(
           formData.scriptFlags.map(() => createRef<FlagsRowRefs>())
         );
