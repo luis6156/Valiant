@@ -11,6 +11,7 @@ import { FormDataType } from './ScriptsImport';
 import AttentionText from '@/components/AttentionText';
 import { Icon } from '@iconify/react';
 import FlagRow, { FlagsRowRefs } from './FlagRow';
+import FloatingLabelInput from '@/components/FloatingLabelInput';
 
 interface Props {
   formData: FormDataType;
@@ -20,12 +21,14 @@ interface Props {
 
 export interface RefsStepTwo {
   scriptFileRef: React.RefObject<HTMLInputElement>;
+  scriptExecutableRef: React.RefObject<HTMLInputElement>;
   scriptFlagsRowsRefs: React.RefObject<FlagsRowRefs>[];
 }
 
 const ScriptsImportPageTwo = forwardRef<RefsStepTwo, Props>(
   ({ formData, requiredFlags, setRequiredFlags }: Props, ref) => {
     const scriptFileRef = useRef<HTMLInputElement>(null);
+    const scriptExecutableRef = useRef<HTMLInputElement>(null);
     const [scriptFlagsRowsRefs, setScriptFlagsRowsRefs] = useState<
       React.RefObject<FlagsRowRefs>[]
     >([createRef<FlagsRowRefs>()]);
@@ -49,6 +52,7 @@ const ScriptsImportPageTwo = forwardRef<RefsStepTwo, Props>(
     useImperativeHandle(ref, () => ({
       scriptFileRef,
       scriptFlagsRowsRefs,
+      scriptExecutableRef,
     }));
 
     const handleAddFlag = () => {
@@ -106,6 +110,19 @@ const ScriptsImportPageTwo = forwardRef<RefsStepTwo, Props>(
             <AttentionText text='The script file was saved but it cannot be shown due to security reasons.' />
           </div>
         )}
+        <div className='mt-4 mb-4'>
+          <FloatingLabelInput
+            helpText='Provide the executable name that will prefix the script name.'
+            defaultValue={`${
+              formData.scriptExecutable ? formData.scriptExecutable : ''
+            }`}
+            label={'Script Executable'}
+            type={'text'}
+            name={'script-executable'}
+            required={true}
+            ref={scriptExecutableRef}
+          />
+        </div>
         <div className='mt-4 mb-4'>
           <div className='d-flex mb-1'>
             <div className='flag-container ps-1'>

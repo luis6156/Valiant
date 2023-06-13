@@ -23,6 +23,9 @@ export type FormDataType = {
   scriptSuccessRate: string;
   scriptPath: string;
   scriptFlags: ScriptFlag[];
+  scriptExecutable: string;
+  scriptOutputCols: string[];
+  scriptOutputColsSeparator: string;
 };
 
 const ScriptsImport = () => {
@@ -83,10 +86,12 @@ const ScriptsImport = () => {
   const handleContinueClickSecondStep = () => {
     const scriptFile =
       scriptsImportStepTwoRef.current?.scriptFileRef.current?.files?.[0];
+    const scriptExecutable =
+      scriptsImportStepTwoRef.current?.scriptExecutableRef.current?.value;
     const scriptFileFlags =
       scriptsImportStepTwoRef.current?.scriptFlagsRowsRefs;
 
-    if (scriptFile) {
+    if (scriptFile && scriptExecutable) {
       setError('');
 
       if (scriptFileFlags) {
@@ -112,14 +117,15 @@ const ScriptsImport = () => {
 
         setFormData({
           ...formData,
-          scriptPath: scriptFile.name,
+          scriptExecutable,
+          scriptPath: scriptFile.path,
           scriptFlags: flags,
         });
 
         setStep(3);
       }
     } else {
-      setError('Script file path is required.');
+      setError('Script file path and executable name are required.');
     }
   };
 
@@ -154,9 +160,8 @@ const ScriptsImport = () => {
                 requiredFlags={scriptRequiredFlags}
                 setRequiredFlags={setScriptRequiredFlags}
               />
-            ) : step === 3 ? (
-              <ScriptsImportPageThree />
-            ) : null}
+            ) : step === 3 ? null : // <ScriptsImportPageThree />
+            null}
           </div>
           <div className='col-md-3 script-import-right'>
             <div className='container h-100'>
@@ -316,14 +321,14 @@ const ScriptsImport = () => {
                         <Icon icon='ic:round-arrow-right' />
                       </button>
                     </div>
-
-                    {error && (
-                      <div className='mt-4'>
-                        <AttentionText danger={error} text='' />
-                      </div>
-                    )}
                   </div>
                 </div>
+
+                {error && (
+                  <div className=''>
+                    <AttentionText danger={error} text='' />
+                  </div>
+                )}
               </div>
             </div>
           </div>
