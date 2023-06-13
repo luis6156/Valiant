@@ -132,6 +132,20 @@ label {
 
 input {
   font-weight: 600 !important;
+  background-color: transparent !important;
+  border-color: var(--lowest-contrast-color) !important;
+}
+
+input:hover {
+  border-color: transparent !important;
+  outline: 1.5px solid var(--h2-color);
+}
+
+input:focus {
+  box-shadow: none !important;
+  border-color: transparent !important;
+  outline: 1.5px solid var(--primary-color) !important;
+  transition: outline 0.1s ease-in !important;
 }
 
 input[type="range"]:focus, input[type="range"]:not(:placeholder-shown) {
@@ -146,7 +160,30 @@ input[type="range"]:focus {
 $form-range-track-bg: var(--slider-color-dynamic) !important;
 $form-range-thumb-box-shadow: none !important;
 $form-range-thumb-focus-box-shadow: 0 0 0 1px var(--highest-contrast-color) !important;
-$form-range-thumb-bg: var(--medium-high-contrast-color) !important;
+$form-range-thumb-bg: var(--h2-color) !important;
+
+input[type="file"] {
+  background-color: transparent !important;
+  border-color: var(--lowest-contrast-color) !important;
+}
+
+label.input-group-text {
+  color: var(--medium-high-contrast-color) !important;
+  border-color: var(--lowest-contrast-color) !important;
+  background-color: var(--background-color) !important;
+  transition: border-color 0.1s ease-in !important;
+  font-weight : 600 !important;
+}
+
+input[type="file"]:focus {
+  border-color: var(--lowest-contrast-color) !important;
+  outline: none !important;
+}
+
+input[type="file"]:hover {
+  border-color: transparent !important;
+  outline: 1.5px solid var(--h2-color);
+}
 
 textarea {
   font-weight: 600 !important;
@@ -163,11 +200,6 @@ textarea:not(:placeholder-shown) {
 
 input::placeholder {
   color: var(--lower-contrast-color) !important;
-}
-
-input:focus {
-  color: var(--highest-contrast-color) !important;
-  box-shadow: 0 0 0 2px var(--primary-color) !important;
 }
 
 input:focus,

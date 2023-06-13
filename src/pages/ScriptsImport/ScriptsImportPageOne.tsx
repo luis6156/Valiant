@@ -18,7 +18,7 @@ interface Props {
   setOutputTags: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export interface Refs {
+export interface RefsStepOne {
   scriptPageRef: React.RefObject<HTMLInputElement>;
   scriptNameRef: React.RefObject<HTMLInputElement>;
   scriptDescRef: React.RefObject<HTMLTextAreaElement>;
@@ -26,7 +26,7 @@ export interface Refs {
   scriptSuccessRateRef: React.RefObject<HTMLInputElement>;
 }
 
-const ScriptsImportPageOne = forwardRef<Refs, Props>(
+const ScriptsImportPageOne = forwardRef<RefsStepOne, Props>(
   (
     { formData, inputTags, setInputTags, outputTags, setOutputTags }: Props,
     ref
@@ -98,11 +98,11 @@ const ScriptsImportPageOne = forwardRef<Refs, Props>(
           <FloatingLabelInput
             required={true}
             ref={scriptPageRef}
-            name='github-page'
+            name='script-url'
             type='text'
-            label='Github Page'
+            label='Script URL'
             defaultValue={formData.scriptPage}
-            helpText='Provide the path to the Github page where your scripts are located for easier management. The link does not have to be from GitHub, but it must be a valid link.'
+            helpText='Provide the full URL to the Github page where your script can be downloaded for easier management. The link does not have to be from GitHub, but it must be a valid link.'
           />
         </div>
         <div className='mb-4'>

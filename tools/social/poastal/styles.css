@@ -34,24 +34,6 @@ h1 {
   border-radius: 4px;
 }
 
-input[type="email"] {
-    width: 97.75%;
-    padding: 0.5rem;
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: Lato, sans-serif;
-    border-color: #E0D1D3;
-    color: #8B7B7A;
-}
-
-input[type="email"]:focus {
-    border-color: #EF8080;
-    outline: none;
-    color: #8B7B7A;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;

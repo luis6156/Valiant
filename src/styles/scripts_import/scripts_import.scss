@@ -121,3 +121,31 @@
   height: 45rem;
   background-color: var(--medium-high-contrast-color);
 }
+
+.flag-icons {
+  color: var(--h2-color) !important;
+  font-size: 1.2rem;
+}
+
+.flag-icons.active {
+  color: var(--primary-color) !important;
+}
+
+.flag-container {
+  width: 10%;
+}
+
+.flag-buttons-container {
+  width: 5rem;
+}
+
+.flag-icon-button-add {
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+.flag-icon-add {
+  color: var(--h2-color) !important;
+  width: 1.5rem;
+  height: 1.5rem;
+}

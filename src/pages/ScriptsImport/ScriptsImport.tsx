@@ -4,7 +4,16 @@ import '../../styles/scripts_import/scripts_import.scss';
 import { Icon } from '@iconify/react';
 import { createRef, useEffect, useRef, useState } from 'react';
 import AttentionText from '@/components/AttentionText';
-import ScriptsImportPageOne, { Refs } from './ScriptsImportPageOne';
+import ScriptsImportPageOne, { RefsStepOne } from './ScriptsImportPageOne';
+import ScriptsImportPageTwo, { RefsStepTwo } from './ScriptsImportPageTwo';
+import { FlagsRowRefs } from './FlagRow';
+import ScriptsImportPageThree from './ScriptsImportPageThree';
+
+export type ScriptFlag = {
+  flag: string;
+  description: string;
+  required: boolean;
+};
 
 export type FormDataType = {
   scriptPage: string;
@@ -12,15 +21,19 @@ export type FormDataType = {
   scriptDescription: string;
   scriptSpeed: string;
   scriptSuccessRate: string;
+  scriptPath: string;
+  scriptFlags: ScriptFlag[];
 };
 
 const ScriptsImport = () => {
   const [formData, setFormData] = useState<FormDataType>({} as FormDataType);
   const [inputTags, setInputTags] = useState<string[]>([]);
   const [outputTags, setOutputTags] = useState<string[]>([]);
+  const [scriptRequiredFlags, setScriptRequiredFlags] = useState<boolean[]>([]);
   const [step, setStep] = useState<number>(1);
   const [error, setError] = useState<string>('');
-  const scriptsImportStepOneRef = createRef<Refs>();
+  const scriptsImportStepOneRef = createRef<RefsStepOne>();
+  const scriptsImportStepTwoRef = useRef<RefsStepTwo>(null);
 
   useEffect(() => {
     console.log(formData);
@@ -41,28 +54,72 @@ const ScriptsImport = () => {
       scriptsImportStepOneRef.current?.scriptSuccessRateRef.current?.value;
 
     if (
-      scriptPage &&
       scriptName &&
       scriptDesc &&
       scriptSpeed &&
-      scriptSuccessRate
+      scriptSuccessRate &&
+      inputTags.length > 0 &&
+      outputTags.length > 0
     ) {
       setError('');
 
       setFormData({
-        scriptPage,
+        ...formData,
+        scriptPage: scriptPage || '',
         scriptName,
         scriptDescription: scriptDesc,
         scriptSpeed,
         scriptSuccessRate,
       });
 
-      setStep(step + 1);
+      setStep(2);
     } else {
-      setError('All fields are mandatory for this step');
-      scriptsImportStepOneRef.current?.scriptPageRef.current?.reportValidity();
+      setError('All fields except URL are required');
       scriptsImportStepOneRef.current?.scriptNameRef.current?.reportValidity();
       scriptsImportStepOneRef.current?.scriptDescRef.current?.reportValidity();
+    }
+  };
+
+  const handleContinueClickSecondStep = () => {
+    const scriptFile =
+      scriptsImportStepTwoRef.current?.scriptFileRef.current?.files?.[0];
+    const scriptFileFlags =
+      scriptsImportStepTwoRef.current?.scriptFlagsRowsRefs;
+
+    if (scriptFile) {
+      setError('');
+
+      if (scriptFileFlags) {
+        const flags: ScriptFlag[] = [];
+
+        scriptFileFlags.forEach(
+          (
+            flagsRowRef: React.RefObject<FlagsRowRefs> | null,
+            index: number
+          ) => {
+            const flagValue =
+              flagsRowRef?.current?.flagRef.current?.value || '';
+            const descriptionValue =
+              flagsRowRef?.current?.descriptionRef.current?.value || '';
+
+            flags.push({
+              flag: flagValue,
+              description: descriptionValue,
+              required: scriptRequiredFlags[index],
+            });
+          }
+        );
+
+        setFormData({
+          ...formData,
+          scriptPath: scriptFile.name,
+          scriptFlags: flags,
+        });
+
+        setStep(3);
+      }
+    } else {
+      setError('Script file path is required.');
     }
   };
 
@@ -90,6 +147,15 @@ const ScriptsImport = () => {
                 outputTags={outputTags}
                 setOutputTags={setOutputTags}
               />
+            ) : step === 2 ? (
+              <ScriptsImportPageTwo
+                ref={scriptsImportStepTwoRef}
+                formData={formData}
+                requiredFlags={scriptRequiredFlags}
+                setRequiredFlags={setScriptRequiredFlags}
+              />
+            ) : step === 3 ? (
+              <ScriptsImportPageThree />
             ) : null}
           </div>
           <div className='col-md-3 script-import-right'>
@@ -102,15 +168,13 @@ const ScriptsImport = () => {
                         <div className='active checkpoint-circle d-flex align-items-center justify-content-center'>
                           <Icon
                             className='active checkpoint-icon'
-                            icon='fluent:person-16-regular'
+                            icon='ic:round-person'
                           />
                         </div>
                       </div>
                       <div>
                         <p className='checkpoint-text'>Step 1</p>
-                        <p className='checkpoint-text-small'>
-                          Short details about the script
-                        </p>
+                        <p className='checkpoint-text-small'>Script details</p>
                       </div>
                     </div>
 
@@ -131,14 +195,14 @@ const ScriptsImport = () => {
                             className={`${
                               step > 1 ? 'active' : ''
                             } checkpoint-icon`}
-                            icon='fluent:person-16-regular'
+                            icon='ri:run-fill'
                           />
                         </div>
                       </div>
                       <div>
                         <p className='checkpoint-text'>Step 2</p>
                         <p className='checkpoint-text-small'>
-                          Short details about
+                          Execution details
                         </p>
                       </div>
                     </div>
@@ -160,13 +224,13 @@ const ScriptsImport = () => {
                             className={`${
                               step > 2 ? 'active' : ''
                             } checkpoint-icon`}
-                            icon='fluent:person-16-regular'
+                            icon='ic:outline-output'
                           />
                         </div>
                       </div>
                       <div>
                         <p className='checkpoint-text'>Step 3</p>
-                        <p className='checkpoint-text-small'>Almost ready</p>
+                        <p className='checkpoint-text-small'>Output format</p>
                       </div>
                     </div>
 
@@ -187,13 +251,15 @@ const ScriptsImport = () => {
                             className={`${
                               step > 3 ? 'active' : ''
                             } checkpoint-icon`}
-                            icon='fluent:person-16-regular'
+                            icon='mdi:graph-box-outline'
                           />
                         </div>
                       </div>
                       <div>
                         <p className='checkpoint-text'>Step 4</p>
-                        <p className='checkpoint-text-small'>Final touches</p>
+                        <p className='checkpoint-text-small'>
+                          Visualizer setup
+                        </p>
                       </div>
                     </div>
 
@@ -239,7 +305,13 @@ const ScriptsImport = () => {
                         className={`btn btn-info ms-2 github-arrow d-flex align-items-center ${
                           step === 4 ? 'disabled' : ''
                         }`}
-                        onClick={handleContinueClickFirstStep}
+                        onClick={
+                          step === 1
+                            ? handleContinueClickFirstStep
+                            : step === 2
+                            ? handleContinueClickSecondStep
+                            : undefined
+                        }
                       >
                         <Icon icon='ic:round-arrow-right' />
                       </button>

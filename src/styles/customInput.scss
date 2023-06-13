@@ -8,7 +8,6 @@
     padding: 0.6rem !important;
     box-shadow: none !important;
     border-color: var(--lowest-contrast-color) !important;
-    transition: outline 0.1s ease-in !important; 
   }
 
   input:hover, textarea:hover {
@@ -19,6 +18,7 @@
   input:focus, textarea:focus {
     border-color: transparent !important;
     outline: 1.5px solid var(--primary-color);
+    transition: outline 0.1s ease-in !important; 
   }
 
   label {
