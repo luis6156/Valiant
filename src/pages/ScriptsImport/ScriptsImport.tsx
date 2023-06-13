@@ -321,6 +321,35 @@ const ScriptsImport = () => {
                       <div>
                         <p className='checkpoint-text'>Step 4</p>
                         <p className='checkpoint-text-small'>
+                          Visualizer type
+                        </p>
+                      </div>
+                    </div>
+
+                    <div
+                      className={`${
+                        step > 4 ? 'active' : ''
+                      } mt-2 mb-2 checkpoint-line`}
+                    ></div>
+
+                    <div className='d-flex align-items-center'>
+                      <div className='me-3'>
+                        <div
+                          className={`${
+                            step > 3 ? 'active' : ''
+                          } checkpoint-circle d-flex align-items-center justify-content-center`}
+                        >
+                          <Icon
+                            className={`${
+                              step > 4 ? 'active' : ''
+                            } checkpoint-icon`}
+                            icon='gg:data'
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <p className='checkpoint-text'>Step 5</p>
+                        <p className='checkpoint-text-small'>
                           Visualizer setup
                         </p>
                       </div>
