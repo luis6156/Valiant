@@ -12,10 +12,10 @@ const Dashboard = () => {
     <>
       <div className='container-fluid'>
         <div className='row'>
-          <div className='col-md-1 col-sidebar'>
+          <div className='sidebar-margin col-md-1 col-sidebar'>
             <Sidebar />
           </div>
-          <div className='col-md ps-0 pe-3'>
+          <div className='dashboard-margin col-md ps-0 pe-3'>
             {activeIcon === 'dashboard' ? (
               <Home />
             ) : activeIcon === 'scripts-import' ? (

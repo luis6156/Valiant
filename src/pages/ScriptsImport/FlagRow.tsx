@@ -66,7 +66,7 @@ const FlagRow = forwardRef<FlagsRowRefs, Props>(
               ref={flagRef}
             />
           </div>
-          <div className='w-100 ps-3 pe-2'>
+          <div className='w-100 px-3'>
             <input
               defaultValue={`${
                 formData.scriptFlags

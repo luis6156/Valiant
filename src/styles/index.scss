@@ -55,8 +55,14 @@ body,
 }
 
 .toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--background-color) !important;
   -webkit-app-region: drag;
   border-bottom: var(--toolbar-border-color) solid 1px;
+  z-index: 9999;
 }
 
 .toolbar-auth {
@@ -305,6 +311,14 @@ option {
 .dropdown-item:hover {
   background-color: var(--primary-color) !important;
   color: var(--h1-color) !important;
+}
+
+.dashboard-margin {
+  margin-top: 2rem !important;
+}
+
+.sidebar-margin {
+  margin-top: 2rem !important;
 }
 
 .btn-icon {

@@ -11,8 +11,10 @@ import ScriptsImportPageThree, {
   RefsStepThree,
 } from './ScriptsImportPageThree';
 import { ColumnRowRefs } from './ColumnRow';
-import { set } from 'lodash';
 import ScriptsImportPageFour from './ScriptsImportPageFour';
+import { useSidebar } from '@/contexts/SidebarContext';
+
+const FILENAME = 'scripts.json';
 
 export type ScriptFlag = {
   flag: string;
@@ -25,7 +27,19 @@ export type ScriptColumn = {
   type: string;
 };
 
-export type FormDataType = {
+export type ScriptVisualizer = {
+  type: string;
+  labelXColumn: string;
+  labelYColumn: string;
+  labelZColumn: string;
+};
+
+export type ScriptOutputFormat = {
+  type: string;
+  name: string;
+};
+
+export type ScriptDataType = {
   scriptPage: string;
   scriptName: string;
   scriptDescription: string;
@@ -36,19 +50,35 @@ export type FormDataType = {
   scriptColumns: ScriptColumn[];
   scriptExecutable: string;
   scriptOutputColsSeparator: string;
+  scriptVisualizer: ScriptVisualizer;
+  scriptOutputFormat: ScriptOutputFormat;
 };
 
 const ScriptsImport = () => {
-  const [formData, setFormData] = useState<FormDataType>({} as FormDataType);
+  const [formData, setFormData] = useState<ScriptDataType>(
+    {} as ScriptDataType
+  );
   const [inputTags, setInputTags] = useState<string[]>([]);
   const [outputTags, setOutputTags] = useState<string[]>([]);
   const [scriptRequiredFlags, setScriptRequiredFlags] = useState<boolean[]>([]);
   const [scriptColumnsType, setScriptColumnsType] = useState<string[]>([]);
+  const [scriptVisualizerType, setScriptVisualizerType] = useState<string>('');
+  const [scriptVisualizerLabelXColumn, setScriptVisualizerLabelXColumn] =
+    useState<string>('');
+  const [scriptVisualizerLabelYColumn, setScriptVisualizerLabelYColumn] =
+    useState<string>('');
+  const [scriptVisualizerLabelZColumn, setScriptVisualizerLabelZColumn] =
+    useState<string>('');
+  const [scriptOutputFormatType, setScriptOutputFormatType] =
+    useState<string>('');
+  const [scriptOutputFormatName, setScriptOutputFormatName] =
+    useState<string>('');
   const [step, setStep] = useState<number>(1);
   const [error, setError] = useState<string>('');
   const scriptsImportStepOneRef = createRef<RefsStepOne>();
   const scriptsImportStepTwoRef = useRef<RefsStepTwo>(null);
   const scriptsImportStepThreeRef = useRef<RefsStepThree>(null);
+  const { handleIconClick } = useSidebar();
 
   useEffect(() => {
     console.log(formData);
@@ -179,6 +209,117 @@ const ScriptsImport = () => {
     }
   };
 
+  const handleContinueClickFourthStep = async () => {
+    if (scriptOutputFormatType) {
+      if (
+        (scriptOutputFormatType !== 'stdout' && scriptOutputFormatName) ||
+        scriptOutputFormatType === 'stdout'
+      ) {
+        if (scriptVisualizerType) {
+          if (
+            (scriptVisualizerType === 'line-chart' ||
+              scriptVisualizerType === 'bar-chart' ||
+              scriptVisualizerType === 'pie-chart') &&
+            (!scriptVisualizerLabelXColumn || !scriptVisualizerLabelYColumn)
+          ) {
+            setError(
+              'Label X and Label Y columns are required for this type of visualizer.'
+            );
+            return;
+          } else if (
+            scriptVisualizerType === 'scatter-chart' &&
+            (!scriptVisualizerLabelXColumn ||
+              !scriptVisualizerLabelYColumn ||
+              !scriptVisualizerLabelZColumn)
+          ) {
+            setError(
+              'Label X, Label Y and Label Z columns are required for this type of visualizer.'
+            );
+            return;
+          } else if (scriptOutputFormatType === 'output-flag') {
+            const flagData = formData.scriptFlags.find(
+              (flag) => flag.flag === scriptOutputFormatName
+            );
+            if (flagData?.required === false) {
+              setError('Please set the output flag to required.');
+              return;
+            }
+          }
+
+          setError('');
+
+          const outputFormat: ScriptOutputFormat = {
+            type: scriptOutputFormatType,
+            name: scriptOutputFormatName,
+          };
+
+          const visualizer: ScriptVisualizer = {
+            type: scriptVisualizerType,
+            labelXColumn: scriptVisualizerLabelXColumn,
+            labelYColumn: scriptVisualizerLabelYColumn,
+            labelZColumn: scriptVisualizerLabelZColumn,
+          };
+
+          setFormData({
+            ...formData,
+            scriptOutputFormat: outputFormat,
+            scriptVisualizer: visualizer,
+          });
+
+          const existsFile = await ipcRenderer.invoke('fs-exists-sync', {
+            fileName: FILENAME,
+          });
+          if (existsFile) {
+            const scripts = await ipcRenderer.invoke('fs-readfile-sync', {
+              fileName: FILENAME,
+            });
+            const scriptsParsed = JSON.parse(scripts);
+
+            const existsScript = scriptsParsed.find(
+              (script: ScriptDataType) =>
+                script.scriptName === formData.scriptName
+            );
+
+            if (existsScript) {
+              setError('Script name already exists.');
+              return;
+            }
+
+            scriptsParsed.push({
+              ...formData,
+              scriptOutputFormat: outputFormat,
+              scriptVisualizer: visualizer,
+            });
+
+            await ipcRenderer.invoke('fs-writefile-sync', {
+              data: JSON.stringify(scriptsParsed),
+              fileName: FILENAME,
+            });
+          } else {
+            await ipcRenderer.invoke('fs-writefile-sync', {
+              data: JSON.stringify([
+                {
+                  ...formData,
+                  scriptOutputFormat: outputFormat,
+                  scriptVisualizer: visualizer,
+                },
+              ]),
+              fileName: FILENAME,
+            });
+          }
+
+          handleIconClick('scripts-search');
+        } else {
+          setError('Visualizer is required.');
+        }
+      } else {
+        setError('Output format name is required for this type.');
+      }
+    } else {
+      setError('Output format type is required.');
+    }
+  };
+
   const handleGoBack = () => {
     setStep(step - 1);
   };
@@ -217,9 +358,23 @@ const ScriptsImport = () => {
                 columnsType={scriptColumnsType}
                 setColumnsType={setScriptColumnsType}
               />
-            ) : step === 4 ? (
-              <ScriptsImportPageFour />
-            ) : null}
+            ) : (
+              <ScriptsImportPageFour
+                formData={formData}
+                visualizerType={scriptVisualizerType}
+                setVisualizerType={setScriptVisualizerType}
+                setVisualizerLabelXColumn={setScriptVisualizerLabelXColumn}
+                setVisualizerLabelYColumn={setScriptVisualizerLabelYColumn}
+                setVisualizerLabelZColumn={setScriptVisualizerLabelZColumn}
+                visualizerLabelXColumn={scriptVisualizerLabelXColumn}
+                visualizerLabelYColumn={scriptVisualizerLabelYColumn}
+                visualizerLabelZColumn={scriptVisualizerLabelZColumn}
+                outputType={scriptOutputFormatType}
+                setOutputType={setScriptOutputFormatType}
+                outputName={scriptOutputFormatName}
+                setOutputName={setScriptOutputFormatName}
+              />
+            )}
           </div>
           <div className='col-md-3 script-import-right'>
             <div className='container h-100'>
@@ -321,35 +476,6 @@ const ScriptsImport = () => {
                       <div>
                         <p className='checkpoint-text'>Step 4</p>
                         <p className='checkpoint-text-small'>
-                          Visualizer type
-                        </p>
-                      </div>
-                    </div>
-
-                    <div
-                      className={`${
-                        step > 4 ? 'active' : ''
-                      } mt-2 mb-2 checkpoint-line`}
-                    ></div>
-
-                    <div className='d-flex align-items-center'>
-                      <div className='me-3'>
-                        <div
-                          className={`${
-                            step > 3 ? 'active' : ''
-                          } checkpoint-circle d-flex align-items-center justify-content-center`}
-                        >
-                          <Icon
-                            className={`${
-                              step > 4 ? 'active' : ''
-                            } checkpoint-icon`}
-                            icon='gg:data'
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <p className='checkpoint-text'>Step 5</p>
-                        <p className='checkpoint-text-small'>
                           Visualizer setup
                         </p>
                       </div>
@@ -366,9 +492,7 @@ const ScriptsImport = () => {
                       </button>
 
                       <button
-                        className={`btn btn-info ms-2 github-arrow d-flex align-items-center ${
-                          step === 4 ? 'disabled' : ''
-                        }`}
+                        className={`btn btn-info ms-2 github-arrow d-flex align-items-center`}
                         onClick={
                           step === 1
                             ? handleContinueClickFirstStep
@@ -376,10 +500,14 @@ const ScriptsImport = () => {
                             ? handleContinueClickSecondStep
                             : step === 3
                             ? handleContinueClickThirdStep
-                            : undefined
+                            : handleContinueClickFourthStep
                         }
                       >
-                        <Icon icon='ic:round-arrow-right' />
+                        {step === 4 ? (
+                          <p className='finish-button'>Finish</p>
+                        ) : (
+                          <Icon icon='ic:round-arrow-right' />
+                        )}
                       </button>
                     </div>
                   </div>

@@ -7,14 +7,14 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { FormDataType } from './ScriptsImport';
+import { ScriptDataType } from './ScriptsImport';
 import AttentionText from '@/components/AttentionText';
 import { Icon } from '@iconify/react';
 import FlagRow, { FlagsRowRefs } from './FlagRow';
 import FloatingLabelInput from '@/components/FloatingLabelInput';
 
 interface Props {
-  formData: FormDataType;
+  formData: ScriptDataType;
   requiredFlags: boolean[];
   setRequiredFlags: React.Dispatch<React.SetStateAction<boolean[]>>;
 }
@@ -65,7 +65,7 @@ const ScriptsImportPageTwo = forwardRef<RefsStepTwo, Props>(
     };
 
     const handleRemoveFlag = (index: number) => {
-      if (scriptFlagsRowsRefs.length > 1) {
+      if (scriptFlagsRowsRefs.length > 0) {
         setRequiredFlags((prevRequiredFlags) =>
           prevRequiredFlags.filter((_, i) => i !== index)
         );

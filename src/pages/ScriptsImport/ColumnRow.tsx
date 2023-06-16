@@ -43,7 +43,7 @@ const ColumnRow = forwardRef<ColumnRowRefs, Props>(
     return (
       <div key={index} className='mb-3'>
         <div className='d-flex justify-content-between'>
-          <div className='flag-container-big'>
+          <div className='w-100'>
             <input
               defaultValue={`${
                 formData.scriptColumns
@@ -58,7 +58,7 @@ const ColumnRow = forwardRef<ColumnRowRefs, Props>(
               ref={columnNameRef}
             />
           </div>
-          <div className='ps-3 pe-2'>
+          <div className='px-3 column-select-container'>
             <select
               defaultValue={`${
                 formData.scriptColumns
@@ -75,7 +75,7 @@ const ColumnRow = forwardRef<ColumnRowRefs, Props>(
               <option value='number'>Number</option>
             </select>
           </div>
-          <div className='flag-buttons-container d-flex justify-content-between'>
+          <div className='column-buttons-container d-flex justify-content-between'>
             <button
               className={`btn btn-info github-arrow h-100 w-100 d-flex align-items-center justify-content-center`}
               onClick={handleRemoveClick}

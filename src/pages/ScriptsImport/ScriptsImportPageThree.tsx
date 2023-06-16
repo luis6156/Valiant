@@ -7,13 +7,13 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { FormDataType } from './ScriptsImport';
+import { ScriptDataType } from './ScriptsImport';
 import { Icon } from '@iconify/react';
 import ColumnRow, { ColumnRowRefs } from './ColumnRow';
 import FloatingLabelInput from '@/components/FloatingLabelInput';
 
 interface Props {
-  formData: FormDataType;
+  formData: ScriptDataType;
   columnsType: string[];
   setColumnsType: React.Dispatch<React.SetStateAction<string[]>>;
 }

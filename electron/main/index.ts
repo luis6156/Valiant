@@ -170,6 +170,14 @@ ipcMain.handle('fs-writefile-sync', async (event, { data, fileName }) => {
   fs.writeFileSync(join(__dirname, '../../src/data/', fileName), data);
 });
 
+ipcMain.handle('fs-appendfile-sync', async (event, { data, fileName }) => {
+  console.log(
+    `writing to file ${join(__dirname, '../../src/data/', fileName)}`
+  );
+
+  fs.appendFileSync(join(__dirname, '../../src/data/', fileName), data);
+});
+
 ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {
   const scriptLocation = path.resolve(
     __dirname,

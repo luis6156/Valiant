@@ -13,7 +13,7 @@
 .import-steps-title {
   font-size: 1.2rem;
   font-weight: 600 !important;
-  color: var(--title-page-color) !important;
+  color: var(--h2-color) !important;
 }
 
 .scripts-import-button-icon {
@@ -105,7 +105,7 @@
   border-radius: 50px;
   margin-left: 1.15rem;
   width: 3px;
-  height: 5rem;
+  height: 6.5rem;
   background-color: var(--medium-high-contrast-color);
   transition: all 0.3s ease-in-out;
 }
@@ -135,12 +135,21 @@
   width: 10%;
 }
 
-.flag-container-big {
-  width: 73%;
+.output-select-container {
+  width: 13rem;
 }
 
 .flag-buttons-container {
-  width: 5rem;
+  width: 6rem;
+}
+
+.column-select-container {
+  min-width: 10rem;
+  max-width: 10rem;
+}
+
+.column-buttons-container {
+  width: 3rem;
 }
 
 .form-control-special {
@@ -160,4 +169,62 @@
   color: var(--h2-color) !important;
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.visualizer-icon {
+  color: var(--secondary-color-contrast) !important;
+  font-size: 2rem !important;
+}
+
+.visualizer-container-disabled {
+  background-color: var(--lowest-2-contrast-color);
+  border-radius: 10px;
+}
+
+.visualizer-container {
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.visualizer-container:hover {
+  background-color: var(--secondary-button-hover-color);
+}
+
+.visualizer-container:hover .visualizer-icon,
+.visualizer-container:hover .visualizer-text {
+  color: var(--secondary-color-contrast) !important;
+}
+
+.visualizer-container.active .visualizer-icon,
+.visualizer-container.active .visualizer-text {
+  color: var(--h1-color) !important;
+}
+
+.visualizer-container.active {
+  background-color: var(--primary-color);
+}
+
+.visualizer-text-disabled {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--h2-color) !important;
+}
+
+.visualizer-text {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--secondary-color-contrast) !important;
+}
+
+.last-col {
+  flex-grow: 1;
+}
+
+.finish-button {
+  font-size: 1.2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
 }
