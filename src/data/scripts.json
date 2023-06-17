@@ -324,7 +324,7 @@
     "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
   },
   {
-    "scriptPage": "github.com/luis6156",
+    "scriptPage": "https://github.com/luis6156",
     "scriptName": "SorinaD3stroy",
     "scriptDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.",
     "scriptInputTags": ["url", "email", "username", "dob", "location"],

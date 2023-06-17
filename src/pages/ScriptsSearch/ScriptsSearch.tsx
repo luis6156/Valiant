@@ -157,6 +157,7 @@ const ScriptsSearch = () => {
         </>
       ) : (
         <ScriptRun
+          url={scripts[selectedScript].scriptPage}
           name={scripts[selectedScript].scriptName}
           description={scripts[selectedScript].scriptDescription}
           flags={scripts[selectedScript].scriptFlags}

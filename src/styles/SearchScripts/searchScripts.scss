@@ -9,6 +9,10 @@
   transition: background-color 0.2s ease-in-out;
 }
 
+.hover-glow:hover .github-row-icon-brand {
+  color: var(--h1-color) !important;
+}
+
 .script-speed-container {
   position: absolute;
   bottom: 4.5rem;

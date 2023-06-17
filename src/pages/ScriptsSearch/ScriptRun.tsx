@@ -1,11 +1,14 @@
 import AttentionText from '@/components/AttentionText';
+import ExternalLink from '@/components/ExternalLink';
 import {
   ScriptFlagFormat,
   ScriptVisualizerFormat,
 } from '@/contexts/ImportScriptContext';
 import { Icon } from '@iconify/react';
+import { useRef, useState } from 'react';
 
 interface Props {
+  url?: string;
   name: string;
   description: string;
   flags: ScriptFlagFormat[];
@@ -16,6 +19,7 @@ interface Props {
 }
 
 const ScriptRun = ({
+  url,
   name,
   description,
   flags,
@@ -24,6 +28,36 @@ const ScriptRun = ({
   visualizers,
   handleGoBack,
 }: Props) => {
+  const [error, setError] = useState<string>('');
+
+  const handleRunScript = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // setError('Please complete all required fields.');
+    setError('');
+
+    const formInputs = event.currentTarget.elements;
+    const inputValues = [];
+
+    for (let i = 0; i < formInputs.length; i++) {
+      const input = formInputs[i] as HTMLInputElement;
+      if (input.type === 'text' || input.type === 'checkbox') {
+        inputValues.push({
+          name: input.id,
+          value: input.value,
+          checked: input.checked,
+        });
+      }
+    }
+
+    console.log(inputValues);
+  };
+
+  function stripUrl(url: string) {
+    const strippedUrl = url.replace(/^(https?:\/\/)?(www\.)?/i, '');
+    return strippedUrl;
+  }
+
   return (
     <div className='row w-100'>
       <div className='col-7'>
@@ -36,60 +70,83 @@ const ScriptRun = ({
           </button>
           <h5 className='script-name m-0'>{name}</h5>
         </div>
-        <p className='mb-3 script-description'>{description}</p>
-        <div className='mb-4'>
-          <p>Execution Name</p>
-          <input
-            className='mb-2 form-control'
-            type='text'
-            required={true}
-          ></input>
-          <AttentionText text='Name is required as it will be used to quickly identify this run in the status page.' />
-        </div>
-        {flags
-          .filter((flag) => flag.type === 'argument' || flag.type === 'flag')
-          .map((flag, index) => (
-            <div key={index} className='mb-3'>
-              <p className='mb-1'>{`${flag.description
-                .charAt(0)
-                .toUpperCase()}${flag.description.slice(1)}`}</p>
-              <div className='d-flex align-items-center mb-2'>
-                <input
-                  className='form-control'
-                  type='text'
-                  required={flag.required}
-                ></input>
-              </div>
-              {flag.required && <AttentionText text='Flag is required.' />}
-            </div>
-          ))}
-        <div className='mt-4'>
-          <p className='mb-3'>Select all flags that you require:</p>
+        <form onSubmit={handleRunScript}>
+          <p className='mb-3 script-description'>{description}</p>
+          <div className='mb-4'>
+            <p>Execution Name</p>
+            <input
+              id='execution-name'
+              className='mb-2 form-control'
+              type='text'
+              required={true}
+            ></input>
+            <AttentionText text='Name is required as it will be used to quickly identify this run in the status page.' />
+          </div>
           {flags
-            .filter((flag) => flag.type === 'checkbox')
+            .filter((flag) => flag.type === 'argument' || flag.type === 'flag')
             .map((flag, index) => (
-              <div key={index} className='mb-2'>
-                <input
-                  type='checkbox'
-                  className='form-check-input'
-                  id={flag.name}
-                />
-                <label className='ms-2 form-check-label' htmlFor={flag.name}>
-                  {`${flag.description
-                    .charAt(0)
-                    .toUpperCase()}${flag.description.slice(1)}`}
-                </label>
+              <div key={index} className='mb-3'>
+                <p className='mb-1'>{`${flag.description
+                  .charAt(0)
+                  .toUpperCase()}${flag.description.slice(1)}`}</p>
+                <div className='d-flex align-items-center mb-2'>
+                  <input
+                    id={flag.name}
+                    className='form-control'
+                    type='text'
+                    required={flag.required}
+                  ></input>
+                </div>
                 {flag.required && <AttentionText text='Flag is required.' />}
               </div>
             ))}
-        </div>
+          <div className='mt-4'>
+            <p className='mb-3'>Select all flags that you need:</p>
+            {flags
+              .filter((flag) => flag.type === 'checkbox')
+              .map((flag, index) => (
+                <div key={index} className='mb-2'>
+                  <input
+                    id={flag.name}
+                    type='checkbox'
+                    className='form-check-input'
+                  />
+                  <label className='ms-2 form-check-label' htmlFor={flag.name}>
+                    {`${flag.description
+                      .charAt(0)
+                      .toUpperCase()}${flag.description.slice(1)}`}
+                  </label>
+                  {flag.required && <AttentionText text='Flag is required.' />}
+                </div>
+              ))}
+          </div>
 
-        <div className='mt-4'>
-          <button className='w-100 btn btn-primary'>Run Script</button>
-        </div>
+          <div className='mt-4'>
+            {error && (
+              <div className='mb-3'>
+                <AttentionText text='' danger={error} />
+              </div>
+            )}
+            <button type='submit' className='w-100 btn btn-primary'>
+              Run Script
+            </button>
+          </div>
+        </form>
       </div>
       <div className='col'>
         <div className='script-container-right'>
+          {url && (
+            <div className='hover-glow d-flex justify-content-start'>
+              <ExternalLink href={url} underline={false}>
+                <div className='d-flex align-items-center'>
+                  <Icon className='github-row-icon-brand' icon='bi:github' />
+                  <h5 className='m-0 ms-2'>{stripUrl(url)}</h5>
+                </div>
+              </ExternalLink>
+            </div>
+          )}
+        </div>
+        <div className='mt-3'>
           <p className='mb-2 script-card-tags'>Script Speed</p>
           <div className='script-card-bg-slide-special'>
             <div className={`script-card-slide-${speed}`}></div>
