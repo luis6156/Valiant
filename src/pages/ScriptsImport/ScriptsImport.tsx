@@ -2,11 +2,9 @@ import Header from '@/components/Header';
 import { Icon } from '@iconify/react';
 import { useRef, useState } from 'react';
 import AttentionText from '@/components/AttentionText';
-import { FlagsRowRefs } from '../../components/importScript/FlagRow';
 import ScriptsImportPageThree, {
   RefsStepThree,
 } from './ScriptsImportPageThree';
-import { ColumnRowRefs } from '../../components/importScript/ColumnRow';
 import ScriptsImportPageFour from './ScriptsImportPageFour';
 import { useSidebar } from '@/contexts/SidebarContext';
 

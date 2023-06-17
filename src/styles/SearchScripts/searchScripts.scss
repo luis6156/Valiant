@@ -1,0 +1,118 @@
+@import '../variables';
+
+.script-card-bg {
+  width: 18rem;
+  height: 31.5rem;
+  background-color: var(--card-color);
+  border-radius: 15px;
+}
+
+.script-page-select {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  border-radius: 30px;
+  padding: 0.2rem 0.5rem;
+  font-weight: 700 !important;
+  font-size: 0.8rem;
+  color: var(--secondary-color-contrast);
+}
+
+.script-page-select-normal {
+  font-weight: 700 !important;
+  font-size: 0.8rem;
+  color: var(--h2-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.script-page-select-normal:hover {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  color: var(--secondary-color-contrast);
+}
+
+.github-row-icon-brand {
+  color: var(--h2-color);
+}
+
+.github-row-icon-brand:hover {
+  color: var(--h1-color);
+  cursor: pointer;
+}
+
+.script-card-name {
+  font-size: 1.2rem;
+  font-weight: 700 !important;
+  color: var(--title-page-color) !important;
+}
+
+.script-card-desc {
+  font-size: 0.8rem;
+  font-weight: 600 !important;
+}
+
+.script-card-tags {
+  font-size: 0.9rem;
+  font-weight: 600 !important;
+  color: var(--title-page-color) !important;
+}
+
+.script-card-bg-slide {
+  position: relative;
+  width: 100%;
+  height: 0.8rem;
+  border-radius: 30px;
+  background-color: var(--background-color);
+}
+
+.script-card-slide-0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.8rem;
+  border-radius: 30px;
+  background-color: #d43b3b;
+}
+
+.script-card-slide-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25%;
+  height: 0.8rem;
+  border-radius: 30px;
+  background-color: #ff7d33;
+}
+
+.script-card-slide-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 0.8rem;
+  border-radius: 30px;
+  background-color: #ffeb33;
+}
+
+.script-card-slide-3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 75%;
+  height: 0.8rem;
+  border-radius: 30px;
+  background-color: #98ff7e;
+}
+
+.script-card-slide-4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.8rem;
+  border-radius: 30px;
+  background-color: #5fff45;
+}

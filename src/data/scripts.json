@@ -1,0 +1,236 @@
+[
+  {
+    "scriptPage": "https://github.com/osintagram",
+    "scriptName": "Osintagram",
+    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
+    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
+    "scriptOutputTags": [
+      "user-data",
+      "profiles",
+      "available",
+      "score",
+      "passwords"
+    ],
+    "scriptSpeed": "3",
+    "scriptSuccessRate": "1",
+    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
+    "scriptFlags": [
+      { "flag": "-i", "description": "input", "required": false },
+      { "flag": "-o", "description": "output", "required": true },
+      { "flag": "-v", "description": "verbosity", "required": false }
+    ],
+    "scriptColumns": [
+      { "name": "username", "type": "string" },
+      { "name": "password", "type": "string" }
+    ],
+    "scriptOutputColsSeparator": " ,",
+    "scriptVisualizers": [
+      {
+        "type": "line-chart",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      },
+      {
+        "type": "table",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      }
+    ],
+    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
+  },
+  {
+    "scriptPage": "https://github.com/osintagram",
+    "scriptName": "Haxer",
+    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
+    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
+    "scriptOutputTags": [
+      "user-data",
+      "profiles",
+      "available",
+      "score",
+      "passwords"
+    ],
+    "scriptSpeed": "2",
+    "scriptSuccessRate": "4",
+    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
+    "scriptFlags": [
+      { "flag": "-i", "description": "input", "required": false },
+      { "flag": "-o", "description": "output", "required": true },
+      { "flag": "-v", "description": "verbosity", "required": false }
+    ],
+    "scriptColumns": [
+      { "name": "username", "type": "string" },
+      { "name": "password", "type": "string" }
+    ],
+    "scriptOutputColsSeparator": " ,",
+    "scriptVisualizers": [
+      {
+        "type": "line-chart",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      },
+      {
+        "type": "table",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      }
+    ],
+    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
+  },
+  {
+    "scriptPage": "https://github.com/osintagram",
+    "scriptName": "BaxerPro",
+    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
+    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
+    "scriptOutputTags": [
+      "user-data",
+      "profiles",
+      "available",
+      "score",
+      "passwords"
+    ],
+    "scriptSpeed": "4",
+    "scriptSuccessRate": "4",
+    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
+    "scriptFlags": [
+      { "flag": "-i", "description": "input", "required": false },
+      { "flag": "-o", "description": "output", "required": true },
+      { "flag": "-v", "description": "verbosity", "required": false }
+    ],
+    "scriptColumns": [
+      { "name": "username", "type": "string" },
+      { "name": "password", "type": "string" }
+    ],
+    "scriptOutputColsSeparator": " ,",
+    "scriptVisualizers": [
+      {
+        "type": "line-chart",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      },
+      {
+        "type": "table",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      }
+    ],
+    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
+  },
+  {
+    "scriptPage": "https://github.com/osintagram",
+    "scriptName": "IDFinder",
+    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
+    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
+    "scriptOutputTags": [
+      "user-data",
+      "profiles",
+      "available",
+      "score",
+      "passwords"
+    ],
+    "scriptSpeed": "2",
+    "scriptSuccessRate": "2",
+    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
+    "scriptFlags": [
+      { "flag": "-i", "description": "input", "required": false },
+      { "flag": "-o", "description": "output", "required": true },
+      { "flag": "-v", "description": "verbosity", "required": false }
+    ],
+    "scriptColumns": [
+      { "name": "username", "type": "string" },
+      { "name": "password", "type": "string" }
+    ],
+    "scriptOutputColsSeparator": " ,",
+    "scriptVisualizers": [
+      {
+        "type": "line-chart",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      },
+      {
+        "type": "table",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      }
+    ],
+    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
+  },
+  {
+    "scriptPage": "https://github.com/osintagram",
+    "scriptName": "DataPuller",
+    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
+    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
+    "scriptOutputTags": [
+      "user-data",
+      "profiles",
+      "available",
+      "score",
+      "passwords"
+    ],
+    "scriptSpeed": "1",
+    "scriptSuccessRate": "1",
+    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
+    "scriptFlags": [
+      { "flag": "-i", "description": "input", "required": false },
+      { "flag": "-o", "description": "output", "required": true },
+      { "flag": "-v", "description": "verbosity", "required": false }
+    ],
+    "scriptColumns": [
+      { "name": "username", "type": "string" },
+      { "name": "password", "type": "string" }
+    ],
+    "scriptOutputColsSeparator": " ,",
+    "scriptVisualizers": [
+      {
+        "type": "line-chart",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      },
+      {
+        "type": "table",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      }
+    ],
+    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
+  },
+  {
+    "scriptPage": "https://github.com/osintagram",
+    "scriptName": "CrackIt",
+    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
+    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
+    "scriptOutputTags": [
+      "user-data",
+      "profiles",
+      "available",
+      "score",
+      "passwords"
+    ],
+    "scriptSpeed": "4",
+    "scriptSuccessRate": "3",
+    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
+    "scriptFlags": [
+      { "flag": "-i", "description": "input", "required": false },
+      { "flag": "-o", "description": "output", "required": true },
+      { "flag": "-v", "description": "verbosity", "required": false }
+    ],
+    "scriptColumns": [
+      { "name": "username", "type": "string" },
+      { "name": "password", "type": "string" }
+    ],
+    "scriptOutputColsSeparator": " ,",
+    "scriptVisualizers": [
+      {
+        "type": "line-chart",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      },
+      {
+        "type": "table",
+        "labelXColumn": "username",
+        "labelYColumn": "password"
+      }
+    ],
+    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
+  }
+]

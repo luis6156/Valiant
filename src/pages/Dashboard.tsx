@@ -5,6 +5,7 @@ import ImportScriptProvider from '@/contexts/ImportScriptContext';
 import ScriptsImport from './ScriptsImport/ScriptsImport';
 
 import '../styles/dashboard.scss';
+import ScriptsSearch from './ScriptsSearch/ScriptsSearch';
 
 const Dashboard = () => {
   const { activeIcon } = useSidebar();
@@ -23,6 +24,8 @@ const Dashboard = () => {
               <ImportScriptProvider>
                 <ScriptsImport />
               </ImportScriptProvider>
+            ) : activeIcon === 'scripts-search' ? (
+              <ScriptsSearch />
             ) : null}
           </div>
         </div>
