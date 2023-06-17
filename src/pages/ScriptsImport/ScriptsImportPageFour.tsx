@@ -80,9 +80,10 @@ const ScriptsImportPageFour = () => {
           >
             <option value='stdout'>stdout</option>
             <option value='file'>File</option>
-            {scriptFlags.length > 0 && (
-              <option value='output-flag'>Output Flag</option>
-            )}
+            {scriptFlags.length > 0 &&
+              scriptFlags.some(
+                (flag) => flag.type === 'flag' || flag.type === 'argument'
+              ) && <option value='output-flag'>Output Flag</option>}
           </select>
         </div>
         {showFilename ? (
@@ -97,17 +98,25 @@ const ScriptsImportPageFour = () => {
         ) : showFlags ? (
           <div className='ps-3 w-100'>
             <select
-              defaultValue={scriptFlags[0]?.flag}
+              defaultValue={
+                scriptFlags.find(
+                  (flag) => flag.type === 'argument' || flag.type === 'flag'
+                )?.name
+              }
               className='form-select form-select-special'
               aria-label='default'
               onChange={handleOutputNameFlagChange}
             >
               {scriptFlags &&
-                scriptFlags.map((flag, index) => (
-                  <option key={index} value={flag.flag}>
-                    {flag.flag}
-                  </option>
-                ))}
+                scriptFlags
+                  .filter(
+                    (flag) => flag.type === 'argument' || flag.type === 'flag'
+                  )
+                  .map((flag, index) => (
+                    <option key={index} value={flag.name}>
+                      {flag.name}
+                    </option>
+                  ))}
             </select>
           </div>
         ) : null}

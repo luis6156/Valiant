@@ -97,8 +97,9 @@ const ScriptsImport = () => {
         const flags: ScriptFlagFormat[] = scriptFlagsRefValues.map(
           (flag, index) => {
             return {
-              flag: flag?.flag,
+              name: flag?.flag,
               description: flag?.description,
+              type: scriptFlags[index].type,
               required: scriptFlags[index].required,
             } as ScriptFlagFormat;
           }
@@ -180,14 +181,14 @@ const ScriptsImport = () => {
               return;
             } else if (scriptOutputFormat.type === 'output-flag') {
               const flagData = scriptFlags.find(
-                (flag) => flag.flag === scriptOutputFormat.name
+                (flag) => flag.name === scriptOutputFormat.name
               );
 
               if (flagData?.required === false) {
                 // set it to true and update the flags
                 flagData.required = true;
                 const flags = scriptFlags.map((flag) => {
-                  if (flag.flag === scriptOutputFormat.name) {
+                  if (flag.name === scriptOutputFormat.name) {
                     return flagData;
                   }
                   return flag;

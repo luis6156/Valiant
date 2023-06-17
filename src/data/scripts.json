@@ -15,9 +15,24 @@
     "scriptSuccessRate": "1",
     "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
     "scriptFlags": [
-      { "flag": "-i", "description": "input", "required": false },
-      { "flag": "-o", "description": "output", "required": true },
-      { "flag": "-v", "description": "verbosity", "required": false }
+      {
+        "name": "-i",
+        "description": "input",
+        "type": "flag",
+        "required": false
+      },
+      {
+        "name": "-o",
+        "description": "output",
+        "type": "flag",
+        "required": true
+      },
+      {
+        "name": "-v",
+        "description": "verbosity",
+        "type": "flag",
+        "required": false
+      }
     ],
     "scriptColumns": [
       { "name": "username", "type": "string" },
@@ -54,9 +69,24 @@
     "scriptSuccessRate": "4",
     "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
     "scriptFlags": [
-      { "flag": "-i", "description": "input", "required": false },
-      { "flag": "-o", "description": "output", "required": true },
-      { "flag": "-v", "description": "verbosity", "required": false }
+      {
+        "name": "-i",
+        "description": "input",
+        "type": "flag",
+        "required": false
+      },
+      {
+        "name": "-o",
+        "description": "output",
+        "type": "flag",
+        "required": true
+      },
+      {
+        "name": "-v",
+        "description": "verbosity",
+        "type": "flag",
+        "required": false
+      }
     ],
     "scriptColumns": [
       { "name": "username", "type": "string" },
@@ -93,9 +123,24 @@
     "scriptSuccessRate": "4",
     "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
     "scriptFlags": [
-      { "flag": "-i", "description": "input", "required": false },
-      { "flag": "-o", "description": "output", "required": true },
-      { "flag": "-v", "description": "verbosity", "required": false }
+      {
+        "name": "-i",
+        "description": "input",
+        "type": "flag",
+        "required": false
+      },
+      {
+        "name": "-o",
+        "description": "output",
+        "type": "flag",
+        "required": true
+      },
+      {
+        "name": "-v",
+        "description": "verbosity",
+        "type": "flag",
+        "required": false
+      }
     ],
     "scriptColumns": [
       { "name": "username", "type": "string" },
@@ -132,9 +177,24 @@
     "scriptSuccessRate": "2",
     "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
     "scriptFlags": [
-      { "flag": "-i", "description": "input", "required": false },
-      { "flag": "-o", "description": "output", "required": true },
-      { "flag": "-v", "description": "verbosity", "required": false }
+      {
+        "name": "-i",
+        "description": "input",
+        "type": "flag",
+        "required": false
+      },
+      {
+        "name": "-o",
+        "description": "output",
+        "type": "flag",
+        "required": true
+      },
+      {
+        "name": "-v",
+        "description": "verbosity",
+        "type": "flag",
+        "required": false
+      }
     ],
     "scriptColumns": [
       { "name": "username", "type": "string" },
@@ -171,9 +231,24 @@
     "scriptSuccessRate": "1",
     "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
     "scriptFlags": [
-      { "flag": "-i", "description": "input", "required": false },
-      { "flag": "-o", "description": "output", "required": true },
-      { "flag": "-v", "description": "verbosity", "required": false }
+      {
+        "name": "-i",
+        "description": "input",
+        "type": "flag",
+        "required": false
+      },
+      {
+        "name": "-o",
+        "description": "output",
+        "type": "flag",
+        "required": true
+      },
+      {
+        "name": "-v",
+        "description": "verbosity",
+        "type": "flag",
+        "required": false
+      }
     ],
     "scriptColumns": [
       { "name": "username", "type": "string" },
@@ -210,9 +285,24 @@
     "scriptSuccessRate": "3",
     "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
     "scriptFlags": [
-      { "flag": "-i", "description": "input", "required": false },
-      { "flag": "-o", "description": "output", "required": true },
-      { "flag": "-v", "description": "verbosity", "required": false }
+      {
+        "name": "-i",
+        "description": "input",
+        "type": "flag",
+        "required": false
+      },
+      {
+        "name": "-o",
+        "description": "output",
+        "type": "flag",
+        "required": true
+      },
+      {
+        "name": "-v",
+        "description": "verbosity",
+        "type": "flag",
+        "required": false
+      }
     ],
     "scriptColumns": [
       { "name": "username", "type": "string" },
@@ -230,6 +320,134 @@
         "labelXColumn": "username",
         "labelYColumn": "password"
       }
+    ],
+    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
+  },
+  {
+    "scriptPage": "github.com/luis6156",
+    "scriptName": "SorinaD3stroy",
+    "scriptDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.",
+    "scriptInputTags": ["url", "email", "username", "dob", "location"],
+    "scriptOutputTags": ["available", "info", "social", "calendar", "messages"],
+    "scriptSpeed": "4",
+    "scriptSuccessRate": "1",
+    "scriptPath": "C:\\Users\\micul\\Downloads\\FigmaSetup.exe",
+    "scriptFlags": [
+      { "name": "-i", "description": "input", "type": "flag", "required": true },
+      { "name": "-o", "description": "output", "type": "flag", "required": false },
+      {
+        "name": "name",
+        "description": "user name",
+        "type": "argument",
+        "required": true
+      },
+      {
+        "name": "surname",
+        "description": "surname of user",
+        "type": "argument",
+        "required": false
+      },
+      {
+        "name": "-v",
+        "description": "verbose",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "-t",
+        "description": "show all data",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "scriptColumns": [
+      { "name": "name", "type": "string" },
+      { "name": "surname", "type": "string" },
+      { "name": "vulnerabilities", "type": "number" }
+    ],
+    "scriptOutputColsSeparator": " ,.\\n",
+    "scriptVisualizers": [
+      {
+        "type": "line-chart",
+        "labelXColumn": "name",
+        "labelYColumn": "surname",
+        "labelZColumn": "vulnerabilities"
+      },
+      {
+        "type": "scatter-chart",
+        "labelXColumn": "name",
+        "labelYColumn": "surname",
+        "labelZColumn": "vulnerabilities"
+      },
+      {
+        "type": "bar-chart",
+        "labelXColumn": "surname",
+        "labelYColumn": "vulnerabilities",
+        "labelZColumn": "vulnerabilities"
+      },
+      {
+        "type": "pie-chart",
+        "labelXColumn": "vulnerabilities",
+        "labelYColumn": "surname",
+        "labelZColumn": "vulnerabilities"
+      },
+      {
+        "type": "table",
+        "labelXColumn": "name",
+        "labelYColumn": "surname",
+        "labelZColumn": "vulnerabilities"
+      }
+    ],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "github.com",
+    "scriptName": "CuzData",
+    "scriptDescription": "Best of the best uses only what you see.",
+    "scriptInputTags": ["email", "username"],
+    "scriptOutputTags": ["password", "dob"],
+    "scriptSpeed": "3",
+    "scriptSuccessRate": "0",
+    "scriptPath": "C:\\Users\\micul\\Downloads\\clouds-cloud-svgrepo-com.svg",
+    "scriptFlags": [
+      {
+        "name": "-i",
+        "description": "input",
+        "type": "flag",
+        "required": false
+      },
+      {
+        "name": "-o",
+        "description": "output",
+        "type": "flag",
+        "required": true
+      },
+      {
+        "name": "name",
+        "description": "name",
+        "type": "argument",
+        "required": true
+      },
+      {
+        "name": "surname",
+        "description": "surname",
+        "type": "argument",
+        "required": false
+      },
+      {
+        "name": "verbosity",
+        "description": "set verbosity",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "scriptColumns": [
+      { "name": "password", "type": "string" },
+      { "name": "dob", "type": "string" }
+    ],
+    "scriptOutputColsSeparator": ",",
+    "scriptVisualizers": [
+      { "type": "bar-chart", "labelXColumn": "password", "labelYColumn": "dob" }
     ],
     "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
   }

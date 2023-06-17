@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 
 import '../../styles/SearchScripts/searchScripts.scss';
 import ScriptCard from '@/components/ScriptSearch/ScriptCard';
+import FloatingLabelInput from '@/components/FloatingLabelInput';
+import { Icon } from '@iconify/react';
+import ScriptRun from './ScriptRun';
 
 const FILENAME = 'scripts.json';
 const FILENAME_CUSTOM = 'scripts_custom.json';
@@ -14,6 +17,7 @@ const ScriptsSearch = () => {
   const [numCardsToShow, setNumCardsToShow] = useState(getNumCardsToShow());
   const [error, setError] = useState('');
   const [scripts, setScripts] = useState<ScriptInputFormat[]>([]);
+  const [selectedScript, setSelectedScript] = useState<number>(-1);
 
   useEffect(() => {
     const getScripts = async () => {
@@ -36,6 +40,7 @@ const ScriptsSearch = () => {
       const scriptsParsed: ScriptInputFormat[] = JSON.parse(scriptsJson);
 
       setScripts(scriptsParsed);
+      // setSelectedScript(scriptsParsed[6]);
     };
 
     getScripts();
@@ -61,6 +66,14 @@ const ScriptsSearch = () => {
     setShowCustomScripts(false);
   };
 
+  const onClickScript = (index: number) => {
+    setSelectedScript(index);
+  };
+
+  const onGoBack = () => {
+    setSelectedScript(-1);
+  };
+
   function getNumCardsToShow() {
     if (window.innerWidth < 900) {
       return 2;
@@ -83,34 +96,37 @@ const ScriptsSearch = () => {
           subtitle='Explore the best scripts for OSINT assessment'
         />
       </div>
-      <div className='d-flex mb-3'>
-        <div
-          className={`${
-            showCustomScripts
-              ? 'script-page-select-normal'
-              : 'script-page-select'
-          } me-3 d-flex align-items-center justify-content-center`}
-          onClick={onClickShowNormalScripts}
-        >
-          Our Choice
-        </div>
-        <div
-          className={`${
-            showCustomScripts
-              ? 'script-page-select'
-              : 'script-page-select-normal'
-          } align-items-center justify-content-center`}
-          onClick={onClickShowCustomScripts}
-        >
-          Custom Scripts
-        </div>
-      </div>
-      {error && <AttentionText text='' danger={error} />}
-      <div className='row w-100'>
-        {scripts.map((script, index) => (
-          <div
-            key={index}
-            className={`mb-3
+
+      {selectedScript === -1 ? (
+        <>
+          <div className='d-flex mb-3'>
+            <div
+              className={`${
+                showCustomScripts
+                  ? 'script-page-select-normal'
+                  : 'script-page-select'
+              } me-3 d-flex align-items-center justify-content-center`}
+              onClick={onClickShowNormalScripts}
+            >
+              Our Choice
+            </div>
+            <div
+              className={`${
+                showCustomScripts
+                  ? 'script-page-select'
+                  : 'script-page-select-normal'
+              } align-items-center justify-content-center`}
+              onClick={onClickShowCustomScripts}
+            >
+              Custom Scripts
+            </div>
+          </div>
+          {error && <AttentionText text='' danger={error} />}
+          <div className='row w-100'>
+            {scripts.map((script, index) => (
+              <div
+                key={index}
+                className={`mb-3
             col-md-${
               numCardsToShow === 6
                 ? '2'
@@ -123,19 +139,33 @@ const ScriptsSearch = () => {
                 : '6'
             }
             `}
-          >
-            <ScriptCard
-              url={script.scriptPage}
-              name={script.scriptName}
-              description={script.scriptDescription}
-              inputTags={script.scriptInputTags}
-              outputTags={script.scriptOutputTags}
-              speed={script.scriptSpeed}
-              successRate={script.scriptSuccessRate}
-            />
+              >
+                <ScriptCard
+                  url={script.scriptPage}
+                  name={script.scriptName}
+                  description={script.scriptDescription}
+                  inputTags={script.scriptInputTags}
+                  outputTags={script.scriptOutputTags}
+                  speed={script.scriptSpeed}
+                  successRate={script.scriptSuccessRate}
+                  index={index}
+                  handleOnClick={onClickScript}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      ) : (
+        <ScriptRun
+          name={scripts[selectedScript].scriptName}
+          description={scripts[selectedScript].scriptDescription}
+          flags={scripts[selectedScript].scriptFlags}
+          speed={scripts[selectedScript].scriptSpeed}
+          successRate={scripts[selectedScript].scriptSuccessRate}
+          visualizers={scripts[selectedScript].scriptVisualizers}
+          handleGoBack={onGoBack}
+        />
+      )}
     </>
   );
 };

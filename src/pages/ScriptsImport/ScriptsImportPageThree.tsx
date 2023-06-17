@@ -59,7 +59,7 @@ const ScriptsImportPageThree = forwardRef<RefsStepThree>((_, ref) => {
     },
   }));
 
-  const handleAddFlag = () => {
+  const handleAddColumn = () => {
     setScriptColumns((prevScriptColumns) => [
       ...prevScriptColumns,
       { name: '', type: 'string' },
@@ -128,7 +128,7 @@ const ScriptsImportPageThree = forwardRef<RefsStepThree>((_, ref) => {
         <div className='d-flex mt-2 align-items-center'>
           <button
             className={`me-3 btn btn-info github-arrow d-flex align-items-center justify-content-center flag-icon-button-add`}
-            onClick={handleAddFlag}
+            onClick={handleAddColumn}
           >
             <Icon className='flag-icon-add' icon='ic:round-plus' />
           </button>

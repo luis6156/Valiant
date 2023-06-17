@@ -1,14 +1,15 @@
 import React, { useState, useContext } from 'react';
 
 export type ScriptFlagFormat = {
-  flag: string;
+  name: string;
   description: string;
+  type: 'flag' | 'checkbox' | 'argument';
   required: boolean;
 };
 
 export type ScriptColumnFormat = {
   name: string;
-  type: string;
+  type: 'string' | 'number';
 };
 
 export type ScriptVisualizerFormat = {
@@ -94,8 +95,9 @@ const ImportScriptProvider = ({ children }: any) => {
   const [scriptPath, setScriptPath] = useState('');
   const [scriptFlags, setScriptFlags] = useState<ScriptFlagFormat[]>([
     {
-      flag: '',
+      name: '',
       description: '',
+      type: 'flag',
       required: false,
     },
   ]);

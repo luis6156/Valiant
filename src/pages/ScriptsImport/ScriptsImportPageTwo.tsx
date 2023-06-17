@@ -70,7 +70,7 @@ const ScriptsImportPageTwo = forwardRef<RefsStepTwo>((_, ref) => {
 
     setScriptFlags((prevScriptFlags) => [
       ...prevScriptFlags,
-      { flag: '', description: '', required: false },
+      { name: '', description: '', type: 'flag', required: false },
     ]);
   };
 
@@ -147,10 +147,10 @@ const ScriptsImportPageTwo = forwardRef<RefsStepTwo>((_, ref) => {
       </div>
       <div className='mt-4 mb-4'>
         <div className='d-flex mb-1'>
-          <div className='flag-container ps-1'>
-            <p className=''>Flag</p>
+          <div className='ps-1 me-1'>
+            <p className=''>Flag/Name</p>
           </div>
-          <div className='ps-1 mb-2'>
+          <div className='ms-4 mb-2'>
             <p className=''>Input Description</p>
           </div>
         </div>
@@ -170,7 +170,7 @@ const ScriptsImportPageTwo = forwardRef<RefsStepTwo>((_, ref) => {
           >
             <Icon className='flag-icon-add' icon='ic:round-plus' />
           </button>
-          <AttentionText text='The asterix button sets a flag as required.' />
+          <AttentionText text='The asterix button sets a flag as required. Argument means no prefix flag is required.' />
         </div>
       </div>
     </>
