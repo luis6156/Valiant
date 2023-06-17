@@ -9,6 +9,8 @@ import { useRef, useState } from 'react';
 
 interface Props {
   url?: string;
+  scriptExecutable: string;
+  scriptPath: string;
   name: string;
   description: string;
   flags: ScriptFlagFormat[];
@@ -20,6 +22,8 @@ interface Props {
 
 const ScriptRun = ({
   url,
+  scriptExecutable,
+  scriptPath,
   name,
   description,
   flags,
@@ -33,24 +37,39 @@ const ScriptRun = ({
   const handleRunScript = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // setError('Please complete all required fields.');
     setError('');
 
     const formInputs = event.currentTarget.elements;
-    const inputValues = [];
+    const args = [];
 
     for (let i = 0; i < formInputs.length; i++) {
       const input = formInputs[i] as HTMLInputElement;
-      if (input.type === 'text' || input.type === 'checkbox') {
-        inputValues.push({
+      if (input.type === 'text' && input.value) {
+        args.push({
           name: input.id,
           value: input.value,
-          checked: input.checked,
+        });
+      } else if (input.type === 'checkbox' && input.checked) {
+        args.push({
+          name: input.id,
         });
       }
     }
 
-    console.log(inputValues);
+    console.log('run-script with:', scriptExecutable, scriptPath, args);
+
+    ipcRenderer
+      .invoke('run-script', {
+        scriptExecutable,
+        scriptPath,
+        args,
+      })
+      .then((result) => {
+        console.log('run-script result:', result);
+      })
+      .catch((error) => {
+        console.log('run-script error:', error);
+      });
   };
 
   function stripUrl(url: string) {

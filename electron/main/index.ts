@@ -178,6 +178,25 @@ ipcMain.handle('fs-appendfile-sync', async (event, { data, fileName }) => {
   fs.appendFileSync(join(__dirname, '../../src/data/', fileName), data);
 });
 
+async function runScript(
+  scriptExecutable: string,
+  scriptPath: string,
+  args: string[]
+) {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
+  return `Script finished with timestamp ${new Date().toLocaleString()}`;
+}
+
+ipcMain.handle(
+  'run-script',
+  async (event, { scriptExecutable, scriptPath, args }) => {
+    const result = await runScript(scriptExecutable, scriptPath, args);
+
+    return result;
+  }
+);
+
 ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {
   const scriptLocation = path.resolve(
     __dirname,
