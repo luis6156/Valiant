@@ -35,7 +35,7 @@ const ScriptCard = ({
             <p className='script-card-desc'>{description}</p>
           </div>
           <div className='mt-3'>
-            <p className='script-card-tags'>Input Tags</p>
+            <p className='script-card-tags'>Inputs</p>
             {inputTags
               .sort((a, b) => a.length - b.length)
               .slice(0, 5)
@@ -46,12 +46,12 @@ const ScriptCard = ({
               ))}
           </div>
           <div className='mt-3'>
-            <p className='script-card-tags'>Output Tags</p>
+            <p className='script-card-tags'>Outputs</p>
             {outputTags
               .sort((a, b) => a.length - b.length)
               .slice(0, 5)
               .map((tag, index) => (
-                <div key={index} className='github-tag mt-2'>
+                <div key={index} className='github-tag output-tag mt-2'>
                   {tag.length > 10 ? `${tag.slice(0, 10)}...` : tag}
                 </div>
               ))}

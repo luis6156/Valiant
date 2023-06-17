@@ -62,12 +62,16 @@ const ScriptsSearch = () => {
   };
 
   function getNumCardsToShow() {
-    if (window.innerWidth < 992) {
+    if (window.innerWidth < 900) {
       return 2;
-    } else if (window.innerWidth < 1300) {
+    } else if (window.innerWidth < 1200) {
       return 3;
-    } else {
+    } else if (window.innerWidth < 1400) {
       return 4;
+    } else if (window.innerWidth < 1700) {
+      return 5;
+    } else {
+      return 6;
     }
   }
 
@@ -108,7 +112,15 @@ const ScriptsSearch = () => {
             key={index}
             className={`mb-3
             col-md-${
-              numCardsToShow === 4 ? '3' : numCardsToShow === 3 ? '4' : '6'
+              numCardsToShow === 6
+                ? '2'
+                : numCardsToShow === 5
+                ? '2-dot-4'
+                : numCardsToShow === 4
+                ? '3'
+                : numCardsToShow === 3
+                ? '4'
+                : '6'
             }
             `}
           >
