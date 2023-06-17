@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 
-import '../../src/styles/sidebar.scss';
+import '../../src/styles/Sidebar.scss';
 import { useSidebar } from '@/contexts/SidebarContext';
 
 const Sidebar = () => {

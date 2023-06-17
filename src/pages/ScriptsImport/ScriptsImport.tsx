@@ -8,7 +8,7 @@ import ScriptsImportPageThree, {
 import ScriptsImportPageFour from './ScriptsImportPageFour';
 import { useSidebar } from '@/contexts/SidebarContext';
 
-import '../../styles/scripts_import/scripts_import.scss';
+import '../../styles/ScriptsImport/ScriptsImport.scss';
 import {
   ScriptColumnFormat,
   ScriptFlagFormat,

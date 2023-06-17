@@ -36,7 +36,9 @@ const ColumnRow = forwardRef<ColumnRowRefs, Props>(
       const selectedValue = event.target.value;
       setScriptColumns(
         scriptColumns.map((column, columnIndex) =>
-          columnIndex === index ? { ...column, type: selectedValue } : column
+          columnIndex === index
+            ? { ...column, type: selectedValue as 'string' | 'number' }
+            : column
         )
       );
     };

@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import AttentionText from '@/components/AttentionText';
 import { Icon } from '@iconify/react';
-import FlagRow, { FlagsRowRefs } from '../../components/importScript/FlagRow';
+import FlagRow, { FlagsRowRefs } from '../../components/ScriptImport/FlagRow';
 import FloatingLabelInput from '@/components/FloatingLabelInput';
 import { useImportScript } from '@/contexts/ImportScriptContext';
 

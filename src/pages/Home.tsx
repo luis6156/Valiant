@@ -1,7 +1,7 @@
 import Header from '@/components/Header';
-import GithubCardsSection from '@/components/dashboard/GithubCardsSection';
-import GithubListSection from '@/components/dashboard/GithubListSection';
-import WelcomeBanner from '@/components/dashboard/WelcomeBanner';
+import GithubCardsSection from '@/components/Dashboard/GithubCardsSection';
+import GithubListSection from '@/components/Dashboard/GithubListSection';
+import WelcomeBanner from '@/components/Dashboard/WelcomeBanner';
 import GithubFiltersProvider from '@/contexts/GithubFiltersContext';
 
 const Home = () => {

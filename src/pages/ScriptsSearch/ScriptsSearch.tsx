@@ -3,10 +3,8 @@ import Header from '@/components/Header';
 import { ScriptInputFormat } from '@/contexts/ImportScriptContext';
 import { useEffect, useState } from 'react';
 
-import '../../styles/SearchScripts/searchScripts.scss';
+import '../../styles/ScriptsSearch/ScriptsSearch.scss';
 import ScriptCard from '@/components/ScriptSearch/ScriptCard';
-import FloatingLabelInput from '@/components/FloatingLabelInput';
-import { Icon } from '@iconify/react';
 import ScriptRun from './ScriptRun';
 
 const FILENAME = 'scripts.json';

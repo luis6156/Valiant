@@ -10,7 +10,7 @@ import React, {
 import { Icon } from '@iconify/react';
 import ColumnRow, {
   ColumnRowRefs,
-} from '../../components/importScript/ColumnRow';
+} from '../../components/ScriptImport/ColumnRow';
 import FloatingLabelInput from '@/components/FloatingLabelInput';
 import { useImportScript } from '@/contexts/ImportScriptContext';
 

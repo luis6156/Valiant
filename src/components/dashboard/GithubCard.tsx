@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 
-import '../../styles/card.scss';
+import '../../styles/Dashboard/Card.scss';
 import ExternalLink from '../ExternalLink';
 import { useEffect, useState } from 'react';
 

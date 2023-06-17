@@ -2,8 +2,8 @@ import { ChangeEvent, useState, forwardRef, useEffect, Ref } from 'react';
 
 import AttentionText from './AttentionText';
 
-import '../styles/customInput.scss';
-import PillTag from './PillTag';
+import '../styles/CustomInput.scss';
+import PillTag from './Dashboard/PillTag';
 
 interface Props {
   label: string;

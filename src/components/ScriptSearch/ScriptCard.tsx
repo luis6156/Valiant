@@ -1,5 +1,4 @@
 import { Icon } from '@iconify/react';
-import React from 'react';
 import ExternalLink from '../ExternalLink';
 
 interface Props {

@@ -2,12 +2,11 @@ import {
   ChangeEvent,
   useState,
   forwardRef,
-  TextareaHTMLAttributes,
   useEffect,
 } from 'react';
 
-import '../styles/customInput.scss';
-import '../styles/card.scss';
+import '../styles/CustomInput.scss';
+import '../styles/Dashboard/Card.scss';
 
 interface Props {
   name: string;

@@ -1,7 +1,5 @@
-import React from 'react';
-
-import '../../styles/rowItem.scss';
-import '../../styles/card.scss';
+import '../../styles/Dashboard/RowItem.scss';
+import '../../styles/Dashboard/Card.scss';
 
 import ExternalLink from '../ExternalLink';
 import { Icon } from '@iconify/react';

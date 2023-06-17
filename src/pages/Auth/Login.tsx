@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 import '../../styles/auth/auth.scss';
-import LoginCard from './LoginCard';
-import LoginForm from './LoginForm';
+import LoginCard from '../../components/Auth/LoginCard';
 import ForgotPassword from './ForgotPassword';
+import LoginForm from '@/components/Auth/LoginForm';
 
 const Login = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);

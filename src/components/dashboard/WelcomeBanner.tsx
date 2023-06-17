@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import '../../styles/card.scss';
 import { Icon } from '@iconify/react';
 import { useSidebar } from '@/contexts/SidebarContext';
+
+import '../../styles/Dashboard/Card.scss';
 
 const WelcomeBanner = () => {
   const { handleIconClick } = useSidebar();

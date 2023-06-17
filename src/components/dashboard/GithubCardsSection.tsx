@@ -1,5 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
-import GithubCard from './GithubCard';
+import { useEffect, useRef, useState } from 'react';
 import { Icon } from '@iconify/react';
 
 import Skeleton from 'react-loading-skeleton';
@@ -8,6 +7,7 @@ import FloatingLabelInput from '../FloatingLabelInput';
 import AttentionText from '../AttentionText';
 import { Repository, useFetchGithubData } from '@/utils/githubApiUtils';
 import { useGithubFilters } from '@/contexts/GithubFiltersContext';
+import GithubCard from './GithubCard';
 
 const GITHUB_CARDS_FILE = 'github-cards.json';
 const STD_CARD_TAGS = ['osint'];

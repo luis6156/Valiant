@@ -1,6 +1,6 @@
 import '../../styles/auth/auth.scss';
-import RegisterCard from './RegisterCard';
-import RegisterForm from './RegisterForm';
+import RegisterCard from '../../components/Auth/RegisterCard';
+import RegisterForm from '@/components/Auth/RegisterForm';
 
 const Register = () => {
   return (

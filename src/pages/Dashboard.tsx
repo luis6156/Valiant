@@ -4,7 +4,7 @@ import { useSidebar } from '@/contexts/SidebarContext';
 import ImportScriptProvider from '@/contexts/ImportScriptContext';
 import ScriptsImport from './ScriptsImport/ScriptsImport';
 
-import '../styles/dashboard.scss';
+import '../styles/Dashboard/Dashboard.scss';
 import ScriptsSearch from './ScriptsSearch/ScriptsSearch';
 
 const Dashboard = () => {

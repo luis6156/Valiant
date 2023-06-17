@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import AttentionText from '@/components/AttentionText';
-import TabsImportScriptVisualizer from '@/components/importScript/TabsImportScriptVisualizer';
-import { Tab } from '@/components/importScript/TabsImportScriptVisualizer';
+import TabsImportScriptVisualizer from '@/components/ScriptImport/TabsImportScriptVisualizer';
+import { Tab } from '@/components/ScriptImport/TabsImportScriptVisualizer';
 import { useImportScript } from '@/contexts/ImportScriptContext';
 
 const ScriptsImportPageFour = () => {
