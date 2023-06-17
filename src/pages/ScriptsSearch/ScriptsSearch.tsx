@@ -158,6 +158,8 @@ const ScriptsSearch = () => {
       ) : (
         <ScriptRun
           url={scripts[selectedScript].scriptPage}
+          scriptExecutable={scripts[selectedScript].scriptExecutable}
+          scriptPath={scripts[selectedScript].scriptPath}
           name={scripts[selectedScript].scriptName}
           description={scripts[selectedScript].scriptDescription}
           flags={scripts[selectedScript].scriptFlags}
