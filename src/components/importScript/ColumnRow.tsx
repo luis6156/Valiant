@@ -1,41 +1,42 @@
 import { Icon } from '@iconify/react';
 import { ChangeEvent, forwardRef, useImperativeHandle, useRef } from 'react';
-import { FormDataType } from './ScriptsImport';
+import { useImportScript } from '@/contexts/ImportScriptContext';
 
 export interface ColumnRowRefs {
-  columnRef: React.RefObject<HTMLInputElement>;
-  index: number;
+  getValues: () => {
+    name: string | undefined;
+  };
+  setValues: (name: string) => void;
 }
 
 interface Props {
   index: number;
-  handleRemoveFlag: (index: number) => void;
-  columnsType: string[];
-  setColumnsType: React.Dispatch<React.SetStateAction<string[]>>;
-  formData: FormDataType;
+  handleRemoveColumn: (index: number) => void;
 }
 
 const ColumnRow = forwardRef<ColumnRowRefs, Props>(
-  (
-    { index, handleRemoveFlag, columnsType, setColumnsType, formData }: Props,
-    ref
-  ) => {
+  ({ index, handleRemoveColumn }: Props, ref) => {
     const columnNameRef = useRef<HTMLInputElement>(null);
+    const { scriptColumns, setScriptColumns } = useImportScript();
 
     useImperativeHandle(ref, () => ({
-      columnRef: columnNameRef,
-      index,
+      getValues: () => ({
+        name: columnNameRef.current?.value,
+      }),
+      setValues: (name: string) => {
+        columnNameRef.current!.value = name;
+      },
     }));
 
     const handleRemoveClick = () => {
-      handleRemoveFlag(index);
+      handleRemoveColumn(index);
     };
 
     const handleColumnTypeChange = (event: ChangeEvent<HTMLSelectElement>) => {
       const selectedValue = event.target.value;
-      setColumnsType(
-        columnsType.map((columnType, columnIndex) =>
-          columnIndex === index ? selectedValue : columnType
+      setScriptColumns(
+        scriptColumns.map((column, columnIndex) =>
+          columnIndex === index ? { ...column, type: selectedValue } : column
         )
       );
     };
@@ -45,13 +46,7 @@ const ColumnRow = forwardRef<ColumnRowRefs, Props>(
         <div className='d-flex justify-content-between'>
           <div className='w-100'>
             <input
-              defaultValue={`${
-                formData.scriptColumns
-                  ? formData.scriptColumns[index]?.name
-                    ? formData.scriptColumns[index]?.name
-                    : ''
-                  : ''
-              }`}
+              defaultValue={scriptColumns[index]?.name}
               placeholder={`${index === 0 ? 'Name' : ''}`}
               type='text'
               className='form-control form-control-special me-2'
@@ -60,13 +55,7 @@ const ColumnRow = forwardRef<ColumnRowRefs, Props>(
           </div>
           <div className='px-3 column-select-container'>
             <select
-              defaultValue={`${
-                formData.scriptColumns
-                  ? formData.scriptColumns[index]?.type
-                    ? formData.scriptColumns[index]?.type
-                    : 'string'
-                  : 'string'
-              }`}
+              value={scriptColumns[index]?.type}
               className='form-select form-select-special'
               aria-label='default'
               onChange={handleColumnTypeChange}

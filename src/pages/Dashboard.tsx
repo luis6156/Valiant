@@ -1,9 +1,10 @@
 import Sidebar from '@/components/Sidebar';
 import Home from './Home';
+import { useSidebar } from '@/contexts/SidebarContext';
+import ImportScriptProvider from '@/contexts/ImportScriptContext';
 import ScriptsImport from './ScriptsImport/ScriptsImport';
 
 import '../styles/dashboard.scss';
-import { useSidebar } from '@/contexts/SidebarContext';
 
 const Dashboard = () => {
   const { activeIcon } = useSidebar();
@@ -19,7 +20,9 @@ const Dashboard = () => {
             {activeIcon === 'dashboard' ? (
               <Home />
             ) : activeIcon === 'scripts-import' ? (
-              <ScriptsImport />
+              <ImportScriptProvider>
+                <ScriptsImport />
+              </ImportScriptProvider>
             ) : null}
           </div>
         </div>

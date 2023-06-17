@@ -1,168 +1,118 @@
 import Header from '@/components/Header';
-
-import '../../styles/scripts_import/scripts_import.scss';
 import { Icon } from '@iconify/react';
-import { createRef, useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import AttentionText from '@/components/AttentionText';
-import ScriptsImportPageOne, { RefsStepOne } from './ScriptsImportPageOne';
-import ScriptsImportPageTwo, { RefsStepTwo } from './ScriptsImportPageTwo';
-import { FlagsRowRefs } from './FlagRow';
+import { FlagsRowRefs } from '../../components/importScript/FlagRow';
 import ScriptsImportPageThree, {
   RefsStepThree,
 } from './ScriptsImportPageThree';
-import { ColumnRowRefs } from './ColumnRow';
+import { ColumnRowRefs } from '../../components/importScript/ColumnRow';
 import ScriptsImportPageFour from './ScriptsImportPageFour';
 import { useSidebar } from '@/contexts/SidebarContext';
 
+import '../../styles/scripts_import/scripts_import.scss';
+import {
+  ScriptColumnFormat,
+  ScriptFlagFormat,
+  ScriptInputFormat,
+  useImportScript,
+} from '@/contexts/ImportScriptContext';
+import ScriptsImportPageOne, { RefsStepOne } from './ScriptsImportPageOne';
+import ScriptsImportPageTwo, { RefsStepTwo } from './ScriptsImportPageTwo';
+
 const FILENAME = 'scripts.json';
 
-export type ScriptFlag = {
-  flag: string;
-  description: string;
-  required: boolean;
-};
-
-export type ScriptColumn = {
-  name: string;
-  type: string;
-};
-
-export type ScriptVisualizer = {
-  type: string;
-  labelXColumn: string;
-  labelYColumn: string;
-  labelZColumn: string;
-};
-
-export type ScriptOutputFormat = {
-  type: string;
-  name: string;
-};
-
-export type ScriptDataType = {
-  scriptPage: string;
-  scriptName: string;
-  scriptDescription: string;
-  scriptSpeed: string;
-  scriptSuccessRate: string;
-  scriptPath: string;
-  scriptFlags: ScriptFlag[];
-  scriptColumns: ScriptColumn[];
-  scriptExecutable: string;
-  scriptOutputColsSeparator: string;
-  scriptVisualizer: ScriptVisualizer;
-  scriptOutputFormat: ScriptOutputFormat;
-};
-
 const ScriptsImport = () => {
-  const [formData, setFormData] = useState<ScriptDataType>(
-    {} as ScriptDataType
-  );
-  const [inputTags, setInputTags] = useState<string[]>([]);
-  const [outputTags, setOutputTags] = useState<string[]>([]);
-  const [scriptRequiredFlags, setScriptRequiredFlags] = useState<boolean[]>([]);
-  const [scriptColumnsType, setScriptColumnsType] = useState<string[]>([]);
-  const [scriptVisualizerType, setScriptVisualizerType] = useState<string>('');
-  const [scriptVisualizerLabelXColumn, setScriptVisualizerLabelXColumn] =
-    useState<string>('');
-  const [scriptVisualizerLabelYColumn, setScriptVisualizerLabelYColumn] =
-    useState<string>('');
-  const [scriptVisualizerLabelZColumn, setScriptVisualizerLabelZColumn] =
-    useState<string>('');
-  const [scriptOutputFormatType, setScriptOutputFormatType] =
-    useState<string>('');
-  const [scriptOutputFormatName, setScriptOutputFormatName] =
-    useState<string>('');
   const [step, setStep] = useState<number>(1);
   const [error, setError] = useState<string>('');
-  const scriptsImportStepOneRef = createRef<RefsStepOne>();
-  const scriptsImportStepTwoRef = useRef<RefsStepTwo>(null);
-  const scriptsImportStepThreeRef = useRef<RefsStepThree>(null);
   const { handleIconClick } = useSidebar();
+  const stepOneRefs = useRef<RefsStepOne>(null);
+  const stepTwoRefs = useRef<RefsStepTwo>(null);
+  const stepThreeRefs = useRef<RefsStepThree>(null);
 
-  useEffect(() => {
-    console.log(formData);
-    console.log(inputTags);
-    console.log(outputTags);
-  }, [formData]);
+  const {
+    scriptPage,
+    setScriptPage,
+    scriptName,
+    setScriptName,
+    scriptDescription,
+    setScriptDescription,
+    scriptInputTags,
+    scriptOutputTags,
+    scriptSpeed,
+    setScriptSpeed,
+    scriptSuccessRate,
+    setScriptSuccessRate,
+    scriptPath,
+    setScriptPath,
+    setScriptExecutable,
+    scriptFlags,
+    setScriptFlags,
+    scriptOutputColsSeparator,
+    setScriptOutputColsSeparator,
+    scriptColumns,
+    setScriptColumns,
+    scriptOutputFormat,
+    scriptVisualizers,
+  } = useImportScript();
 
   const handleContinueClickFirstStep = () => {
-    const scriptPage =
-      scriptsImportStepOneRef.current?.scriptPageRef.current?.value;
-    const scriptName =
-      scriptsImportStepOneRef.current?.scriptNameRef.current?.value;
-    const scriptDesc =
-      scriptsImportStepOneRef.current?.scriptDescRef.current?.value;
-    const scriptSpeed =
-      scriptsImportStepOneRef.current?.scriptSpeedRef.current?.value;
-    const scriptSuccessRate =
-      scriptsImportStepOneRef.current?.scriptSuccessRateRef.current?.value;
+    const stepOneValues = stepOneRefs.current?.getValues();
+    const scriptPageRefValue = stepOneValues?.scriptPage;
+    const scriptNameRefValue = stepOneValues?.scriptName;
+    const scriptDescRefValue = stepOneValues?.scriptDescription;
+    const scriptSpeedRefValue = stepOneValues?.scriptSpeed;
+    const scriptSuccessRateRefValue = stepOneValues?.scriptSuccessRate;
 
     if (
-      scriptName &&
-      scriptDesc &&
-      scriptSpeed &&
-      scriptSuccessRate &&
-      inputTags.length > 0 &&
-      outputTags.length > 0
+      scriptNameRefValue &&
+      scriptDescRefValue &&
+      scriptSpeedRefValue &&
+      scriptSuccessRateRefValue &&
+      scriptInputTags.length > 0 &&
+      scriptOutputTags.length > 0
     ) {
       setError('');
 
-      setFormData({
-        ...formData,
-        scriptPage: scriptPage || '',
-        scriptName,
-        scriptDescription: scriptDesc,
-        scriptSpeed,
-        scriptSuccessRate,
-      });
+      setScriptPage(scriptPageRefValue || '');
+      setScriptName(scriptNameRefValue);
+      setScriptDescription(scriptDescRefValue);
+      setScriptSpeed(scriptSpeedRefValue);
+      setScriptSuccessRate(scriptSuccessRateRefValue);
 
       setStep(2);
     } else {
       setError('All fields except URL are required');
-      scriptsImportStepOneRef.current?.scriptNameRef.current?.reportValidity();
-      scriptsImportStepOneRef.current?.scriptDescRef.current?.reportValidity();
     }
   };
 
   const handleContinueClickSecondStep = () => {
-    const scriptFile =
-      scriptsImportStepTwoRef.current?.scriptFileRef.current?.files?.[0];
-    const scriptExecutable =
-      scriptsImportStepTwoRef.current?.scriptExecutableRef.current?.value;
-    const scriptFileFlags =
-      scriptsImportStepTwoRef.current?.scriptFlagsRowsRefs;
+    const stepTwoValues = stepTwoRefs.current?.getValues();
+    const scriptPathRefValue = stepTwoValues?.scriptPath;
+    const scriptExecutableRefValue = stepTwoValues?.scriptExecutable;
+    const scriptFlagsRefValues = stepTwoValues?.scriptFlags;
 
-    if ((scriptFile || formData.scriptPath) && scriptExecutable) {
+    if ((scriptPathRefValue || scriptPath) && scriptExecutableRefValue) {
       setError('');
 
-      if (scriptFileFlags) {
-        const flags: ScriptFlag[] = [];
-
-        scriptFileFlags.forEach(
-          (
-            flagsRowRef: React.RefObject<FlagsRowRefs> | null,
-            index: number
-          ) => {
-            const flagValue =
-              flagsRowRef?.current?.flagRef.current?.value || '';
-            const descriptionValue =
-              flagsRowRef?.current?.descriptionRef.current?.value || '';
-
-            flags.push({
-              flag: flagValue,
-              description: descriptionValue,
-              required: scriptRequiredFlags[index],
-            });
+      if (scriptFlagsRefValues) {
+        const flags: ScriptFlagFormat[] = scriptFlagsRefValues.map(
+          (flag, index) => {
+            return {
+              flag: flag?.flag,
+              description: flag?.description,
+              required: scriptFlags[index].required,
+            } as ScriptFlagFormat;
           }
         );
 
-        setFormData({
-          ...formData,
-          scriptExecutable,
-          scriptPath: scriptFile?.path || formData.scriptPath,
-          scriptFlags: flags,
-        });
+        if (scriptPathRefValue) {
+          setScriptPath(scriptPathRefValue);
+        }
+
+        setScriptExecutable(scriptExecutableRefValue);
+
+        setScriptFlags(flags);
 
         setStep(3);
       }
@@ -172,34 +122,26 @@ const ScriptsImport = () => {
   };
 
   const handleContinueClickThirdStep = () => {
-    const scriptOutputColsSeparator =
-      scriptsImportStepThreeRef.current?.scriptColumnSeparatorRef.current
-        ?.value;
-    const scriptColumns =
-      scriptsImportStepThreeRef.current?.scriptColumnsTypeRefs;
+    const stepThreeValues = stepThreeRefs.current?.getValues();
+    const scriptColumnSeparatorRefValue =
+      stepThreeValues?.scriptColumnSeparator;
+    const scriptColumnRefValues = stepThreeValues?.scriptColumns;
 
-    if (scriptOutputColsSeparator && scriptColumns) {
+    if (scriptColumnSeparatorRefValue && scriptColumnRefValues) {
       setError('');
 
-      const columns: ScriptColumn[] = [];
-
-      scriptColumns.forEach(
-        (columnRef: React.RefObject<ColumnRowRefs> | null, index: number) => {
-          const columnName = columnRef?.current?.columnRef.current?.value || '';
-          const columnType = scriptColumnsType[index];
-
-          columns.push({
-            name: columnName,
-            type: columnType,
-          });
+      const columns: ScriptColumnFormat[] = scriptColumnRefValues.map(
+        (column, index) => {
+          return {
+            name: column?.name,
+            type: scriptColumns[index].type,
+          } as ScriptColumnFormat;
         }
       );
 
-      setFormData({
-        ...formData,
-        scriptOutputColsSeparator,
-        scriptColumns: columns,
-      });
+      setScriptColumns(columns);
+
+      setScriptOutputColsSeparator(scriptColumnSeparatorRefValue);
 
       setStep(4);
     } else {
@@ -210,74 +152,66 @@ const ScriptsImport = () => {
   };
 
   const handleContinueClickFourthStep = async () => {
-    if (scriptOutputFormatType) {
+    if (scriptOutputFormat) {
       if (
-        (scriptOutputFormatType !== 'stdout' && scriptOutputFormatName) ||
-        scriptOutputFormatType === 'stdout'
+        (scriptOutputFormat.type !== 'stdout' && scriptOutputFormat.name) ||
+        scriptOutputFormat.type === 'stdout'
       ) {
-        if (scriptVisualizerType) {
-          if (
-            (scriptVisualizerType === 'line-chart' ||
-              scriptVisualizerType === 'bar-chart' ||
-              scriptVisualizerType === 'pie-chart') &&
-            (!scriptVisualizerLabelXColumn || !scriptVisualizerLabelYColumn)
-          ) {
-            setError(
-              'Label X and Label Y columns are required for this type of visualizer.'
-            );
-            return;
-          } else if (
-            scriptVisualizerType === 'scatter-chart' &&
-            (!scriptVisualizerLabelXColumn ||
-              !scriptVisualizerLabelYColumn ||
-              !scriptVisualizerLabelZColumn)
-          ) {
-            setError(
-              'Label X, Label Y and Label Z columns are required for this type of visualizer.'
-            );
-            return;
-          } else if (scriptOutputFormatType === 'output-flag') {
-            const flagData = formData.scriptFlags.find(
-              (flag) => flag.flag === scriptOutputFormatName
-            );
-            if (flagData?.required === false) {
-              setError('Please set the output flag to required.');
+        if (scriptVisualizers.length > 0) {
+          for (let i = 0; i < scriptVisualizers.length; i++) {
+            if (
+              (scriptVisualizers[i].type === 'line-chart' ||
+                scriptVisualizers[i].type === 'bar-chart' ||
+                scriptVisualizers[i].type === 'pie-chart') &&
+              (!scriptVisualizers[i].labelXColumn ||
+                !scriptVisualizers[i].labelYColumn)
+            ) {
+              setError(
+                'Label X and Y are required for one of the visualizers.'
+              );
               return;
+            } else if (
+              scriptVisualizers[i].type === 'scatter-chart' &&
+              (!scriptVisualizers[i].labelXColumn ||
+                !scriptVisualizers[i].labelYColumn ||
+                !scriptVisualizers[i].labelZColumn)
+            ) {
+              setError(
+                'Label X, Y and Z are required for one of the visualizers.'
+              );
+              return;
+            } else if (scriptOutputFormat.type === 'output-flag') {
+              const flagData = scriptFlags.find(
+                (flag) => flag.flag === scriptOutputFormat.name
+              );
+
+              if (flagData?.required === false) {
+                // set it to true and update the flags
+                flagData.required = true;
+                const flags = scriptFlags.map((flag) => {
+                  if (flag.flag === scriptOutputFormat.name) {
+                    return flagData;
+                  }
+                  return flag;
+                });
+              }
             }
           }
 
           setError('');
 
-          const outputFormat: ScriptOutputFormat = {
-            type: scriptOutputFormatType,
-            name: scriptOutputFormatName,
-          };
-
-          const visualizer: ScriptVisualizer = {
-            type: scriptVisualizerType,
-            labelXColumn: scriptVisualizerLabelXColumn,
-            labelYColumn: scriptVisualizerLabelYColumn,
-            labelZColumn: scriptVisualizerLabelZColumn,
-          };
-
-          setFormData({
-            ...formData,
-            scriptOutputFormat: outputFormat,
-            scriptVisualizer: visualizer,
-          });
-
           const existsFile = await ipcRenderer.invoke('fs-exists-sync', {
             fileName: FILENAME,
           });
+
           if (existsFile) {
             const scripts = await ipcRenderer.invoke('fs-readfile-sync', {
               fileName: FILENAME,
             });
-            const scriptsParsed = JSON.parse(scripts);
 
+            const scriptsParsed = JSON.parse(scripts);
             const existsScript = scriptsParsed.find(
-              (script: ScriptDataType) =>
-                script.scriptName === formData.scriptName
+              (script: ScriptInputFormat) => script.scriptName === scriptName
             );
 
             if (existsScript) {
@@ -286,9 +220,20 @@ const ScriptsImport = () => {
             }
 
             scriptsParsed.push({
-              ...formData,
-              scriptOutputFormat: outputFormat,
-              scriptVisualizer: visualizer,
+              scriptPage,
+              scriptName,
+              scriptDescription,
+              scriptInputTags,
+              scriptOutputTags,
+              scriptSpeed,
+              scriptSuccessRate,
+              scriptPath,
+              scriptFlags,
+              scriptColumns,
+              setScriptExecutable,
+              scriptOutputColsSeparator,
+              scriptVisualizers,
+              scriptOutputFormat,
             });
 
             await ipcRenderer.invoke('fs-writefile-sync', {
@@ -299,9 +244,20 @@ const ScriptsImport = () => {
             await ipcRenderer.invoke('fs-writefile-sync', {
               data: JSON.stringify([
                 {
-                  ...formData,
-                  scriptOutputFormat: outputFormat,
-                  scriptVisualizer: visualizer,
+                  scriptPage,
+                  scriptName,
+                  scriptDescription,
+                  scriptInputTags,
+                  scriptOutputTags,
+                  scriptSpeed,
+                  scriptSuccessRate,
+                  scriptPath,
+                  scriptFlags,
+                  scriptColumns,
+                  setScriptExecutable,
+                  scriptOutputColsSeparator,
+                  scriptVisualizers,
+                  scriptOutputFormat,
                 },
               ]),
               fileName: FILENAME,
@@ -310,7 +266,7 @@ const ScriptsImport = () => {
 
           handleIconClick('scripts-search');
         } else {
-          setError('Visualizer is required.');
+          setError('At least a visualizer is required.');
         }
       } else {
         setError('Output format name is required for this type.');
@@ -336,49 +292,18 @@ const ScriptsImport = () => {
         <div className='row'>
           <div className='ps-0 col-md-9 pe-4'>
             {step === 1 ? (
-              <ScriptsImportPageOne
-                ref={scriptsImportStepOneRef}
-                formData={formData}
-                inputTags={inputTags}
-                setInputTags={setInputTags}
-                outputTags={outputTags}
-                setOutputTags={setOutputTags}
-              />
+              <ScriptsImportPageOne ref={stepOneRefs} />
             ) : step === 2 ? (
-              <ScriptsImportPageTwo
-                ref={scriptsImportStepTwoRef}
-                formData={formData}
-                requiredFlags={scriptRequiredFlags}
-                setRequiredFlags={setScriptRequiredFlags}
-              />
+              <ScriptsImportPageTwo ref={stepTwoRefs} />
             ) : step === 3 ? (
-              <ScriptsImportPageThree
-                ref={scriptsImportStepThreeRef}
-                formData={formData}
-                columnsType={scriptColumnsType}
-                setColumnsType={setScriptColumnsType}
-              />
+              <ScriptsImportPageThree ref={stepThreeRefs} />
             ) : (
-              <ScriptsImportPageFour
-                formData={formData}
-                visualizerType={scriptVisualizerType}
-                setVisualizerType={setScriptVisualizerType}
-                setVisualizerLabelXColumn={setScriptVisualizerLabelXColumn}
-                setVisualizerLabelYColumn={setScriptVisualizerLabelYColumn}
-                setVisualizerLabelZColumn={setScriptVisualizerLabelZColumn}
-                visualizerLabelXColumn={scriptVisualizerLabelXColumn}
-                visualizerLabelYColumn={scriptVisualizerLabelYColumn}
-                visualizerLabelZColumn={scriptVisualizerLabelZColumn}
-                outputType={scriptOutputFormatType}
-                setOutputType={setScriptOutputFormatType}
-                outputName={scriptOutputFormatName}
-                setOutputName={setScriptOutputFormatName}
-              />
+              <ScriptsImportPageFour />
             )}
           </div>
           <div className='col-md-3 script-import-right'>
             <div className='container h-100'>
-              <div className='row h-100'>
+              <div className='row'>
                 <div className='col mt-5 d-flex justify-content-center align-items-start'>
                   <div>
                     <div className='d-flex align-items-center'>
@@ -481,7 +406,7 @@ const ScriptsImport = () => {
                       </div>
                     </div>
 
-                    <div className='d-flex mt-5'>
+                    <div className='d-flex mt-5 mb-0'>
                       <button
                         className={`btn btn-info github-arrow d-flex align-items-center ${
                           step === 1 ? 'disabled' : ''
@@ -512,9 +437,8 @@ const ScriptsImport = () => {
                     </div>
                   </div>
                 </div>
-
                 {error && (
-                  <div className=''>
+                  <div className='mt-3'>
                     <AttentionText danger={error} text='' />
                   </div>
                 )}

@@ -1,47 +1,40 @@
 import { Icon } from '@iconify/react';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
-import { FormDataType } from './ScriptsImport';
+import { useImportScript } from '@/contexts/ImportScriptContext';
 
 export interface FlagsRowRefs {
-  flagRef: React.RefObject<HTMLInputElement>;
-  descriptionRef: React.RefObject<HTMLInputElement>;
-  index: number;
+  getValues: () => {
+    flag: string | undefined;
+    description: string | undefined;
+  };
+  setValues: (flag: string, description: string) => void;
 }
 
 interface Props {
   index: number;
-  handleRemoveFlag: (id: number) => void;
-  requiredFlags: boolean[];
-  setRequiredFlags: React.Dispatch<React.SetStateAction<boolean[]>>;
-  formData: FormDataType;
+  handleRemoveFlag: (index: number) => void;
+  handleToggleRequiredFlag: (index: number) => void;
 }
 
 const FlagRow = forwardRef<FlagsRowRefs, Props>(
-  (
-    {
-      index,
-      handleRemoveFlag,
-      requiredFlags,
-      setRequiredFlags,
-      formData,
-    }: Props,
-    ref
-  ) => {
+  ({ index, handleRemoveFlag, handleToggleRequiredFlag }: Props, ref) => {
     const flagRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
+    const { scriptFlags, setScriptFlags } = useImportScript();
 
     useImperativeHandle(ref, () => ({
-      flagRef: flagRef,
-      descriptionRef,
-      index,
+      getValues: () => ({
+        flag: flagRef.current?.value,
+        description: descriptionRef.current?.value,
+      }),
+      setValues: (flag: string, description: string) => {
+        flagRef.current!.value = flag;
+        descriptionRef.current!.value = description;
+      },
     }));
 
     const toggleRequired = () => {
-      setRequiredFlags((prevRequiredFlags) => {
-        const newRequiredFlags = [...prevRequiredFlags];
-        newRequiredFlags[index] = !newRequiredFlags[index];
-        return newRequiredFlags;
-      });
+      handleToggleRequiredFlag(index);
     };
 
     const handleRemoveClick = () => {
@@ -53,13 +46,7 @@ const FlagRow = forwardRef<FlagsRowRefs, Props>(
         <div className='d-flex justify-content-between'>
           <div className='flag-container'>
             <input
-              defaultValue={`${
-                formData.scriptFlags
-                  ? formData.scriptFlags[index]?.flag
-                    ? formData.scriptFlags[index]?.flag
-                    : ''
-                  : ''
-              }`}
+              defaultValue={scriptFlags[index]?.flag}
               placeholder={`${index === 0 ? '-i' : ''}`}
               type='text'
               className='form-control me-2'
@@ -68,13 +55,7 @@ const FlagRow = forwardRef<FlagsRowRefs, Props>(
           </div>
           <div className='w-100 px-3'>
             <input
-              defaultValue={`${
-                formData.scriptFlags
-                  ? formData.scriptFlags[index]?.description
-                    ? formData.scriptFlags[index]?.description
-                    : ''
-                  : ''
-              }`}
+              defaultValue={scriptFlags[index]?.description}
               placeholder={`${index === 0 ? 'Provide the input file' : ''}`}
               type='text'
               className='form-control'
@@ -87,7 +68,9 @@ const FlagRow = forwardRef<FlagsRowRefs, Props>(
               onClick={toggleRequired}
             >
               <Icon
-                className={`${requiredFlags[index] ? 'active' : ''} flag-icons`}
+                className={`${
+                  scriptFlags[index].required ? 'active' : ''
+                } flag-icons`}
                 icon='mdi:required'
               />
             </button>

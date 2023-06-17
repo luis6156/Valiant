@@ -143,7 +143,7 @@ const GithubListSection = () => {
                 <select
                   className='form-select'
                   onChange={handleSortOrderChange}
-                  defaultValue={sortOrder ? sortOrder : STD_SORT_BY}
+                  value={sortOrder ? sortOrder : STD_SORT_BY}
                 >
                   <option value='stars-desc'>Stars Descending</option>
                   <option value='stars-asc'>Stars Ascending</option>
