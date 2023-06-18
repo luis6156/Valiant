@@ -26,7 +26,8 @@
   "keywords": [],
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "@syncfusion/ej2": "^21.2.6",
+    "@syncfusion/ej2": "^21.2.10",
+    "@syncfusion/ej2-base": "^21.2.9",
     "@syncfusion/ej2-react-calendars": "^21.2.6",
     "@syncfusion/ej2-react-charts": "^21.2.6",
     "@syncfusion/ej2-react-dropdowns": "^21.2.6",

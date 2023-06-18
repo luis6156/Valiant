@@ -1,11 +1,12 @@
 import Sidebar from '@/components/Sidebar';
-import Home from './Home';
+import Home from './Home/Home';
 import { useSidebar } from '@/contexts/SidebarContext';
 import ImportScriptProvider from '@/contexts/ImportScriptContext';
 import ScriptsImport from './ScriptsImport/ScriptsImport';
 
 import '../styles/Dashboard/Dashboard.scss';
 import ScriptsSearch from './ScriptsSearch/ScriptsSearch';
+import ScriptsStatus from './ScriptsStatus/ScriptsStatus';
 
 const Dashboard = () => {
   const { activeIcon } = useSidebar();
@@ -26,6 +27,8 @@ const Dashboard = () => {
               </ImportScriptProvider>
             ) : activeIcon === 'scripts-search' ? (
               <ScriptsSearch />
+            ) : activeIcon === 'scripts-status' ? (
+              <ScriptsStatus />
             ) : null}
           </div>
         </div>
