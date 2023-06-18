@@ -178,24 +178,70 @@ ipcMain.handle('fs-appendfile-sync', async (event, { data, fileName }) => {
   fs.appendFileSync(join(__dirname, '../../src/data/', fileName), data);
 });
 
-async function runScript(
-  scriptExecutable: string,
-  scriptPath: string,
-  args: string[]
-) {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
-  return `Script finished with timestamp ${new Date().toLocaleString()}`;
-}
-
-ipcMain.handle(
+ipcMain.on(
   'run-script',
-  async (event, { scriptExecutable, scriptPath, args }) => {
-    const result = await runScript(scriptExecutable, scriptPath, args);
+  (event, { scriptExecutable, scriptPath, scriptName, args }) => {
+    const startTime = new Date().toLocaleString();
 
-    return result;
+    console.log('helooooooooooooooooooooo start');
+    // Send message to the renderer process
+    win?.webContents.send('scripts-status', {
+      scriptName,
+      executionName: args[0].value,
+      startTime,
+      endTime: '',
+      isRunning: true,
+    });
+
+    // Simulate script execution
+    setTimeout(() => {
+      console.log('helooooooooooooooooooooo done');
+      // Update the script status and send another message to the renderer process
+      win?.webContents.send('scripts-status', {
+        scriptName,
+        executionName: args[0].value,
+        startTime,
+        endTime: new Date().toLocaleString(),
+        isRunning: false,
+      });
+    }, 5000);
   }
 );
+
+// async function runScript(
+//   scriptExecutable: string,
+//   scriptPath: string,
+//   scriptName: string,
+//   args: { name: string; value?: string }[]
+// ) {
+//   const startTime = new Date().toLocaleString();
+//   win?.webContents.send('script-status', {
+//     scriptName,
+//     executionName: args[0].value,
+//     startTime: startTime,
+//     endTime: '',
+//     isRunning: true,
+//   });
+//   console.log('helooooooooooooooooooooo start');
+
+//   await new Promise((resolve) => setTimeout(resolve, 5000));
+
+//   console.log('helooooooooooooooooooooo done');
+//   win?.webContents.send('script-status', {
+//     scriptName,
+//     executionName: args[0].value,
+//     startTime: startTime,
+//     endTime: new Date().toLocaleString(),
+//     isRunning: false,
+//   });
+// }
+
+// ipcMain.handle(
+//   'run-script',
+//   async (event, { scriptExecutable, scriptPath, scriptName, args }) => {
+//     await runScript(scriptExecutable, scriptPath, scriptName, args);
+//   }
+// );
 
 ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {
   const scriptLocation = path.resolve(

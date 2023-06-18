@@ -6,6 +6,10 @@ interface Window {
     send: (channel: string, data: any) => void;
     on: (channel: string, callback: (data: any) => void) => void;
     removeAllListeners: (channel: string) => void;
+    removeListener: (
+      channel: string,
+      listener: (...args: any[]) => void
+    ) => void;
     invoke: (channel: string, data: any) => Promise<any>;
   };
   shell: {
@@ -19,16 +23,16 @@ declare module '*.jpg' {
 }
 
 interface ImportMetaEnv {
-  readonly VITE_APP_TITLE: string
-  readonly VITE_FIREBASE_API_KEY: string
-  readonly VITE_FIREBASE_AUTH_DOMAIN: string
-  readonly VITE_FIREBASE_PROJECT_ID: string
-  readonly VITE_FIREBASE_STORAGE_BUCKET: string
-  readonly VITE_FIREBASE_MESSAGING_SENDER_ID: string
-  readonly VITE_FIREBASE_APP_ID: string
+  readonly VITE_APP_TITLE: string;
+  readonly VITE_FIREBASE_API_KEY: string;
+  readonly VITE_FIREBASE_AUTH_DOMAIN: string;
+  readonly VITE_FIREBASE_PROJECT_ID: string;
+  readonly VITE_FIREBASE_STORAGE_BUCKET: string;
+  readonly VITE_FIREBASE_MESSAGING_SENDER_ID: string;
+  readonly VITE_FIREBASE_APP_ID: string;
   // more env variables...
 }
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv
+  readonly env: ImportMetaEnv;
 }

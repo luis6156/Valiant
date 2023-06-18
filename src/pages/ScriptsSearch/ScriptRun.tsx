@@ -5,7 +5,7 @@ import {
   ScriptVisualizerFormat,
 } from '@/contexts/ImportScriptContext';
 import { Icon } from '@iconify/react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 interface Props {
   url?: string;
@@ -56,20 +56,14 @@ const ScriptRun = ({
       }
     }
 
-    console.log('run-script with:', scriptExecutable, scriptPath, args);
+    console.log('run-script with:', scriptExecutable, scriptPath, name, args);
 
-    ipcRenderer
-      .invoke('run-script', {
-        scriptExecutable,
-        scriptPath,
-        args,
-      })
-      .then((result) => {
-        console.log('run-script result:', result);
-      })
-      .catch((error) => {
-        console.log('run-script error:', error);
-      });
+    ipcRenderer.send('run-script', {
+      scriptExecutable,
+      scriptPath,
+      scriptName: name,
+      args,
+    });
   };
 
   function stripUrl(url: string) {

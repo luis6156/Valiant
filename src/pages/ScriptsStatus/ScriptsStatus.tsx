@@ -1,4 +1,7 @@
 import Header from '@/components/Header';
+import useScriptsStatusListener, {
+  ScriptStatus,
+} from '@/hooks/useScriptsStatusListener';
 import {
   ColumnDirective,
   ColumnsDirective,
@@ -12,27 +15,14 @@ import {
   Toolbar,
 } from '@syncfusion/ej2-react-grids';
 
-// import '@syncfusion/ej2-react-grids/styles/bootstrap-dark.css';
+interface Props {
+  data: ScriptStatus[];
+}
 
-const ScriptsStatus = () => {
-  const data = [
-    {
-      executionName: 'Execution 1',
-      startTime: '2023-06-16 10:00 AM',
-      endTime: '2023-06-16 10:30 AM',
-      status: 'Completed',
-    },
-    {
-      executionName: 'Execution 2',
-      startTime: '2023-06-16 11:00 AM',
-      endTime: '2023-06-16 11:30 AM',
-      status: 'Pending',
-    },
-    // Add more data as needed
-  ];
-
+const ScriptsStatus = ({ data }: Props) => {
   const columns = [
     { field: 'executionName', headerText: 'Execution Name', width: 150 },
+    { field: 'scriptName', headerText: 'Script Name', width: 150 },
     { field: 'startTime', headerText: 'Start Time', width: 150 },
     { field: 'endTime', headerText: 'End Time', width: 150 },
     { field: 'status', headerText: 'Status', width: 100 },

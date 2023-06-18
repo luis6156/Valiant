@@ -331,6 +331,7 @@
     "scriptOutputTags": ["available", "info", "social", "calendar", "messages"],
     "scriptSpeed": "4",
     "scriptSuccessRate": "1",
+    "scriptExecutable": "python",
     "scriptPath": "C:\\Users\\micul\\Downloads\\FigmaSetup.exe",
     "scriptFlags": [
       { "name": "-i", "description": "input", "type": "flag", "required": true },
