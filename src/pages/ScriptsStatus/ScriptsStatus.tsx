@@ -1,12 +1,9 @@
 import Header from '@/components/Header';
-import useScriptsStatusListener, {
-  ScriptStatus,
-} from '@/hooks/useScriptsStatusListener';
+import { ScriptStatus } from '@/hooks/useScriptsStatusListener';
 import {
+  ColumnChooser,
   ColumnDirective,
   ColumnsDirective,
-  Edit,
-  Filter,
   GridComponent,
   Inject,
   Page,
@@ -42,7 +39,8 @@ const ScriptsStatus = ({ data }: Props) => {
           allowSorting={true}
           allowPaging={true}
           pageSettings={{ pageSize: 10 }}
-          toolbar={['Search']}
+          showColumnChooser={true}
+          toolbar={['Search', 'ColumnChooser']}
         >
           <ColumnsDirective>
             {columns.map((column) => (
@@ -53,7 +51,7 @@ const ScriptsStatus = ({ data }: Props) => {
               />
             ))}
           </ColumnsDirective>
-          <Inject services={[Sort, Page, Search, Toolbar]} />
+          <Inject services={[Sort, Page, Search, Toolbar, ColumnChooser]} />
         </GridComponent>
       </div>
     </>

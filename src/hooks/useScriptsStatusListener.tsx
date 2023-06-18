@@ -14,7 +14,6 @@ const useScriptsStatusListener = () => {
   const [data, setData] = useState<ScriptStatus[]>([]);
 
   useEffect(() => {
-    console.log('ScriptsStatus mounted');
     const handleScriptStatusUpdate = (scriptData: any) => {
       setData((prevData) => {
         const existingScript = prevData.find(

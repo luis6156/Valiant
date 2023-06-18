@@ -183,7 +183,6 @@ ipcMain.on(
   (event, { scriptExecutable, scriptPath, scriptName, args }) => {
     const startTime = new Date().toLocaleString();
 
-    console.log('helooooooooooooooooooooo start');
     // Send message to the renderer process
     win?.webContents.send('scripts-status', {
       scriptName,
@@ -195,7 +194,6 @@ ipcMain.on(
 
     // Simulate script execution
     setTimeout(() => {
-      console.log('helooooooooooooooooooooo done');
       // Update the script status and send another message to the renderer process
       win?.webContents.send('scripts-status', {
         scriptName,

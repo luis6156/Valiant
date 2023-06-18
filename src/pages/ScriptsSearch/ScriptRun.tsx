@@ -32,6 +32,7 @@ const ScriptRun = ({
   visualizers,
   handleGoBack,
 }: Props) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
   const handleRunScript = (event: React.FormEvent<HTMLFormElement>) => {
@@ -58,12 +59,18 @@ const ScriptRun = ({
 
     console.log('run-script with:', scriptExecutable, scriptPath, name, args);
 
+    setIsLoading(true);
+    
     ipcRenderer.send('run-script', {
       scriptExecutable,
       scriptPath,
       scriptName: name,
       args,
     });
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
   };
 
   function stripUrl(url: string) {
@@ -140,8 +147,8 @@ const ScriptRun = ({
                 <AttentionText text='' danger={error} />
               </div>
             )}
-            <button type='submit' className='w-100 btn btn-primary'>
-              Run Script
+            <button disabled={isLoading} type='submit' className='w-100 btn btn-primary'>
+              {isLoading ? 'Script Started' : 'Run Script'}
             </button>
           </div>
         </form>
