@@ -1,455 +1,64 @@
 [
   {
-    "scriptPage": "https://github.com/osintagram",
-    "scriptName": "Osintagram",
-    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
-    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
-    "scriptOutputTags": [
-      "user-data",
-      "profiles",
-      "available",
-      "score",
-      "passwords"
-    ],
-    "scriptSpeed": "3",
-    "scriptSuccessRate": "1",
-    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
-    "scriptFlags": [
-      {
-        "name": "-i",
-        "description": "input",
-        "type": "flag",
-        "required": false
-      },
-      {
-        "name": "-o",
-        "description": "output",
-        "type": "flag",
-        "required": true
-      },
-      {
-        "name": "-v",
-        "description": "verbosity",
-        "type": "flag",
-        "required": false
-      }
-    ],
-    "scriptColumns": [
-      { "name": "username", "type": "string" },
-      { "name": "password", "type": "string" }
-    ],
-    "scriptOutputColsSeparator": " ,",
-    "scriptVisualizers": [
-      {
-        "type": "line-chart",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      },
-      {
-        "type": "table",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      }
-    ],
-    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
-  },
-  {
-    "scriptPage": "https://github.com/osintagram",
-    "scriptName": "Haxer",
-    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
-    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
-    "scriptOutputTags": [
-      "user-data",
-      "profiles",
-      "available",
-      "score",
-      "passwords"
-    ],
-    "scriptSpeed": "2",
-    "scriptSuccessRate": "4",
-    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
-    "scriptFlags": [
-      {
-        "name": "-i",
-        "description": "input",
-        "type": "flag",
-        "required": false
-      },
-      {
-        "name": "-o",
-        "description": "output",
-        "type": "flag",
-        "required": true
-      },
-      {
-        "name": "-v",
-        "description": "verbosity",
-        "type": "flag",
-        "required": false
-      }
-    ],
-    "scriptColumns": [
-      { "name": "username", "type": "string" },
-      { "name": "password", "type": "string" }
-    ],
-    "scriptOutputColsSeparator": " ,",
-    "scriptVisualizers": [
-      {
-        "type": "line-chart",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      },
-      {
-        "type": "table",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      }
-    ],
-    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
-  },
-  {
-    "scriptPage": "https://github.com/osintagram",
-    "scriptName": "BaxerPro",
-    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
-    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
-    "scriptOutputTags": [
-      "user-data",
-      "profiles",
-      "available",
-      "score",
-      "passwords"
-    ],
-    "scriptSpeed": "0",
-    "scriptSuccessRate": "4",
-    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
-    "scriptFlags": [
-      {
-        "name": "-i",
-        "description": "input",
-        "type": "flag",
-        "required": false
-      },
-      {
-        "name": "-o",
-        "description": "output",
-        "type": "flag",
-        "required": true
-      },
-      {
-        "name": "-v",
-        "description": "verbosity",
-        "type": "flag",
-        "required": false
-      }
-    ],
-    "scriptColumns": [
-      { "name": "username", "type": "string" },
-      { "name": "password", "type": "string" }
-    ],
-    "scriptOutputColsSeparator": " ,",
-    "scriptVisualizers": [
-      {
-        "type": "line-chart",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      },
-      {
-        "type": "table",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      }
-    ],
-    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
-  },
-  {
-    "scriptPage": "https://github.com/osintagram",
-    "scriptName": "IDFinder",
-    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
-    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
-    "scriptOutputTags": [
-      "user-data",
-      "profiles",
-      "available",
-      "score",
-      "passwords"
-    ],
-    "scriptSpeed": "2",
-    "scriptSuccessRate": "2",
-    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
-    "scriptFlags": [
-      {
-        "name": "-i",
-        "description": "input",
-        "type": "flag",
-        "required": false
-      },
-      {
-        "name": "-o",
-        "description": "output",
-        "type": "flag",
-        "required": true
-      },
-      {
-        "name": "-v",
-        "description": "verbosity",
-        "type": "flag",
-        "required": false
-      }
-    ],
-    "scriptColumns": [
-      { "name": "username", "type": "string" },
-      { "name": "password", "type": "string" }
-    ],
-    "scriptOutputColsSeparator": " ,",
-    "scriptVisualizers": [
-      {
-        "type": "line-chart",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      },
-      {
-        "type": "table",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      }
-    ],
-    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
-  },
-  {
-    "scriptPage": "https://github.com/osintagram",
-    "scriptName": "DataPuller",
-    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
-    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
-    "scriptOutputTags": [
-      "user-data",
-      "profiles",
-      "available",
-      "score",
-      "passwords"
-    ],
-    "scriptSpeed": "1",
-    "scriptSuccessRate": "1",
-    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
-    "scriptFlags": [
-      {
-        "name": "-i",
-        "description": "input",
-        "type": "flag",
-        "required": false
-      },
-      {
-        "name": "-o",
-        "description": "output",
-        "type": "flag",
-        "required": true
-      },
-      {
-        "name": "-v",
-        "description": "verbosity",
-        "type": "flag",
-        "required": false
-      }
-    ],
-    "scriptColumns": [
-      { "name": "username", "type": "string" },
-      { "name": "password", "type": "string" }
-    ],
-    "scriptOutputColsSeparator": " ,",
-    "scriptVisualizers": [
-      {
-        "type": "line-chart",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      },
-      {
-        "type": "table",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      }
-    ],
-    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
-  },
-  {
-    "scriptPage": "https://github.com/osintagram",
-    "scriptName": "CrackIt",
-    "scriptDescription": "This is the best script you have ever seen. It complies with data from all over the world to deliver only the best in what we have here. Uses a lot of things to just occupy the best value in soft.",
-    "scriptInputTags": ["email", "username", "dob", "id", "verbose"],
-    "scriptOutputTags": [
-      "user-data",
-      "profiles",
-      "available",
-      "score",
-      "passwords"
-    ],
+    "scriptPage": "https://github.com/m8sec/CrossLinked",
+    "scriptName": "CrossLinked",
+    "scriptDescription": "LinkedIn enumeration tool to extract valid employee names from an organization through search engine scraping.",
+    "scriptInputTags": ["domain", "name", "company"],
+    "scriptOutputTags": ["name", "position", "linkedin", "mail"],
     "scriptSpeed": "4",
     "scriptSuccessRate": "3",
-    "scriptPath": "C:\\Users\\micul\\Downloads\\small-airplane.svg",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py",
     "scriptFlags": [
       {
-        "name": "-i",
-        "description": "input",
-        "type": "flag",
-        "required": false
-      },
-      {
-        "name": "-o",
-        "description": "output",
+        "name": "-f",
+        "description": "email format",
         "type": "flag",
         "required": true
-      },
-      {
-        "name": "-v",
-        "description": "verbosity",
-        "type": "flag",
-        "required": false
-      }
-    ],
-    "scriptColumns": [
-      { "name": "username", "type": "string" },
-      { "name": "password", "type": "string" }
-    ],
-    "scriptOutputColsSeparator": " ,",
-    "scriptVisualizers": [
-      {
-        "type": "line-chart",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      },
-      {
-        "type": "table",
-        "labelXColumn": "username",
-        "labelYColumn": "password"
-      }
-    ],
-    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
-  },
-  {
-    "scriptPage": "https://github.com/luis6156",
-    "scriptName": "SorinaD3stroy",
-    "scriptDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.",
-    "scriptInputTags": ["url", "email", "username", "dob", "location"],
-    "scriptOutputTags": ["available", "info", "social", "calendar", "messages"],
-    "scriptSpeed": "4",
-    "scriptSuccessRate": "1",
-    "scriptExecutable": "python",
-    "scriptPath": "C:\\Users\\micul\\Downloads\\FigmaSetup.exe",
-    "scriptFlags": [
-      { "name": "-i", "description": "input", "type": "flag", "required": true },
-      { "name": "-o", "description": "output", "type": "flag", "required": false },
-      {
-        "name": "name",
-        "description": "user name",
-        "type": "argument",
-        "required": true
-      },
-      {
-        "name": "surname",
-        "description": "surname of user",
-        "type": "argument",
-        "required": false
-      },
-      {
-        "name": "-v",
-        "description": "verbose",
-        "type": "checkbox",
-        "required": false
       },
       {
         "name": "-t",
-        "description": "show all data",
-        "type": "checkbox",
+        "description": "timeout",
+        "type": "flag",
         "required": false
+      },
+      {
+        "name": "-j",
+        "description": "jitter between requests",
+        "type": "flag",
+        "required": false
+      },
+      {
+        "name": "company name",
+        "description": "company name",
+        "type": "argument",
+        "required": true
       }
     ],
     "scriptColumns": [
-      { "name": "name", "type": "string" },
-      { "name": "surname", "type": "string" },
-      { "name": "vulnerabilities", "type": "number" }
+      { "name": "datetime", "type": "string" },
+      { "name": "search", "type": "string" },
+      { "name": "first name", "type": "string" },
+      { "name": "last name", "type": "string" },
+      { "name": "position", "type": "string" },
+      { "name": "url", "type": "string" },
+      { "name": "raw text", "type": "string" }
     ],
-    "scriptOutputColsSeparator": " ,.\\n",
+    "scriptExecutable": "python",
+    "scriptOutputColsSeparator": ",\\n",
     "scriptVisualizers": [
-      {
-        "type": "line-chart",
-        "labelXColumn": "name",
-        "labelYColumn": "surname",
-        "labelZColumn": "vulnerabilities"
-      },
-      {
-        "type": "scatter-chart",
-        "labelXColumn": "name",
-        "labelYColumn": "surname",
-        "labelZColumn": "vulnerabilities"
-      },
-      {
-        "type": "bar-chart",
-        "labelXColumn": "surname",
-        "labelYColumn": "vulnerabilities",
-        "labelZColumn": "vulnerabilities"
-      },
-      {
-        "type": "pie-chart",
-        "labelXColumn": "vulnerabilities",
-        "labelYColumn": "surname",
-        "labelZColumn": "vulnerabilities"
-      },
       {
         "type": "table",
-        "labelXColumn": "name",
-        "labelYColumn": "surname",
-        "labelZColumn": "vulnerabilities"
+        "labelXColumn": "datetime",
+        "labelYColumn": "search",
+        "labelZColumn": "first name"
+      },
+      {
+        "type": "line-chart",
+        "labelXColumn": "datetime",
+        "labelYColumn": "search",
+        "labelZColumn": "first name"
       }
     ],
-    "scriptOutputFormat": { "type": "stdout", "name": "" }
-  },
-  {
-    "scriptPage": "github.com",
-    "scriptName": "CuzData",
-    "scriptDescription": "Best of the best uses only what you see.",
-    "scriptInputTags": ["email", "username"],
-    "scriptOutputTags": ["password", "dob"],
-    "scriptSpeed": "3",
-    "scriptSuccessRate": "0",
-    "scriptPath": "C:\\Users\\micul\\Downloads\\clouds-cloud-svgrepo-com.svg",
-    "scriptFlags": [
-      {
-        "name": "-i",
-        "description": "input",
-        "type": "flag",
-        "required": false
-      },
-      {
-        "name": "-o",
-        "description": "output",
-        "type": "flag",
-        "required": true
-      },
-      {
-        "name": "name",
-        "description": "name",
-        "type": "argument",
-        "required": true
-      },
-      {
-        "name": "surname",
-        "description": "surname",
-        "type": "argument",
-        "required": false
-      },
-      {
-        "name": "verbosity",
-        "description": "set verbosity",
-        "type": "checkbox",
-        "required": false
-      }
-    ],
-    "scriptColumns": [
-      { "name": "password", "type": "string" },
-      { "name": "dob", "type": "string" }
-    ],
-    "scriptOutputColsSeparator": ",",
-    "scriptVisualizers": [
-      { "type": "bar-chart", "labelXColumn": "password", "labelYColumn": "dob" }
-    ],
-    "scriptOutputFormat": { "type": "output-flag", "name": "-o" }
+    "scriptOutputFormat": { "type": "file", "name": "names.csv" }
   }
 ]

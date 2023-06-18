@@ -164,6 +164,11 @@ const ScriptsSearch = () => {
           speed={scripts[selectedScript].scriptSpeed}
           successRate={scripts[selectedScript].scriptSuccessRate}
           visualizers={scripts[selectedScript].scriptVisualizers}
+          outputFile={
+            scripts[selectedScript].scriptOutputFormat.type === 'file'
+              ? scripts[selectedScript].scriptOutputFormat.name
+              : ''
+          }
           handleGoBack={onGoBack}
         />
       )}

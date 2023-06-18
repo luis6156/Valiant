@@ -17,6 +17,7 @@ interface Props {
   speed: string;
   successRate: string;
   visualizers: ScriptVisualizerFormat[];
+  outputFile?: string;
   handleGoBack: () => void;
 }
 
@@ -30,6 +31,7 @@ const ScriptRun = ({
   speed,
   successRate,
   visualizers,
+  outputFile,
   handleGoBack,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -41,11 +43,16 @@ const ScriptRun = ({
     setError('');
 
     const formInputs = event.currentTarget.elements;
+    const executionName = (formInputs[0] as HTMLInputElement).value;
     const args = [];
 
-    for (let i = 0; i < formInputs.length; i++) {
+    for (let i = 1; i < formInputs.length; i++) {
       const input = formInputs[i] as HTMLInputElement;
-      if (input.type === 'text' && input.value) {
+      if (input.name === 'argument' && input.value) {
+        args.push({
+          value: input.value,
+        });
+      } else if (input.type === 'text' && input.value) {
         args.push({
           name: input.id,
           value: input.value,
@@ -57,15 +64,24 @@ const ScriptRun = ({
       }
     }
 
-    console.log('run-script with:', scriptExecutable, scriptPath, name, args);
+    console.log(
+      'run-script from renderer with:',
+      executionName,
+      scriptExecutable,
+      scriptPath,
+      name,
+      args
+    );
 
     setIsLoading(true);
-    
+
     ipcRenderer.send('run-script', {
+      executionName,
       scriptExecutable,
       scriptPath,
       scriptName: name,
       args,
+      outputFile: outputFile ? outputFile : '', // TODO add variant with flag
     });
 
     setTimeout(() => {
@@ -112,6 +128,7 @@ const ScriptRun = ({
                 <div className='d-flex align-items-center mb-2'>
                   <input
                     id={flag.name}
+                    name={flag.type}
                     className='form-control'
                     type='text'
                     required={flag.required}
@@ -147,7 +164,11 @@ const ScriptRun = ({
                 <AttentionText text='' danger={error} />
               </div>
             )}
-            <button disabled={isLoading} type='submit' className='w-100 btn btn-primary'>
+            <button
+              disabled={isLoading}
+              type='submit'
+              className='w-100 btn btn-primary'
+            >
               {isLoading ? 'Script Started' : 'Run Script'}
             </button>
           </div>
