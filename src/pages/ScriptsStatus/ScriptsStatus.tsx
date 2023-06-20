@@ -1,21 +1,11 @@
 import Header from '@/components/Header';
 import { ScriptStatus } from '@/hooks/useScriptsStatusListener';
-import {
-  ColumnChooser,
-  ColumnDirective,
-  ColumnsDirective,
-  GridComponent,
-  Inject,
-  Page,
-  Search,
-  Sort,
-  Toolbar,
-} from '@syncfusion/ej2-react-grids';
 import { useState } from 'react';
 import ScriptOutput from './ScriptOutput';
 import { Icon } from '@iconify/react';
 
 import '../../styles/ScriptsStatus/ScriptsStatus.scss';
+import Table from '@/components/Charts/Table';
 
 interface Props {
   data: ScriptStatus[];
@@ -28,7 +18,12 @@ const ScriptsStatus = ({ data }: Props) => {
     const index = data.findIndex((item) => item.startTime === startTime);
     const rowData = data[index];
 
-    if (rowData && rowData.status === 'Completed' && rowData.output !== '-') {
+    if (
+      rowData &&
+      rowData.status === 'Completed' &&
+      rowData.output &&
+      rowData.output.length > 0
+    ) {
       return (
         <div
           className='output-container d-flex align-items-center'
@@ -39,7 +34,7 @@ const ScriptsStatus = ({ data }: Props) => {
         </div>
       );
     } else if (rowData && rowData.status === 'Running') {
-      return <p className='output-text'>{rowData.output}</p>;
+      return <p className='output-text'>-</p>;
     }
     return null;
   };
@@ -78,33 +73,16 @@ const ScriptsStatus = ({ data }: Props) => {
           executionName={data[scriptIndex].executionName}
           scriptName={data[scriptIndex].scriptName}
           output={data[scriptIndex].output}
+          outputColumns={data[scriptIndex].outputColumns}
           handleGoBack={onGoBack}
         />
       ) : (
         <div>
-          <GridComponent
-            dataSource={data}
-            allowSorting={true}
-            allowPaging={true}
-            pageSettings={{ pageSize: 10 }}
-            showColumnChooser={true}
-            toolbar={['Search', 'ColumnChooser']}
-            sortSettings={{
-              columns: [{ field: 'startTime', direction: 'Descending' }],
-            }}
-          >
-            <ColumnsDirective>
-              {columns.map((column, index) => (
-                <ColumnDirective
-                  key={index}
-                  field={column.field}
-                  headerText={column.headerText}
-                  template={column.template}
-                />
-              ))}
-            </ColumnsDirective>
-            <Inject services={[Sort, Page, Search, Toolbar, ColumnChooser]} />
-          </GridComponent>
+          <Table
+            data={data}
+            columns={columns}
+            sortSettings={[{ field: 'startTime', direction: 'Descending' }]}
+          />
         </div>
       )}
     </>

@@ -163,7 +163,11 @@ const ScriptsSearch = () => {
           speed={scripts[selectedScript].scriptSpeed}
           successRate={scripts[selectedScript].scriptSuccessRate}
           visualizers={scripts[selectedScript].scriptVisualizers}
-          columns={scripts[selectedScript].scriptColumns}
+          outputColumns={scripts[selectedScript].scriptColumns}
+          outputSkipRows={scripts[selectedScript].scriptOutputSkipRows}
+          outputColsSeparator={
+            scripts[selectedScript].scriptOutputColsSeparator
+          }
           outputFile={
             scripts[selectedScript].scriptOutputFormat.type === 'file'
               ? scripts[selectedScript].scriptOutputFormat.name

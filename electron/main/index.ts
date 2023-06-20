@@ -178,6 +178,10 @@ ipcMain.handle('fs-appendfile-sync', async (event, { data, fileName }) => {
   fs.appendFileSync(join(__dirname, '../../src/data/', fileName), data);
 });
 
+interface TableRow {
+  [key: string]: string;
+}
+
 ipcMain.on(
   'run-script',
   (
@@ -188,6 +192,9 @@ ipcMain.on(
       scriptPath,
       scriptName,
       args,
+      outputSkipRows,
+      outputColsSeparator,
+      outputColumns,
       outputFile,
     }
   ) => {
@@ -200,7 +207,8 @@ ipcMain.on(
       startTime,
       endTime: '-',
       isRunning: true,
-      output: '-',
+      output: [],
+      outputColumns,
     });
 
     // Change working directory to the script directory
@@ -239,13 +247,43 @@ ipcMain.on(
     scriptProcess.on('close', (code) => {
       const output = fs.readFileSync(outputFile, 'utf8');
 
+      // Skip as many rows from the input as specified
+      const outputRows = output.split('\r\n').slice(Number(outputSkipRows));
+
+      const processedData: any[] = [];
+
+      outputRows.forEach((row: string) => {
+        const rowValues: string[] = row.split(outputColsSeparator);
+
+        const rowData: any = {};
+
+        outputColumns.forEach(
+          (column: { name: string; type: string }, index: number) => {
+            if (index >= rowValues.length) {
+              return; // Skip the remaining tokens in the row
+            }
+
+            const value = rowValues[index]
+              ? rowValues[index].replace(/"/g, '')
+              : '';
+            rowData[column.name] = value;
+          }
+        );
+
+        // Check if the rowData object contains any non-empty values
+        if (Object.values(rowData).some((value) => value !== '')) {
+          processedData.push(rowData);
+        }
+      });
+
       win?.webContents.send('scripts-status', {
         scriptName,
         executionName: executionName,
         startTime,
         endTime: new Date().toLocaleString(),
         isRunning: false,
-        output,
+        output: processedData,
+        outputColumns,
       });
       console.log(`script exited with code ${code}`);
     });

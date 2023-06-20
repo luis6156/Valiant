@@ -129,10 +129,7 @@ const ScriptsImportPageThree = forwardRef<RefsStepThree>((_, ref) => {
         </div>
         <div className='d-flex mb-1'>
           <div className='ps-1'>
-            <p className=''>Name</p>
-          </div>
-          <div className='ps-1 mb-2'>
-            <p className=''>Type</p>
+            <p className=''>Column Name</p>
           </div>
         </div>
         {scriptColumnRowsRefs.map((columnRowRef, index) => (
@@ -143,7 +140,7 @@ const ScriptsImportPageThree = forwardRef<RefsStepThree>((_, ref) => {
             ref={columnRowRef}
           />
         ))}
-        <div className='d-flex mt-2 align-items-center'>
+        <div className='d-flex align-items-center'>
           <button
             className={`me-3 btn btn-info github-arrow d-flex align-items-center justify-content-center flag-icon-button-add`}
             onClick={handleAddColumn}

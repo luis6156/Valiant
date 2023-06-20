@@ -45,7 +45,8 @@
       { "name": "Raw Text", "type": "string" }
     ],
     "scriptExecutable": "python",
-    "scriptOutputColsSeparator": ",\\n",
+    "scriptOutputSkipRows": "1",
+    "scriptOutputColsSeparator": ",",
     "scriptVisualizers": [
       {
         "type": "table",

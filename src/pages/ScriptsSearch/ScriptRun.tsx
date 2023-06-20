@@ -18,7 +18,9 @@ interface Props {
   speed: string;
   successRate: string;
   visualizers: ScriptVisualizerFormat[];
-  columns: ScriptColumnFormat[];
+  outputSkipRows: string;
+  outputColsSeparator: string;
+  outputColumns: ScriptColumnFormat[];
   outputFile?: string;
   handleGoBack: () => void;
 }
@@ -33,7 +35,9 @@ const ScriptRun = ({
   speed,
   successRate,
   visualizers,
-  columns,
+  outputSkipRows,
+  outputColsSeparator,
+  outputColumns,
   outputFile,
   handleGoBack,
 }: Props) => {
@@ -47,7 +51,8 @@ const ScriptRun = ({
 
     const formInputs = event.currentTarget.elements;
     let executionName = (formInputs[0] as HTMLInputElement).value;
-    executionName = executionName.charAt(0).toUpperCase() + executionName.slice(1);
+    executionName =
+      executionName.charAt(0).toUpperCase() + executionName.slice(1);
     const args = [];
 
     for (let i = 1; i < formInputs.length; i++) {
@@ -74,7 +79,11 @@ const ScriptRun = ({
       scriptExecutable,
       scriptPath,
       name,
-      args
+      args,
+      outputSkipRows,
+      outputColsSeparator,
+      outputColumns,
+      outputFile
     );
 
     setIsLoading(true);
@@ -85,6 +94,9 @@ const ScriptRun = ({
       scriptPath,
       scriptName: name,
       args,
+      outputSkipRows,
+      outputColsSeparator,
+      outputColumns,
       outputFile: outputFile ? outputFile : '', // TODO add variant with flag
     });
 
@@ -214,7 +226,7 @@ const ScriptRun = ({
         </div>
         <div className='mt-4'>
           <p className='mb-2 script-output'>Output columns:</p>
-          {columns.map((column, index) => (
+          {outputColumns.map((column, index) => (
             <div key={index} className='mb-2'>
               <p className='mb-1'>{column.name}</p>
             </div>

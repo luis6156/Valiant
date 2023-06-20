@@ -6,7 +6,8 @@ export type ScriptStatus = {
   startTime: string;
   endTime: string;
   status: string;
-  output: string;
+  output: any[];
+  outputColumns: { name: string; type: string }[];
 };
 
 const FILENAME = 'scripts-status.json';
@@ -23,17 +24,24 @@ const useScriptsStatusListener = () => {
         );
 
         if (existingScript) {
-          return prevData.map((item) => {
+          const updatedData = prevData.map((item) => {
             if (item.startTime === scriptData.startTime) {
               return {
                 ...item,
                 status: scriptData.isRunning ? 'Running' : 'Completed',
                 endTime: scriptData.endTime,
                 output: scriptData.output,
+                outputColumns: scriptData.outputColumns,
               };
             }
             return item;
           });
+
+          if (!scriptData.isRunning) {
+            writeDataToFile(JSON.stringify(updatedData));
+          }
+
+          return updatedData;
         } else {
           return [
             ...prevData,
@@ -44,27 +52,18 @@ const useScriptsStatusListener = () => {
               endTime: scriptData.endTime,
               status: scriptData.isRunning ? 'Running' : 'Completed',
               output: scriptData.output,
+              outputColumns: scriptData.outputColumns,
             },
           ];
         }
       });
+    };
 
-      if (!scriptData.isRunning) {
-        await ipcRenderer.invoke('fs-writefile-sync', {
-          data: JSON.stringify([
-            ...data,
-            {
-              executionName: scriptData.executionName,
-              scriptName: scriptData.scriptName,
-              startTime: scriptData.startTime,
-              endTime: scriptData.endTime,
-              status: scriptData.isRunning ? 'Running' : 'Completed',
-              output: scriptData.output,
-            },
-          ]),
-          fileName: FILENAME,
-        });
-      }
+    const writeDataToFile = async (data: string) => {
+      await ipcRenderer.invoke('fs-writefile-sync', {
+        data,
+        fileName: FILENAME,
+      });
     };
 
     const loadDataFromFile = async () => {
@@ -81,7 +80,7 @@ const useScriptsStatusListener = () => {
     };
 
     loadDataFromFile();
-    
+
     ipcRenderer.on('scripts-status', handleScriptStatusUpdate);
 
     return () => {
