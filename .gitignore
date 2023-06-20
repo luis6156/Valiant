@@ -105,3 +105,5 @@ tools/social/crosslinked/names.txt
 tools/social/crosslinked/names.csv
 
 tools/social/socialscan/socialscan/results.json
+
+src/data/scripts-status.json

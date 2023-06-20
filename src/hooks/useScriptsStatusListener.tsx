@@ -9,13 +9,14 @@ export type ScriptStatus = {
   output: string;
 };
 
+const FILENAME = 'scripts-status.json';
 const ipcRenderer = window.ipcRenderer;
 
 const useScriptsStatusListener = () => {
   const [data, setData] = useState<ScriptStatus[]>([]);
 
   useEffect(() => {
-    const handleScriptStatusUpdate = (scriptData: any) => {
+    const handleScriptStatusUpdate = async (scriptData: any) => {
       setData((prevData) => {
         const existingScript = prevData.find(
           (item) => item.startTime === scriptData.startTime
@@ -47,8 +48,40 @@ const useScriptsStatusListener = () => {
           ];
         }
       });
+
+      if (!scriptData.isRunning) {
+        await ipcRenderer.invoke('fs-writefile-sync', {
+          data: JSON.stringify([
+            ...data,
+            {
+              executionName: scriptData.executionName,
+              scriptName: scriptData.scriptName,
+              startTime: scriptData.startTime,
+              endTime: scriptData.endTime,
+              status: scriptData.isRunning ? 'Running' : 'Completed',
+              output: scriptData.output,
+            },
+          ]),
+          fileName: FILENAME,
+        });
+      }
     };
 
+    const loadDataFromFile = async () => {
+      const existsFile = await ipcRenderer.invoke('fs-exists-sync', {
+        fileName: FILENAME,
+      });
+      if (existsFile) {
+        const fileContent = await ipcRenderer.invoke('fs-readfile-sync', {
+          fileName: FILENAME,
+        });
+        const parsedData = JSON.parse(fileContent);
+        setData(parsedData);
+      }
+    };
+
+    loadDataFromFile();
+    
     ipcRenderer.on('scripts-status', handleScriptStatusUpdate);
 
     return () => {

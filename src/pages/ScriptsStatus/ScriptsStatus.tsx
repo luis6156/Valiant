@@ -94,9 +94,9 @@ const ScriptsStatus = ({ data }: Props) => {
             }}
           >
             <ColumnsDirective>
-              {columns.map((column) => (
+              {columns.map((column, index) => (
                 <ColumnDirective
-                  key={column.field}
+                  key={index}
                   field={column.field}
                   headerText={column.headerText}
                   template={column.template}
