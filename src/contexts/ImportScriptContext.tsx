@@ -37,6 +37,7 @@ export type ScriptInputFormat = {
   scriptFlags: ScriptFlagFormat[];
   scriptColumns: ScriptColumnFormat[];
   scriptExecutable: string;
+  scriptOutputSkipRows: string;
   scriptOutputColsSeparator: string;
   scriptVisualizers: ScriptVisualizerFormat[];
   scriptOutputFormat: ScriptOutputFormat;
@@ -65,6 +66,8 @@ interface ImportScriptContextProps {
   setScriptColumns: React.Dispatch<React.SetStateAction<ScriptColumnFormat[]>>;
   scriptExecutable: string;
   setScriptExecutable: React.Dispatch<React.SetStateAction<string>>;
+  scriptOutputSkipRows: string;
+  setScriptOutputSkipRows: React.Dispatch<React.SetStateAction<string>>;
   scriptOutputColsSeparator: string;
   setScriptOutputColsSeparator: React.Dispatch<React.SetStateAction<string>>;
   scriptVisualizers: ScriptVisualizerFormat[];
@@ -110,6 +113,7 @@ const ImportScriptProvider = ({ children }: any) => {
     },
   ]);
   const [scriptExecutable, setScriptExecutable] = useState('');
+  const [scriptOutputSkipRows, setScriptOutputSkipRows] = useState('0');
   const [scriptOutputColsSeparator, setScriptOutputColsSeparator] =
     useState('');
   const [scriptVisualizers, setScriptVisualizers] = useState<
@@ -151,6 +155,8 @@ const ImportScriptProvider = ({ children }: any) => {
     setScriptColumns,
     scriptExecutable,
     setScriptExecutable,
+    scriptOutputSkipRows,
+    setScriptOutputSkipRows,
     scriptOutputColsSeparator,
     setScriptOutputColsSeparator,
     scriptVisualizers,

@@ -47,6 +47,8 @@ const ScriptsImport = () => {
     setScriptExecutable,
     scriptFlags,
     setScriptFlags,
+    scriptOutputSkipRows,
+    setScriptOutputSkipRows,
     scriptOutputColsSeparator,
     setScriptOutputColsSeparator,
     scriptColumns,
@@ -124,6 +126,7 @@ const ScriptsImport = () => {
 
   const handleContinueClickThirdStep = () => {
     const stepThreeValues = stepThreeRefs.current?.getValues();
+    const scriptOutputSkipRowsRefValue = stepThreeValues?.scriptOutputSkipRows;
     const scriptColumnSeparatorRefValue =
       stepThreeValues?.scriptColumnSeparator;
     const scriptColumnRefValues = stepThreeValues?.scriptColumns;
@@ -142,6 +145,7 @@ const ScriptsImport = () => {
 
       setScriptColumns(columns);
 
+      setScriptOutputSkipRows(scriptOutputSkipRowsRefValue || '0');
       setScriptOutputColsSeparator(scriptColumnSeparatorRefValue);
 
       setStep(4);
@@ -232,6 +236,7 @@ const ScriptsImport = () => {
               scriptFlags,
               scriptColumns,
               scriptExecutable,
+              scriptOutputSkipRows,
               scriptOutputColsSeparator,
               scriptVisualizers,
               scriptOutputFormat,
@@ -256,6 +261,7 @@ const ScriptsImport = () => {
                   scriptFlags,
                   scriptColumns,
                   scriptExecutable,
+                  scriptOutputSkipRows,
                   scriptOutputColsSeparator,
                   scriptVisualizers,
                   scriptOutputFormat,

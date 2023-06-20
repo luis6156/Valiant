@@ -16,15 +16,21 @@ import { useImportScript } from '@/contexts/ImportScriptContext';
 
 export interface RefsStepThree {
   getValues: () => {
+    scriptOutputSkipRows: string | undefined;
     scriptColumnSeparator: string | undefined;
     scriptColumns: ({ name: string | undefined } | undefined)[];
   };
 }
 
 const ScriptsImportPageThree = forwardRef<RefsStepThree>((_, ref) => {
+  const scriptOutputSkipRowsRef = useRef<HTMLInputElement>(null);
   const scriptColumnSeparatorRef = useRef<HTMLInputElement>(null);
-  const { scriptColumns, setScriptColumns, scriptOutputColsSeparator } =
-    useImportScript();
+  const {
+    scriptColumns,
+    setScriptColumns,
+    scriptOutputColsSeparator,
+    scriptOutputSkipRows,
+  } = useImportScript();
   const [scriptColumnRowsRefs, setScriptColumnRowsRefs] = useState<
     React.RefObject<ColumnRowRefs>[]
   >(
@@ -51,6 +57,7 @@ const ScriptsImportPageThree = forwardRef<RefsStepThree>((_, ref) => {
   useImperativeHandle(ref, () => ({
     getValues: () => {
       return {
+        scriptOutputSkipRows: scriptOutputSkipRowsRef.current?.value,
         scriptColumnSeparator: scriptColumnSeparatorRef.current?.value,
         scriptColumns: scriptColumnRowsRefs.map((columnRowRef) =>
           columnRowRef.current?.getValues()
@@ -98,6 +105,17 @@ const ScriptsImportPageThree = forwardRef<RefsStepThree>((_, ref) => {
         Tell us what the script output will look like
       </p>
       <div className='mt-4 mb-4'>
+        <div className='mt-4 mb-4'>
+          <FloatingLabelInput
+            helpText='Provide the number of rows to skip from the output if you need it.'
+            defaultValue={scriptOutputSkipRows || '0'}
+            label={'Skip Rows from Output'}
+            type={'text'}
+            name={'script-output-skip-rows'}
+            required={false}
+            ref={scriptOutputSkipRowsRef}
+          />
+        </div>
         <div className='mt-4 mb-4'>
           <FloatingLabelInput
             helpText='Provide all the separators used to split the data into the columns. Please start with "space" if you need it.'
