@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 export type ScriptFlagFormat = {
+  flag: string;
   name: string;
   description: string;
   type: 'flag' | 'checkbox' | 'argument';
@@ -95,6 +96,7 @@ const ImportScriptProvider = ({ children }: any) => {
   const [scriptPath, setScriptPath] = useState('');
   const [scriptFlags, setScriptFlags] = useState<ScriptFlagFormat[]>([
     {
+      flag: '',
       name: '',
       description: '',
       type: 'flag',

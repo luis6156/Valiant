@@ -1,5 +1,4 @@
 import React, {
-  RefObject,
   createRef,
   forwardRef,
   useEffect,
@@ -18,7 +17,11 @@ export interface RefsStepTwo {
     scriptPath: string | undefined;
     scriptExecutable: string | undefined;
     scriptFlags: (
-      | { flag: string | undefined; description: string | undefined }
+      | {
+          flag: string | undefined;
+          name: string | undefined;
+          description: string | undefined;
+        }
       | undefined
     )[];
   };
@@ -70,7 +73,7 @@ const ScriptsImportPageTwo = forwardRef<RefsStepTwo>((_, ref) => {
 
     setScriptFlags((prevScriptFlags) => [
       ...prevScriptFlags,
-      { name: '', description: '', type: 'flag', required: false },
+      { flag: '', name: '', description: '', type: 'flag', required: false },
     ]);
   };
 
@@ -147,11 +150,14 @@ const ScriptsImportPageTwo = forwardRef<RefsStepTwo>((_, ref) => {
       </div>
       <div className='mt-4 mb-4'>
         <div className='d-flex mb-1'>
-          <div className='ps-1 me-1'>
-            <p className=''>Flag/Name</p>
+          <div className='ps-1 me-3'>
+            <p className=''>Flag</p>
           </div>
-          <div className='ms-4 mb-2'>
-            <p className=''>Input Description</p>
+          <div className='ms-3 ps-1 me-3'>
+            <p className=''>Name</p>
+          </div>
+          <div className='ms-4 mb-2 ps-2'>
+            <p className=''>Description</p>
           </div>
         </div>
         {scriptFlagsRowsRefs.map((scriptFlagsRowRefs, index) => (
@@ -170,7 +176,7 @@ const ScriptsImportPageTwo = forwardRef<RefsStepTwo>((_, ref) => {
           >
             <Icon className='flag-icon-add' icon='ic:round-plus' />
           </button>
-          <AttentionText text='The asterix button sets a flag as required. Argument means no prefix flag is required.' />
+          <AttentionText text='The asterix button sets a flag as required. Argument means no prefix flag is required. The order is the one you see.' />
         </div>
       </div>
     </>

@@ -206,7 +206,9 @@ ipcMain.on(
     const scriptDir = path.dirname(scriptPath);
     process.chdir(scriptDir);
 
-    fs.unlinkSync(outputFile);
+    if (fs.existsSync(outputFile)) {
+      fs.unlinkSync(outputFile);
+    }
 
     const command = [
       scriptPath,

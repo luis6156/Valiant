@@ -5,6 +5,7 @@ import { useImportScript } from '@/contexts/ImportScriptContext';
 export interface FlagsRowRefs {
   getValues: () => {
     flag: string | undefined;
+    name: string | undefined;
     description: string | undefined;
   };
   setValues: (flag: string, description: string) => void;
@@ -19,12 +20,14 @@ interface Props {
 const FlagRow = forwardRef<FlagsRowRefs, Props>(
   ({ index, handleRemoveFlag, handleToggleRequiredFlag }: Props, ref) => {
     const flagRef = useRef<HTMLInputElement>(null);
+    const nameRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
     const { scriptFlags, setScriptFlags } = useImportScript();
 
     useImperativeHandle(ref, () => ({
       getValues: () => ({
         flag: flagRef.current?.value,
+        name: nameRef.current?.value,
         description: descriptionRef.current?.value,
       }),
       setValues: (flag: string, description: string) => {
@@ -59,25 +62,52 @@ const FlagRow = forwardRef<FlagsRowRefs, Props>(
     return (
       <div key={index} className='mb-3'>
         <div className='d-flex'>
-          <div className='flag-container'>
+          <div className='flag-container pe-2'>
+            {scriptFlags[index]?.type === 'flag' && (
+              <input
+                defaultValue={scriptFlags[index]?.flag}
+                placeholder={`${index === 0 ? '-i' : ''}`}
+                type='text'
+                className='form-control me-2'
+                ref={flagRef}
+              />
+            )}
+          </div>
+          <div className='flag-name-container pe-2'>
             <input
               defaultValue={scriptFlags[index]?.name}
-              placeholder={`${index === 0 ? '-i' : ''}`}
+              placeholder={`${
+                index === 0
+                  ? scriptFlags[index]?.type === 'flag'
+                    ? 'Input'
+                    : scriptFlags[index]?.type === 'checkbox'
+                    ? 'Silent'
+                    : 'Input'
+                  : ''
+              }`}
               type='text'
               className='form-control me-2'
-              ref={flagRef}
+              ref={nameRef}
             />
           </div>
-          <div className='w-100 px-3'>
+          <div className='w-100 pe-2'>
             <input
               defaultValue={scriptFlags[index]?.description}
-              placeholder={`${index === 0 ? 'Provide the input file' : ''}`}
+              placeholder={`${
+                index === 0
+                  ? scriptFlags[index]?.type === 'flag'
+                    ? 'Provide the input file in format name.txt'
+                    : scriptFlags[index]?.type === 'checkbox'
+                    ? 'Silent mode'
+                    : 'Provide the input file in format name.txt'
+                  : ''
+              }`}
               type='text'
               className='form-control'
               ref={descriptionRef}
             />
           </div>
-          <div className='column-select-container pe-3'>
+          <div className='flag-select-container pe-2'>
             <select
               value={scriptFlags[index]?.type}
               className='form-select form-select-special'

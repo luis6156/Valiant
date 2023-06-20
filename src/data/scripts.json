@@ -2,61 +2,56 @@
   {
     "scriptPage": "https://github.com/m8sec/CrossLinked",
     "scriptName": "CrossLinked",
-    "scriptDescription": "LinkedIn enumeration tool to extract valid employee names from an organization through search engine scraping.",
-    "scriptInputTags": ["domain", "name", "company"],
-    "scriptOutputTags": ["name", "position", "linkedin", "mail"],
+    "scriptDescription": "CrossLinked is a LinkedIn enumeration tool that uses search engine scraping to collect valid employee names from an organization. This technique provides accurate results without the use of API keys.",
+    "scriptInputTags": ["domain", "company", "email"],
+    "scriptOutputTags": ["emails", "linkedin", "position", "full-name"],
     "scriptSpeed": "4",
     "scriptSuccessRate": "3",
     "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py",
     "scriptFlags": [
       {
-        "name": "-f",
-        "description": "email format",
+        "flag": "-f",
+        "name": "Email Format",
+        "description": "Provide the email format of the company like in this example '{first}.{last}@domain.com'. Do not forget the quotation marks.",
         "type": "flag",
         "required": true
       },
       {
-        "name": "-t",
-        "description": "timeout",
-        "type": "flag",
+        "name": "Timeout",
+        "description": "Max timeout per search (Default=15)",
+        "type": "checkbox",
         "required": false
       },
       {
-        "name": "-j",
-        "description": "jitter between requests",
-        "type": "flag",
+        "name": "Jitter",
+        "description": "Jitter between requests (Default=1)",
+        "type": "checkbox",
         "required": false
       },
       {
-        "name": "company name",
-        "description": "company name",
+        "name": "Company Name",
+        "description": "Provide the company name as used on LinkedIn.",
         "type": "argument",
         "required": true
       }
     ],
     "scriptColumns": [
-      { "name": "datetime", "type": "string" },
-      { "name": "search", "type": "string" },
-      { "name": "first name", "type": "string" },
-      { "name": "last name", "type": "string" },
-      { "name": "position", "type": "string" },
-      { "name": "url", "type": "string" },
-      { "name": "raw text", "type": "string" }
+      { "name": "Datetime", "type": "string" },
+      { "name": "Search", "type": "string" },
+      { "name": "First Name", "type": "string" },
+      { "name": "Last Name", "type": "string" },
+      { "name": "Title", "type": "string" },
+      { "name": "URL", "type": "string" },
+      { "name": "Raw Text", "type": "string" }
     ],
     "scriptExecutable": "python",
     "scriptOutputColsSeparator": ",\\n",
     "scriptVisualizers": [
       {
         "type": "table",
-        "labelXColumn": "datetime",
-        "labelYColumn": "search",
-        "labelZColumn": "first name"
-      },
-      {
-        "type": "line-chart",
-        "labelXColumn": "datetime",
-        "labelYColumn": "search",
-        "labelZColumn": "first name"
+        "labelXColumn": "Datetime",
+        "labelYColumn": "Search",
+        "labelZColumn": "First Name"
       }
     ],
     "scriptOutputFormat": { "type": "file", "name": "names.csv" }

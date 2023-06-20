@@ -164,6 +164,7 @@ const ScriptsSearch = () => {
           speed={scripts[selectedScript].scriptSpeed}
           successRate={scripts[selectedScript].scriptSuccessRate}
           visualizers={scripts[selectedScript].scriptVisualizers}
+          columns={scripts[selectedScript].scriptColumns}
           outputFile={
             scripts[selectedScript].scriptOutputFormat.type === 'file'
               ? scripts[selectedScript].scriptOutputFormat.name

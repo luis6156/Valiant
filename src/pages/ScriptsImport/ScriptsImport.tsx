@@ -98,7 +98,8 @@ const ScriptsImport = () => {
         const flags: ScriptFlagFormat[] = scriptFlagsRefValues.map(
           (flag, index) => {
             return {
-              name: flag?.flag,
+              flag: flag?.flag,
+              name: flag?.name,
               description: flag?.description,
               type: scriptFlags[index].type,
               required: scriptFlags[index].required,

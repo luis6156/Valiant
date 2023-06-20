@@ -1,6 +1,7 @@
 import AttentionText from '@/components/AttentionText';
 import ExternalLink from '@/components/ExternalLink';
 import {
+  ScriptColumnFormat,
   ScriptFlagFormat,
   ScriptVisualizerFormat,
 } from '@/contexts/ImportScriptContext';
@@ -17,6 +18,7 @@ interface Props {
   speed: string;
   successRate: string;
   visualizers: ScriptVisualizerFormat[];
+  columns: ScriptColumnFormat[];
   outputFile?: string;
   handleGoBack: () => void;
 }
@@ -31,6 +33,7 @@ const ScriptRun = ({
   speed,
   successRate,
   visualizers,
+  columns,
   outputFile,
   handleGoBack,
 }: Props) => {
@@ -90,7 +93,7 @@ const ScriptRun = ({
   };
 
   function stripUrl(url: string) {
-    const strippedUrl = url.replace(/^(https?:\/\/)?(www\.)?/i, '');
+    const strippedUrl = url.replace(/^(https?:\/\/)?[^/]+\/?/i, '');
     return strippedUrl;
   }
 
@@ -121,42 +124,51 @@ const ScriptRun = ({
           {flags
             .filter((flag) => flag.type === 'argument' || flag.type === 'flag')
             .map((flag, index) => (
-              <div key={index} className='mb-3'>
-                <p className='mb-1'>{`${flag.description
+              <div key={index} className='mb-2'>
+                <p className='mb-1'>{`${flag.name
                   .charAt(0)
-                  .toUpperCase()}${flag.description.slice(1)}`}</p>
+                  .toUpperCase()}${flag.name.slice(1)}`}</p>
                 <div className='d-flex align-items-center mb-2'>
                   <input
-                    id={flag.name}
+                    id={flag.flag}
                     name={flag.type}
                     className='form-control'
                     type='text'
                     required={flag.required}
                   ></input>
                 </div>
-                {flag.required && <AttentionText text='Flag is required.' />}
+                <AttentionText
+                  text={`${flag.description} ${
+                    flag.required ? 'This input is required.' : ''
+                  }`}
+                />
               </div>
             ))}
-          <div className='mt-4'>
-            <p className='mb-3'>Select all flags that you need:</p>
-            {flags
-              .filter((flag) => flag.type === 'checkbox')
-              .map((flag, index) => (
-                <div key={index} className='mb-2'>
-                  <input
-                    id={flag.name}
-                    type='checkbox'
-                    className='form-check-input'
-                  />
-                  <label className='ms-2 form-check-label' htmlFor={flag.name}>
-                    {`${flag.description
-                      .charAt(0)
-                      .toUpperCase()}${flag.description.slice(1)}`}
-                  </label>
-                  {flag.required && <AttentionText text='Flag is required.' />}
-                </div>
-              ))}
-          </div>
+          {flags && flags.some((flag) => flag.type === 'checkbox') && (
+            <div className='mt-3'>
+              <p className='mb-2'>Select all flags that you need:</p>
+              {flags
+                .filter((flag) => flag.type === 'checkbox')
+                .map((flag, index) => (
+                  <div key={index} className='mb-2'>
+                    <input
+                      id={flag.name}
+                      type='checkbox'
+                      className='form-check-input'
+                    />
+                    <label
+                      className='ms-2 form-check-label mb-2'
+                      htmlFor={flag.name}
+                    >
+                      {`${flag.name.charAt(0).toUpperCase()}${flag.name.slice(
+                        1
+                      )}`}
+                    </label>
+                    <AttentionText text={flag.description} />
+                  </div>
+                ))}
+            </div>
+          )}
 
           <div className='mt-4'>
             {error && (
@@ -198,6 +210,14 @@ const ScriptRun = ({
           <div className='script-card-bg-slide-special'>
             <div className={`script-card-slide-${successRate}`}></div>
           </div>
+        </div>
+        <div className='mt-4'>
+          <p className='mb-2 script-output'>Output columns:</p>
+          {columns.map((column, index) => (
+            <div key={index} className='mb-2'>
+              <p className='mb-1'>{column.name}</p>
+            </div>
+          ))}
         </div>
         <div className='mt-4'>
           <p className='mb-2 script-output'>Visualizers:</p>

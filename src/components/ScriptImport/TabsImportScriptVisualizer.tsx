@@ -17,7 +17,8 @@ interface Props {
 }
 
 const TabsImportScriptVisualizer = ({ tabs, setTabs }: Props) => {
-  const { setScriptVisualizers, scriptColumns } = useImportScript();
+  const { setScriptVisualizers, scriptVisualizers, scriptColumns } =
+    useImportScript();
   const [canAdd, setCanAdd] = useState<boolean>(scriptColumns.length > 1);
 
   const handleTabClick = (tabId: number) => {
@@ -90,6 +91,11 @@ const TabsImportScriptVisualizer = ({ tabs, setTabs }: Props) => {
 
       updatedTabs = updatedTabs.filter((_, index) => index !== tabId);
       setTabs(updatedTabs);
+
+      const updatedScriptsVisualizers = scriptVisualizers.filter(
+        (_, index) => index !== tabId
+      );
+      setScriptVisualizers(updatedScriptsVisualizers);
     }
   };
 
