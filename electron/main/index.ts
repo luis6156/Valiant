@@ -198,8 +198,9 @@ ipcMain.on(
       scriptName,
       executionName: executionName,
       startTime,
-      endTime: '',
+      endTime: '-',
       isRunning: true,
+      output: '-',
     });
 
     // Change working directory to the script directory
@@ -236,12 +237,15 @@ ipcMain.on(
     });
 
     scriptProcess.on('close', (code) => {
+      const output = fs.readFileSync(outputFile, 'utf8');
+
       win?.webContents.send('scripts-status', {
         scriptName,
         executionName: executionName,
         startTime,
         endTime: new Date().toLocaleString(),
         isRunning: false,
+        output,
       });
       console.log(`script exited with code ${code}`);
     });

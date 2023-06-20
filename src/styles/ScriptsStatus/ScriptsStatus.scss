@@ -1,0 +1,15 @@
+@import '../variables';
+
+.output-container {
+  cursor: pointer !important;
+  color: var(--h1-color) !important;
+  transition: all 0.2s ease !important;
+}
+
+.output-container:hover {
+  color: var(--primary-color) !important;
+}
+
+.output-text {
+  color: var(--h1-color) !important;
+}

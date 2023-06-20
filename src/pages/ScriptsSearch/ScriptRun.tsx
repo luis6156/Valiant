@@ -46,7 +46,8 @@ const ScriptRun = ({
     setError('');
 
     const formInputs = event.currentTarget.elements;
-    const executionName = (formInputs[0] as HTMLInputElement).value;
+    let executionName = (formInputs[0] as HTMLInputElement).value;
+    executionName = executionName.charAt(0).toUpperCase() + executionName.slice(1);
     const args = [];
 
     for (let i = 1; i < formInputs.length; i++) {

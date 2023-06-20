@@ -6,6 +6,7 @@ export type ScriptStatus = {
   startTime: string;
   endTime: string;
   status: string;
+  output: string;
 };
 
 const ipcRenderer = window.ipcRenderer;
@@ -27,6 +28,7 @@ const useScriptsStatusListener = () => {
                 ...item,
                 status: scriptData.isRunning ? 'Running' : 'Completed',
                 endTime: scriptData.endTime,
+                output: scriptData.output,
               };
             }
             return item;
@@ -40,6 +42,7 @@ const useScriptsStatusListener = () => {
               startTime: scriptData.startTime,
               endTime: scriptData.endTime,
               status: scriptData.isRunning ? 'Running' : 'Completed',
+              output: scriptData.output,
             },
           ];
         }

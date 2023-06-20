@@ -38,7 +38,6 @@ const ScriptsSearch = () => {
       const scriptsParsed: ScriptInputFormat[] = JSON.parse(scriptsJson);
 
       setScripts(scriptsParsed);
-      // setSelectedScript(scriptsParsed[6]);
     };
 
     getScripts();
