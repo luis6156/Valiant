@@ -66,7 +66,7 @@ const ScriptOutput = ({
       <div className='mb-3'>
         <Table data={output} columns={processedColumns} />
       </div>
-      <div className='mb-3'>
+      {/* <div className='mb-3'>
         <LineChart
           data={linechart}
           xColumn='x'
@@ -80,8 +80,8 @@ const ScriptOutput = ({
           //   'Raw Text',
           // ]}
         />
-      </div>
-      <div className='mb-3'>
+      </div> */}
+      {/* <div className='mb-3'>
         <BarChart
           data={output}
           xColumn='URL'
@@ -95,7 +95,7 @@ const ScriptOutput = ({
           //   'Raw Text',
           // ]}
         />
-      </div>
+      </div> */}
     </>
   );
 };

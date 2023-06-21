@@ -2,6 +2,9 @@ import argparse
 import os
 import sys
 import json
+from modules.discord import discord_email
+from modules.github import github_avatar_url, github_email, githublocation_email, githubname_email
+from modules.gravatar import gravatar_email, hash_email, parse_json
 
 sys.path.append(os.path.abspath('./modules'))
 

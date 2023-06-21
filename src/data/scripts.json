@@ -46,7 +46,7 @@
     ],
     "scriptExecutable": "python",
     "scriptOutputSkipRows": "1",
-    "scriptOutputColsSeparator": ",",
+    "scriptOutputColsSeparator": "\"([^\"]*)\"",
     "scriptVisualizers": [
       {
         "type": "table",
@@ -56,5 +56,60 @@
       }
     ],
     "scriptOutputFormat": { "type": "file", "name": "names.csv" }
+  },
+  {
+    "scriptPage": "https://github.com/un1k0n/GitStalk",
+    "scriptName": "GitStalk",
+    "scriptDescription": "Uses the public version of the GitHub API to grab all repos from users and inspect each one looking for info in commits. It will grab info about all users and collaborators from the repos.",
+    "scriptInputTags": ["username"],
+    "scriptOutputTags": ["email", "collabs", "names"],
+    "scriptSpeed": "4",
+    "scriptSuccessRate": "1",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\repositories\\gitstalk\\gitstalk.py",
+    "scriptFlags": [
+      {
+        "name": "Username",
+        "description": "Provide the GitHub username you wish to query.",
+        "type": "argument",
+        "required": true
+      },
+      {
+        "name": "GitHub Bearer Token",
+        "description": "Include your bearer token to increase the rate limit.",
+        "type": "argument",
+        "required": false
+      }
+    ],
+    "scriptColumns": [{"name": "Full Name", "type": "string"}, { "name": "Email", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "2",
+    "scriptOutputColsSeparator": "(?<=\\|)[^|]+|[^|]+(?=\\|)",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Emails" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "https://github.com/dievus/msdorkdump",
+    "scriptName": "MsDorkDump",
+    "scriptDescription": "MSDorkDump is a Google Dork File Finder that queries a specified domain name and variety of file extensions (pdf, doc, docx, etc), downloads , and then runs Exiftool on them to enumerate metadata.",
+    "scriptInputTags": ["domain"],
+    "scriptOutputTags": ["documents", "office", "pdf", "files"],
+    "scriptSpeed": "2",
+    "scriptSuccessRate": "3",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\msdorkdump\\msdorkdump.py",
+    "scriptFlags": [
+      {
+        "flag": "-t",
+        "name": "Domain",
+        "description": "Provide the domain you wish to query.",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [{ "name": "Document", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "0",
+    "scriptOutputColsSeparator": "https?:\/\/(.+?)*",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Document" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
   }
 ]

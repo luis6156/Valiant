@@ -199,6 +199,8 @@ ipcMain.on(
     }
   ) => {
     const startTime = new Date().toLocaleString();
+    const useStdout = outputFile === 'stdout';
+    const outputFilePath = useStdout ? 'script_output.txt' : outputFile;
 
     // Send message to the renderer process
     win?.webContents.send('scripts-status', {
@@ -215,58 +217,83 @@ ipcMain.on(
     const scriptDir = path.dirname(scriptPath);
     process.chdir(scriptDir);
 
-    if (fs.existsSync(outputFile)) {
-      fs.unlinkSync(outputFile);
+    if (fs.existsSync(outputFilePath)) {
+      fs.unlinkSync(outputFilePath);
     }
 
-    const command = [
-      scriptPath,
-      ...args.map((arg: { name?: string; value?: string }) => {
-        if (arg.name && arg.value) {
-          return arg.name + ' ' + arg.value;
-        } else if (arg.name) {
-          return arg.name;
-        } else {
-          return arg.value;
-        }
-      }),
-    ];
+    const commandArgs: string[] = [];
+    args.forEach((arg: { name?: string; value?: string }) => {
+      if (arg.name) {
+        commandArgs.push(arg.name);
+      }
+      if (arg.value) {
+        commandArgs.push(arg.value);
+      }
+    });
+
+    const command = [scriptPath, ...commandArgs];
 
     console.log('running command: ', command);
 
-    const scriptProcess = spawn(scriptExecutable, command, { cwd: scriptDir });
+    let scriptProcess;
+
+    if (useStdout) {
+      scriptProcess = spawn(scriptExecutable, command, {
+        cwd: scriptDir,
+        stdio: ['inherit', 'pipe', 'ignore'],
+      });
+      const outputStream = fs.createWriteStream(outputFilePath);
+      scriptProcess.stdout.pipe(outputStream);
+    } else {
+      scriptProcess = spawn(scriptExecutable, command, { cwd: scriptDir });
+    }
 
     scriptProcess.stdout.on('data', (data) => {
       console.log(`stdout from script: ${data}`);
     });
 
-    scriptProcess.stderr.on('data', (data) => {
+    scriptProcess.stderr?.on('data', (data) => {
       console.error(`stderr from script: ${data}`);
+      return win?.webContents.send('scripts-status', {
+        scriptName,
+        executionName: executionName,
+        startTime,
+        endTime: new Date().toLocaleString(),
+        isRunning: false,
+        output: [],
+        outputColumns,
+      });
     });
 
     scriptProcess.on('close', (code) => {
-      const output = fs.readFileSync(outputFile, 'utf8');
+      const output = fs.readFileSync(outputFilePath, 'utf8');
 
       // Skip as many rows from the input as specified
       const outputRows = output.split('\r\n').slice(Number(outputSkipRows));
 
       const processedData: any[] = [];
 
-      outputRows.forEach((row: string) => {
-        const rowValues: string[] = row.split(outputColsSeparator);
+      console.log('sep: ', outputColsSeparator);
 
+      const regexPattern = new RegExp(outputColsSeparator, 'g');
+
+      console.log('regexPattern: ', regexPattern);
+
+      outputRows.forEach((row: string) => {
+        console.log('row: ', row);
+        const matches = row.match(regexPattern) || [];
         const rowData: any = {};
+
+        console.log('cacacacacacaca', matches);
 
         outputColumns.forEach(
           (column: { name: string; type: string }, index: number) => {
-            if (index >= rowValues.length) {
+            if (index >= matches.length) {
               return; // Skip the remaining tokens in the row
             }
 
-            const value = rowValues[index]
-              ? rowValues[index].replace(/"/g, '')
-              : '';
-            rowData[column.name] = value;
+            const match = matches[index];
+            rowData[column.name] = match.replace(/"/g, '').trim();
           }
         );
 
@@ -275,6 +302,8 @@ ipcMain.on(
           processedData.push(rowData);
         }
       });
+
+      console.log('processedData: ', processedData);
 
       win?.webContents.send('scripts-status', {
         scriptName,

@@ -171,7 +171,7 @@ const ScriptsSearch = () => {
           outputFile={
             scripts[selectedScript].scriptOutputFormat.type === 'file'
               ? scripts[selectedScript].scriptOutputFormat.name
-              : ''
+              : scripts[selectedScript].scriptOutputFormat.type
           }
           handleGoBack={onGoBack}
         />

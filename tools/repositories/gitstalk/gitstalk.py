@@ -2,7 +2,7 @@ import requests
 import sys
 
 class GithubUser:
-    def __init__(self, username):
+    def __init__(self, username, token=None):
         self.username = username
         self.userUrl = "https://api.github.com/users/{0}".format(username)
         self.repos = []
@@ -14,7 +14,7 @@ class GithubUser:
 
     def grabRepos(self): # Grab all repos from a user
         if(self.checkUsername()):
-            r = requests.get(self.userUrl + "/repos?per_page=100")
+            r = requests.get(self.userUrl + "/repos?per_page=30")
             if(r.status_code == 200):
                 self.repos = r.json()
                 return True
