@@ -66,6 +66,13 @@
   textarea ~ label {
     top: 1.4rem;
   }
+
+  .floating-icon {
+    right: 0.8rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--medium-high-contrast-color);
+  }
 }
 
 .form-floating-custom.focused + .help-text {

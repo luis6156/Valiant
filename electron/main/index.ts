@@ -284,8 +284,6 @@ ipcMain.on(
         const matches = row.match(regexPattern) || [];
         const rowData: any = {};
 
-        console.log('cacacacacacaca', matches);
-
         outputColumns.forEach(
           (column: { name: string; type: string }, index: number) => {
             if (index >= matches.length) {
@@ -318,6 +316,10 @@ ipcMain.on(
     });
   }
 );
+
+ipcMain.on('import-configuration', (event, { archivePath, password }) => {});
+
+ipcMain.on('export-configuration', (event, { password }) => {});
 
 ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {
   const scriptLocation = path.resolve(

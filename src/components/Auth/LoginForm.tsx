@@ -69,6 +69,7 @@ const LoginForm = ({ onForgotPasswordClick }: Props) => {
                 name='password'
                 type='password'
                 label='Password'
+                isPassword={true}
               />
             </div>
             <div className='mb-4 d-flex justify-content-between align-items-center'>

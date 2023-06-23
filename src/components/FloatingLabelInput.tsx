@@ -4,6 +4,7 @@ import AttentionText from './AttentionText';
 
 import '../styles/CustomInput.scss';
 import PillTag from './Dashboard/PillTag';
+import { Icon } from '@iconify/react';
 
 interface Props {
   label: string;
@@ -15,6 +16,7 @@ interface Props {
   maxLength?: number;
   pillValues?: string[];
   setPillValues?: React.Dispatch<React.SetStateAction<string[]>>;
+  isPassword?: boolean;
 }
 
 const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
@@ -29,11 +31,15 @@ const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
       maxLength,
       pillValues = [],
       setPillValues,
+      isPassword,
     }: Props,
     ref: Ref<HTMLInputElement>
   ) => {
     const [value, setValue] = useState(defaultValue || '');
     const [isFocused, setIsFocused] = useState(false);
+    const [showPassword, setShowPassword] = useState(
+      type === 'password' ? false : true
+    );
 
     useEffect(() => {
       if (defaultValue === undefined) return;
@@ -77,7 +83,7 @@ const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
       <>
         <div className={`form-floating-custom ${isFocused ? 'focused' : ''}`}>
           <input
-            type={type}
+            type={isPassword ? (showPassword ? 'text' : 'password') : type}
             name={name}
             required={required}
             className='form-control'
@@ -92,6 +98,15 @@ const FloatingLabelInput = forwardRef<HTMLInputElement, Props>(
             maxLength={maxLength ? maxLength : undefined}
           />
           <label htmlFor='floatingInput'>{label}</label>
+          {isPassword && (
+            <Icon
+              className='floating-icon position-absolute top-50 translate-middle-y'
+              icon={`${
+                showPassword ? 'mdi:eye-lock-open' : 'mdi:eye-lock-open-outline'
+              }`}
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          )}
         </div>
         {helpText && isFocused && (
           <div className='help-text mt-2'>

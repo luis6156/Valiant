@@ -76,6 +76,7 @@ const RegisterForm = () => {
                 type='password'
                 ref={passwordRef}
                 name='password'
+                isPassword={true}
               />
             </div>
             <div className='mb-5'>
@@ -85,6 +86,7 @@ const RegisterForm = () => {
                 type='password'
                 ref={passwordConfirmRef}
                 name='passwordConfirm'
+                isPassword={true}
               />
             </div>
             <div>

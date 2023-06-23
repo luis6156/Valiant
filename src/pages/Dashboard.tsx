@@ -8,6 +8,7 @@ import '../styles/Dashboard/Dashboard.scss';
 import ScriptsSearch from './ScriptsSearch/ScriptsSearch';
 import ScriptsStatus from './ScriptsStatus/ScriptsStatus';
 import useScriptsStatusListener from '@/hooks/useScriptsStatusListener';
+import ImportExport from './ImportExport/ImportExport';
 
 const Dashboard = () => {
   const { activeIcon } = useSidebar();
@@ -31,6 +32,8 @@ const Dashboard = () => {
               <ScriptsSearch />
             ) : activeIcon === 'scripts-status' ? (
               <ScriptsStatus data={scriptsStatusData} />
+            ) : activeIcon === 'import-export' ? (
+              <ImportExport />
             ) : null}
           </div>
         </div>
