@@ -14,6 +14,7 @@ import About from './About/About';
 import ScenariosCreate from './ScenariosCreate/ScenariosCreate';
 import ScenariosSearch from './ScenariosSearch/ScenariosSearch';
 import ScenariosStatus from './ScenariosStatus/ScenariosStatus';
+import CreateScenarioProvider from '@/contexts/CreateScenarioContext';
 
 const Dashboard = () => {
   const { activeIcon } = useSidebar();
@@ -38,11 +39,13 @@ const Dashboard = () => {
             ) : activeIcon === 'scripts-status' ? (
               <ScriptsStatus data={scriptsStatusData} />
             ) : activeIcon === 'pipes-create' ? (
-              <ScenariosCreate />
+              <CreateScenarioProvider>
+                <ScenariosCreate />
+              </CreateScenarioProvider>
             ) : activeIcon === 'pipes-search' ? (
               <ScenariosSearch />
             ) : activeIcon === 'pipes-status' ? (
-              <ScenariosStatus />
+              <ScenariosStatus data={scriptsStatusData} />
             ) : activeIcon === 'import-export' ? (
               <ImportExport />
             ) : activeIcon === 'settings' ? (

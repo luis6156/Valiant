@@ -1,0 +1,20 @@
+@import '../variables';
+
+.scripts-buttons-container {
+  min-width: 3rem;
+  max-width: 3rem;
+}
+
+.line-scenario {
+  height: 5rem !important;
+}
+
+.line-dotted {
+  border-radius: 0;
+  border-left: 1.5px dashed var(--medium-high-contrast-color) !important;
+  background-color: transparent !important;
+}
+
+.active-dotted {
+  border-color: var(--primary-color) !important;
+}

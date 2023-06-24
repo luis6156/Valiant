@@ -1,0 +1,90 @@
+[
+  {
+    "scriptPage": "https://github.com/m8sec/CrossLinked",
+    "scriptName": "DomainEnum",
+    "scriptDescription": "The Domain Enumeration Scenario is a powerful tool designed to assist in the process of domain reconnaissance and enumeration. It provides a systematic approach to gather information about a target domain, facilitating further analysis.",
+    "scriptInputTags": ["domain", "company", "email"],
+    "scriptOutputTags": ["emails", "linkedin", "position", "full-name"],
+    "scriptSpeed": "4",
+    "scriptSuccessRate": "3",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py",
+    "scriptFlags": [
+      {
+        "flag": "-f",
+        "name": "Email Format",
+        "description": "Provide the email format of the company like in this example '{first}.{last}@domain.com'. Do not forget the quotation marks.",
+        "type": "flag",
+        "required": true
+      },
+      {
+        "name": "Timeout",
+        "description": "Max timeout per search (Default=15)",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "Jitter",
+        "description": "Jitter between requests (Default=1)",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "Company Name",
+        "description": "Provide the company name as used on LinkedIn.",
+        "type": "argument",
+        "required": true
+      }
+    ],
+    "scriptColumns": [
+      { "name": "Datetime", "type": "string" },
+      { "name": "Search", "type": "string" },
+      { "name": "First Name", "type": "string" },
+      { "name": "Last Name", "type": "string" },
+      { "name": "Title", "type": "string" },
+      { "name": "URL", "type": "string" },
+      { "name": "Raw Text", "type": "string" }
+    ],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "1",
+    "scriptOutputColsSeparator": "\"([^\"]*)\"",
+    "scriptVisualizers": [
+      {
+        "type": "table",
+        "labelXColumn": "Datetime",
+        "labelYColumn": "Search",
+        "labelZColumn": "First Name"
+      }
+    ],
+    "scriptOutputFormat": { "type": "file", "name": "names.csv" }
+  },
+  {
+    "scriptPage": "https://github.com/un1k0n/GitStalk",
+    "scriptName": "SocialMediaEnum",
+    "scriptDescription": "The Social Media Enumeration Script is a specialized tool designed to facilitate the process of gathering information from social media platforms for reconnaissance and intelligence purposes.",
+    "scriptInputTags": ["username"],
+    "scriptOutputTags": ["email", "collabs", "names"],
+    "scriptSpeed": "4",
+    "scriptSuccessRate": "1",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\repositories\\gitstalk\\gitstalk.py",
+    "scriptFlags": [
+      {
+        "name": "Username",
+        "description": "Provide the GitHub username you wish to query.",
+        "type": "argument",
+        "required": true
+      },
+      {
+        "name": "GitHub Bearer Token",
+        "description": "Include your bearer token to increase the rate limit.",
+        "type": "argument",
+        "required": false
+      }
+    ],
+    "scriptColumns": [{"name": "Full Name", "type": "string"}, { "name": "Email", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "2",
+    "scriptOutputColsSeparator": "(?<=\\|)[^|]+|[^|]+(?=\\|)",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Emails" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
+  }
+]
