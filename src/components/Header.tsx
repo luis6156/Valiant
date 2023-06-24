@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { useSidebar } from '@/contexts/SidebarContext';
 
 interface Props {
   title: string;
@@ -13,6 +14,7 @@ const Header = ({ title, subtitle }: Props) => {
   const [error, setError] = useState('');
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
+  const { handleIconClick } = useSidebar();
 
   async function handleLogout() {
     setError('');
@@ -24,6 +26,10 @@ const Header = ({ title, subtitle }: Props) => {
       setError('Failed to logout');
     }
   }
+
+  const handleEditProfile = () => {
+    handleIconClick('settings');
+  };
 
   return (
     <>
@@ -62,9 +68,9 @@ const Header = ({ title, subtitle }: Props) => {
             </button>
             <ul className='dropdown-menu'>
               <li>
-                <Link className='dropdown-item' to='/update-profile'>
-                  Update Profile
-                </Link>
+                <button className='dropdown-item' onClick={handleEditProfile}>
+                  Edit Profile
+                </button>
               </li>
               <li>
                 <hr className='dropdown-divider' />

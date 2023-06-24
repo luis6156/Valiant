@@ -322,6 +322,39 @@ option {
   margin-top: 2rem !important;
 }
 
+.settings-title {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: var(--h2-color) !important;
+}
+
+.circle-dark {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: #222;
+  border: 3px solid #F74A39;
+  margin: 10px;
+}
+
+.circle-light {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: #f1f1f1;
+  border: 7px solid #E56B70;
+  margin: 10px;
+}
+
+.circle-alternate {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: #f4f4f0;
+  border: 7px solid #3C2A21;
+  margin: 10px;
+}
+
 .btn-icon {
   font-size: 1.1rem;
   margin-bottom: 0.1rem;
@@ -500,5 +533,5 @@ h4.header-main {
   }
 }
 
-@import 'bootstrap/scss/bootstrap'; 
+@import 'bootstrap/scss/bootstrap';
 @import './bootstrap-dark.css';
