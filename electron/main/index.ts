@@ -1,9 +1,12 @@
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { release } from 'node:os';
 import path, { dirname, join } from 'node:path';
 import { update } from './update';
 import { exec, spawn } from 'child_process';
 import fs from 'fs';
+import archiver from 'archiver';
+import unzipper from 'unzipper';
+import crypto from 'crypto';
 
 // Load the environment variables from the .env file
 require('dotenv').config({ path: join(__dirname, '../../.env') });
@@ -178,10 +181,6 @@ ipcMain.handle('fs-appendfile-sync', async (event, { data, fileName }) => {
   fs.appendFileSync(join(__dirname, '../../src/data/', fileName), data);
 });
 
-interface TableRow {
-  [key: string]: string;
-}
-
 ipcMain.on(
   'run-script',
   (
@@ -317,9 +316,130 @@ ipcMain.on(
   }
 );
 
-ipcMain.on('import-configuration', (event, { archivePath, password }) => {});
+ipcMain.handle(
+  'import-configuration',
+  async (event, { archivePath, password }) => {
+    // Create a temporary directory for extracting the files
+    const tempDir = join(__dirname, 'temp');
+    fs.mkdirSync(tempDir);
 
-ipcMain.on('export-configuration', (event, { password }) => {});
+    try {
+      // Extract the encrypted archive
+      await fs
+        .createReadStream(archivePath)
+        .pipe(unzipper.Extract({ path: tempDir }))
+        .promise();
+
+      // Get the list of extracted files
+      const files = fs.readdirSync(tempDir);
+
+      // Decrypt and move each file to the data folder
+      files.forEach((file) => {
+        const filePath = join(tempDir, file);
+
+        // Read the encrypted file content
+        const encryptedContent = fs.readFileSync(filePath);
+
+        // Decrypt the file content
+        const algorithm = 'aes-256-cbc';
+        const key = crypto.scryptSync(password, '', 32);
+        const iv = encryptedContent.subarray(0, 16); // Extract IV from the encrypted content
+        const decipher = crypto.createDecipheriv(algorithm, key, iv);
+        const decryptedContent = Buffer.concat([
+          decipher.update(encryptedContent.subarray(16)),
+          decipher.final(),
+        ]);
+
+        // Write the decrypted content to the data folder
+        const destinationPath = join(
+          __dirname,
+          '../../src/data',
+          path.basename(file)
+        );
+
+        // Delete the existing file if it exists
+        if (fs.existsSync(destinationPath)) {
+          fs.unlinkSync(destinationPath);
+        }
+
+        fs.writeFileSync(destinationPath, decryptedContent);
+
+        // Remove the temporary file
+        fs.unlinkSync(filePath);
+      });
+
+      // Remove the temporary directory
+      fs.rmdirSync(tempDir);
+
+      return 'Files imported successfully.';
+    } catch (error) {
+      // Remove the temporary directory in case of error
+      fs.rmdirSync(tempDir);
+
+      return 'Error importing files. Invalid password or invalid archive format.';
+    }
+  }
+);
+
+ipcMain.handle('export-configuration', (event, { password }) => {
+  const exportPath = dialog.showSaveDialogSync(win!, {
+    title: 'Export configuration',
+    defaultPath: 'configuration.zip',
+  });
+
+  if (!exportPath) {
+    return 'No file selected.';
+  }
+
+  const output = fs.createWriteStream(exportPath);
+
+  const archive = archiver('zip', {
+    zlib: { level: 9 },
+  });
+
+  archive.pipe(output);
+
+  const dataFolderPath = join(__dirname, '../../src/data');
+
+  // Read the content of the data folder
+  const files = fs.readdirSync(dataFolderPath);
+
+  // Encrypt and add each file to the archive
+  files.forEach((file) => {
+    if (
+      file === 'scripts-status.json' ||
+      file === 'scenarios-status.json' ||
+      file === 'scenarios.json' ||
+      file === 'scripts.json'
+    ) {
+      // Skip encrypting and adding scripts-status.json
+      return;
+    }
+
+    const filePath = join(dataFolderPath, file);
+    const fileContent = fs.readFileSync(filePath);
+
+    // Generate a random initialization vector
+    const iv = crypto.randomBytes(16);
+
+    // Encrypt the file content
+    const algorithm = 'aes-256-cbc';
+    const key = crypto.scryptSync(password, '', 32);
+    const cipher = crypto.createCipheriv(algorithm, key, iv);
+    const encryptedContent = Buffer.concat([
+      iv, // Add the initialization vector to the encrypted content
+      cipher.update(fileContent),
+      cipher.final(),
+    ]);
+
+    // Add the encrypted file to the archive
+    archive.append(encryptedContent, { name: file });
+  });
+
+  archive.finalize();
+
+  return 'Files exported successfully.';
+});
 
 ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {
   const scriptLocation = path.resolve(

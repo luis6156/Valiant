@@ -10,26 +10,43 @@ const ImportExport = () => {
   const [error, setError] = useState<string | null>(null);
   const archivePathRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const [actionMessage, setActionMessage] = useState<string | null>(null);
 
   const handleSubmit = () => {
+    setActionMessage(null);
+
     if (actionType !== 'default') {
       if (
         actionType === 'import' &&
-        archivePathRef.current?.value &&
+        archivePathRef.current?.files?.[0]?.path &&
         passwordRef.current?.value
       ) {
         setError(null);
 
-        ipcRenderer.send('import-configuration', {
-          archivePath: archivePathRef.current.value,
-          password: passwordRef.current.value,
-        });
+        ipcRenderer
+          .invoke('import-configuration', {
+            archivePath: archivePathRef.current?.files?.[0]?.path,
+            password: passwordRef.current.value,
+          })
+          .then((result) => {
+            setActionMessage(result);
+          })
+          .catch((err) => {
+            setError(err);
+          });
       } else if (actionType === 'export' && passwordRef.current?.value) {
         setError(null);
 
-        ipcRenderer.send('export-configuration', {
-          password: passwordRef.current.value,
-        });
+        ipcRenderer
+          .invoke('export-configuration', {
+            password: passwordRef.current.value,
+          })
+          .then((result) => {
+            setActionMessage(result);
+          })
+          .catch((err) => {
+            setError(err);
+          });
       } else {
         setError('Please fill all inputs.');
       }
@@ -71,19 +88,19 @@ const ImportExport = () => {
         </div>
         {actionType === 'import' || actionType === 'default' ? (
           <div className='input-group'>
-            <label className='input-group-text' htmlFor='script-location'>
+            <label className='input-group-text' htmlFor='archive-location'>
               Archive Path
             </label>
             <input
               required={true}
               type='file'
               className='form-control'
-              id='script-location'
+              id='archive-location'
               ref={archivePathRef}
             />
           </div>
         ) : (
-          <AttentionText text='Archive will be exported in the same directory as the application.' />
+          <AttentionText text='A file explorer window will open to select the name and the path of the archive on submit.' />
         )}
         <div className='mt-3'>
           <FloatingLabelInput
@@ -107,6 +124,11 @@ const ImportExport = () => {
         {error && (
           <div className='mt-3'>
             <AttentionText text='' danger={error} />
+          </div>
+        )}
+        {actionMessage && (
+          <div className='mt-3'>
+            <AttentionText text={actionMessage} />
           </div>
         )}
       </div>
