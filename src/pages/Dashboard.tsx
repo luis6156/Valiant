@@ -11,6 +11,9 @@ import useScriptsStatusListener from '@/hooks/useScriptsStatusListener';
 import ImportExport from './ImportExport/ImportExport';
 import Settings from './Settings/Settings';
 import About from './About/About';
+import ScenariosCreate from './ScenariosCreate/ScenariosCreate';
+import ScenariosSearch from './ScenariosSearch/ScenariosSearch';
+import ScenariosStatus from './ScenariosStatus/ScenariosStatus';
 
 const Dashboard = () => {
   const { activeIcon } = useSidebar();
@@ -34,6 +37,12 @@ const Dashboard = () => {
               <ScriptsSearch />
             ) : activeIcon === 'scripts-status' ? (
               <ScriptsStatus data={scriptsStatusData} />
+            ) : activeIcon === 'pipes-create' ? (
+              <ScenariosCreate />
+            ) : activeIcon === 'pipes-search' ? (
+              <ScenariosSearch />
+            ) : activeIcon === 'pipes-status' ? (
+              <ScenariosStatus />
             ) : activeIcon === 'import-export' ? (
               <ImportExport />
             ) : activeIcon === 'settings' ? (
