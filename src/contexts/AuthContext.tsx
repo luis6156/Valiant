@@ -7,14 +7,13 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
-  verifyBeforeUpdateEmail,
-  verifyPasswordResetCode,
-  confirmPasswordReset,
 } from 'firebase/auth';
-import { firebaseAuth } from '../../src/firebase';
+import { firebaseAuth, firebaseStorage } from '../../src/firebase';
+import { StorageReference, ref } from '@firebase/storage';
 
 interface AuthContextProps {
   currentUser: User | null;
+  userStorageRef: StorageReference | null;
   signUp: (email: string, password: string) => Promise<UserCredential>;
   login: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
@@ -31,6 +30,8 @@ export function useAuth() {
 
 const AuthProvider = ({ children }: any) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [userStorageRef, setUserStorageRef] =
+    useState<StorageReference | null>(null);
   const [loading, setLoading] = useState(true);
   const auth = firebaseAuth;
 
@@ -50,21 +51,16 @@ const AuthProvider = ({ children }: any) => {
     return sendPasswordResetEmail(auth, email);
   }
 
-  function updateEmail(email: string) {
-    return verifyBeforeUpdateEmail(auth.currentUser!, email);
-  }
-  
-  function updatePassword(password: string, code: string) {
-    password
-  }
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
+        const storageRef = ref(firebaseStorage, `${user.uid}/files.zip`);
+        setUserStorageRef(storageRef);
         console.log('User is signed in.');
       } else {
         setCurrentUser(null);
+        setUserStorageRef(null);
         console.log('No user is signed in.');
       }
       setLoading(false);
@@ -79,6 +75,7 @@ const AuthProvider = ({ children }: any) => {
     login,
     logout,
     resetPassword,
+    userStorageRef,
   };
 
   return (

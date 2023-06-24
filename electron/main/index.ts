@@ -7,6 +7,7 @@ import fs from 'fs';
 import archiver from 'archiver';
 import unzipper from 'unzipper';
 import crypto from 'crypto';
+import axios from 'axios';
 
 // Load the environment variables from the .env file
 require('dotenv').config({ path: join(__dirname, '../../.env') });
@@ -315,6 +316,139 @@ ipcMain.on(
     });
   }
 );
+
+const masterPassword = 'master-password';
+
+ipcMain.handle('get-sync-files', async (event, {}) => {
+  const dataFolderPath = join(__dirname, '../../src/data');
+  const archiveName = join(dataFolderPath, 'data.zip');
+
+  const output = fs.createWriteStream(archiveName);
+
+  const archive = archiver('zip', {
+    zlib: { level: 9 },
+  });
+
+  archive.pipe(output);
+
+  // Read the content of the data folder
+  const files = fs.readdirSync(dataFolderPath);
+
+  // Encrypt and add each file to the archive
+  files.forEach((file) => {
+    const filePath = join(dataFolderPath, file);
+    const fileContent = fs.readFileSync(filePath);
+
+    // Generate a random initialization vector
+    const iv = crypto.randomBytes(16);
+
+    // Encrypt the file content
+    const algorithm = 'aes-256-cbc';
+    const key = crypto.scryptSync(masterPassword, '', 32);
+    const cipher = crypto.createCipheriv(algorithm, key, iv);
+    const encryptedContent = Buffer.concat([
+      iv, // Add the initialization vector to the encrypted content
+      cipher.update(fileContent),
+      cipher.final(),
+    ]);
+
+    // Add the encrypted file to the archive
+    archive.append(encryptedContent, { name: file });
+  });
+
+  archive.finalize();
+
+  return new Promise((resolve, reject) => {
+    output.on('close', () => {
+      fs.readFile(archiveName, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          fs.unlinkSync(archiveName);
+          resolve(data);
+        }
+      });
+    });
+  });
+});
+
+ipcMain.handle('update-sync-files', async (event, { url }) => {
+  // Fetch the file content from the URL
+  const response = await axios.get(url, { responseType: 'arraybuffer' });
+
+  // Get the file content as a buffer
+  const fileContent = Buffer.from(response.data, 'binary');
+
+  // Write the buffer to a file
+  const dataFolderPath = join(__dirname, '../../src/data');
+  const archiveName = join(dataFolderPath, 'data.zip');
+  fs.writeFileSync(archiveName, fileContent);
+
+  const tempDir = join(__dirname, 'temp');
+  fs.mkdirSync(tempDir);
+
+  try {
+    // Extract the encrypted archive
+    await fs
+      .createReadStream(archiveName)
+      .pipe(unzipper.Extract({ path: tempDir }))
+      .promise();
+
+    // Get the list of extracted files
+    const files = fs.readdirSync(tempDir);
+
+    // Decrypt and move each file to the data folder
+    files.forEach((file) => {
+      const filePath = join(tempDir, file);
+
+      // Read the encrypted file content
+      const encryptedContent = fs.readFileSync(filePath);
+
+      // Decrypt the file content
+      const algorithm = 'aes-256-cbc';
+      const key = crypto.scryptSync(masterPassword, '', 32);
+      const iv = encryptedContent.subarray(0, 16); // Extract IV from the encrypted content
+      const decipher = crypto.createDecipheriv(algorithm, key, iv);
+      const decryptedContent = Buffer.concat([
+        decipher.update(encryptedContent.subarray(16)),
+        decipher.final(),
+      ]);
+
+      // Write the decrypted content to the data folder
+      const destinationPath = join(
+        __dirname,
+        '../../src/data',
+        path.basename(file)
+      );
+
+      // Delete the existing file if it exists
+      if (fs.existsSync(destinationPath)) {
+        fs.unlinkSync(destinationPath);
+      }
+
+      fs.writeFileSync(destinationPath, decryptedContent);
+
+      // Remove the temporary file
+      fs.unlinkSync(filePath);
+    });
+
+    // Remove the temporary directory
+    fs.rmdirSync(tempDir);
+
+    fs.unlinkSync(archiveName);
+
+    return 'Files imported successfully.';
+  } catch (error) {
+    // Remove the temporary directory in case of error
+    fs.rmdirSync(tempDir);
+
+    // fs.unlinkSync(archiveName);
+
+    console.log(error);
+
+    return 'Error importing files. Invalid password or invalid archive format.';
+  }
+});
 
 ipcMain.handle(
   'import-configuration',
