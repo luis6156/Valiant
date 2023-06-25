@@ -49,10 +49,14 @@ const RegisterForm = () => {
       <div className='d-flex justify-content-center margin-signup'>
         <div>
           <h1>Sign Up</h1>
-          <p>Continue with Google or enter your details</p>
+          <p>Continue with Google or GitHub or enter your details</p>
           <button className='btn btn-google btn-primary w-100 mt-4'>
             <Icon height='25' width='25' icon='flat-color-icons:google' />
             <span className='ms-2 btn-google-text'>Sign up with Google</span>
+          </button>
+          <button className='btn btn-google btn-primary w-100 mt-4'>
+            <Icon height='25' width='25' icon='mdi:github' />
+            <span className='ms-2 btn-google-text'>Log in with GitHub</span>
           </button>
           <div className='d-flex align-items-center mt-4'>
             <hr className='custom-hr my-0' />
