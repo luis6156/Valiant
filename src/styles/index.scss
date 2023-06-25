@@ -132,6 +132,15 @@ p {
   font-weight: 500 !important;
 }
 
+p.info {
+  color: var(--title-page-color) !important;
+}
+
+li {
+  color: var(--title-page-color) !important;
+  font-weight: 500 !important;
+}
+
 label {
   color: var(--h1-color) !important;
 }
