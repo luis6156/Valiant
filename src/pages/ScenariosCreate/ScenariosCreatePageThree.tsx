@@ -26,8 +26,8 @@ export interface RefsStepThree {
 const ScenariosCreatePageThree = forwardRef<RefsStepThree>((_, ref) => {
   return (
     <>
-      <p className='import-steps-title mb-1'>What goes in...</p>
-      <p className='import-steps-p mb-3'>Tell us what the inputs are</p>
+      <p className='import-steps-title mb-1'>To where the current flows</p>
+      <p className='import-steps-p mb-3'>Tell us how we should associate all data</p>
       {true ? (
         <>
           <div className='mb-3'>
@@ -81,54 +81,39 @@ const ScenariosCreatePageThree = forwardRef<RefsStepThree>((_, ref) => {
             </div>
           </div>
 
-          <div className='mb-4'>
+          <div className='mb-3'>
             <div className='d-flex mb-1'>
               <div className='ps-1 me-3'>
-                <p className=''>Required Inputs</p>
+                <p className=''>Identical Columns</p>
               </div>
             </div>
             <div className='d-flex'>
-              <div className='w-100 pe-2'>
+              <div className='w-100 pe-3'>
                 <select
-                  value='photon-verbosity'
-                  className='form-select form-select-special'
-                  aria-label='default'
-                  onChange={() => {}}
-                  disabled
-                >
-                  <option value='photon-verbosity'>MsDorkDump - Proxy</option>
-                  <option value='checkbox'>Checkbox</option>
-                  <option value='argument'>Argument</option>
-                </select>
-              </div>
-              <div className='flag-buttons-container d-flex justify-content-between'>
-                <button
-                  className={`disabled btn btn-info github-arrow h-100 w-100 d-flex align-items-center justify-content-center me-2`}
-                >
-                  <Icon className={`active flag-icons`} icon='mdi:required' />
-                </button>
-              </div>
-            </div>
-
-            <div className='d-flex mt-2'>
-              <div className='w-100 pe-2'>
-                <select
-                  value='photon-verbosity'
+                  value='photon-url'
                   className='form-select form-select-special'
                   aria-label='default'
                   onChange={() => {}}
                 >
-                  <option value='photon-verbosity'>Photon - Verbosity</option>
+                  <option value='photon-url'>SocialScan - Facebook</option>
                   <option value='checkbox'>Checkbox</option>
                   <option value='argument'>Argument</option>
                 </select>
               </div>
-              <div className='flag-buttons-container d-flex justify-content-between'>
-                <button
-                  className={`btn btn-info github-arrow h-100 w-100 d-flex align-items-center justify-content-center me-2`}
+              <p className='pe-3 pt-2'>==</p>
+              <div className='w-100 pe-2'>
+                <select
+                  value='msdorkdump-url'
+                  className='form-select form-select-special'
+                  aria-label='default'
+                  onChange={() => {}}
                 >
-                  <Icon className={`active flag-icons`} icon='mdi:required' />
-                </button>
+                  <option value='msdorkdump-url'>Poastal - Facebook</option>
+                  <option value='checkbox'>Checkbox</option>
+                  <option value='argument'>Argument</option>
+                </select>
+              </div>
+              <div className='scripts-buttons-container d-flex justify-content-between'>
                 <button
                   className={`btn btn-info github-arrow h-100 w-100 d-flex align-items-center justify-content-center`}
                 >
@@ -143,7 +128,67 @@ const ScenariosCreatePageThree = forwardRef<RefsStepThree>((_, ref) => {
               >
                 <Icon className='flag-icon-add' icon='ic:round-plus' />
               </button>
-              <AttentionText text='Add all arguments needed and specify if they are required using the asterix button. Default required arguments cannot be changed.' />
+              <AttentionText text='Specify the identical output columns from the selected scripts.' />
+            </div>
+          </div>
+
+          <div className='mb-4'>
+            <div className='d-flex mb-1'>
+              <div className='ps-1 me-3'>
+                <p className=''>Output Columns</p>
+              </div>
+            </div>
+            <div className='d-flex'>
+              <div className='w-100 pe-2'>
+                <select
+                  value='photon-verbosity'
+                  className='form-select form-select-special'
+                  aria-label='default'
+                  onChange={() => {}}
+                >
+                  <option value='photon-verbosity'>SocialScan - Twitter</option>
+                  <option value='checkbox'>Checkbox</option>
+                  <option value='argument'>Argument</option>
+                </select>
+              </div>
+              <div className='scripts-buttons-container d-flex justify-content-between'>
+                <button
+                  className={`btn btn-info github-arrow h-100 w-100 d-flex align-items-center justify-content-center`}
+                >
+                  <Icon className='flag-icons' icon='ic:round-remove' />
+                </button>
+              </div>
+            </div>
+
+            <div className='d-flex mt-2'>
+              <div className='w-100 pe-2'>
+                <select
+                  value='photon-verbosity'
+                  className='form-select form-select-special'
+                  aria-label='default'
+                  onChange={() => {}}
+                >
+                  <option value='photon-verbosity'>Poastal - Duolingo</option>
+                  <option value='checkbox'>Checkbox</option>
+                  <option value='argument'>Argument</option>
+                </select>
+              </div>
+              <div className='scripts-buttons-container d-flex justify-content-between'>
+                <button
+                  className={`btn btn-info github-arrow h-100 w-100 d-flex align-items-center justify-content-center`}
+                >
+                  <Icon className='flag-icons' icon='ic:round-remove' />
+                </button>
+              </div>
+            </div>
+            <div className='d-flex mt-2 align-items-center'>
+              <button
+                className={`me-3 btn btn-info github-arrow d-flex align-items-center justify-content-center flag-icon-button-add`}
+                onClick={() => {}}
+              >
+                <Icon className='flag-icon-add' icon='ic:round-plus' />
+              </button>
+              <AttentionText text='Add all required output columns.' />
             </div>
           </div>
         </>

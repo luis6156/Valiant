@@ -317,7 +317,7 @@ const ScenariosCreate = () => {
             ) : step === 3 ? (
               <ScenariosCreatePageThree ref={stepThreeRefs} />
             ) : step === 4 ? (
-              <ScenariosCreatePageFour />
+              <ScenariosCreatePageFive />
             ) : (
               <ScenariosCreatePageFive />
             )}
@@ -347,7 +347,7 @@ const ScenariosCreate = () => {
                     <div
                       className={`${
                         step > 1 ? 'active' : ''
-                      } mt-2 mb-2 checkpoint-line line-scenario`}
+                      } mt-2 mb-2 checkpoint-line`}
                     ></div>
 
                     <div className='d-flex align-items-center'>
@@ -374,7 +374,7 @@ const ScenariosCreate = () => {
                     <div
                       className={`${
                         step > 2 ? 'active' : ''
-                      } mt-2 mb-2 checkpoint-line line-scenario`}
+                      } mt-2 mb-2 checkpoint-line`}
                     ></div>
 
                     <div className='d-flex align-items-center'>
@@ -388,20 +388,20 @@ const ScenariosCreate = () => {
                             className={`${
                               step > 2 ? 'active' : ''
                             } checkpoint-icon`}
-                            icon='ic:outline-input'
+                            icon='fluent:flow-16-filled'
                           />
                         </div>
                       </div>
                       <div>
                         <p className='checkpoint-text'>Step 3</p>
-                        <p className='checkpoint-text-small'>Input format</p>
+                        <p className='checkpoint-text-small'>Data flow</p>
                       </div>
                     </div>
 
                     <div
                       className={`${
                         step > 3 ? 'active-dotted' : ''
-                      } mt-2 mb-2 checkpoint-line line-scenario line-dotted`}
+                      } mt-2 mb-2 checkpoint-line`}
                     ></div>
 
                     <div className='d-flex align-items-center'>
@@ -415,39 +415,12 @@ const ScenariosCreate = () => {
                             className={`${
                               step > 3 ? 'active' : ''
                             } checkpoint-icon`}
-                            icon='ic:outline-output'
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <p className='checkpoint-text'>Step 4</p>
-                        <p className='checkpoint-text-small'>Output format</p>
-                      </div>
-                    </div>
-
-                    <div
-                      className={`${
-                        step > 4 ? 'active-dotted' : ''
-                      } mt-2 mb-2 checkpoint-line line-scenario line-dotted`}
-                    ></div>
-
-                    <div className='d-flex align-items-center'>
-                      <div className='me-3'>
-                        <div
-                          className={`${
-                            step > 4 ? 'active' : ''
-                          } checkpoint-circle d-flex align-items-center justify-content-center`}
-                        >
-                          <Icon
-                            className={`${
-                              step > 4 ? 'active' : ''
-                            } checkpoint-icon`}
                             icon='mdi:graph-box-outline'
                           />
                         </div>
                       </div>
                       <div>
-                        <p className='checkpoint-text'>Step 5</p>
+                        <p className='checkpoint-text'>Step 4</p>
                         <p className='checkpoint-text-small'>
                           Visualizer setup
                         </p>
@@ -473,12 +446,10 @@ const ScenariosCreate = () => {
                             ? handleContinueClickSecondStep
                             : step === 3
                             ? handleContinueClickThirdStep
-                            : step === 4
-                            ? handleContinueClickFourthStep
-                            : handleClickFifthStep
+                            : handleContinueClickFourthStep
                         }
                       >
-                        {step === 5 ? (
+                        {step === 4 ? (
                           <p className='finish-button'>Finish</p>
                         ) : (
                           <Icon icon='ic:round-arrow-right' />
