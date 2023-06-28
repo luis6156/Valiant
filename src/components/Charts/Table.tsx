@@ -13,7 +13,7 @@ import {
 interface ColumnDefinition {
   field?: string;
   headerText: string;
-  width: number;
+  width?: number;
   template?: any;
 }
 
