@@ -111,5 +111,155 @@
     "scriptOutputColsSeparator": "https?:\/\/(.+?)*",
     "scriptVisualizers": [{ "type": "table", "labelXColumn": "Document" }],
     "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "https://github.com/jakecreps/poastal",
+    "scriptName": "Poastal",
+    "scriptDescription": "Poastal is an email OSINT tool that provides valuable information on any email address. With Poastal, you can easily input an email address and it will quickly answer several questions, providing you with crucial information.",
+    "scriptInputTags": ["email"],
+    "scriptOutputTags": ["socials"],
+    "scriptSpeed": "3",
+    "scriptSuccessRate": "3",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\msdorkdump\\msdorkdump.py",
+    "scriptFlags": [
+      {
+        "flag": "-t",
+        "name": "Domain",
+        "description": "Provide the domain you wish to query.",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [{ "name": "Document", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "0",
+    "scriptOutputColsSeparator": "https?:\/\/(.+?)*",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Document" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "https://github.com/iojw/socialscan",
+    "scriptName": "SocialScan",
+    "scriptDescription": "Given an email address or username, socialscan returns whether it is available, taken or invalid on online platforms. Uses different techniques from Sherlock.",
+    "scriptInputTags": ["email"],
+    "scriptOutputTags": ["socials"],
+    "scriptSpeed": "2",
+    "scriptSuccessRate": "3",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\msdorkdump\\msdorkdump.py",
+    "scriptFlags": [
+      {
+        "flag": "-t",
+        "name": "Domain",
+        "description": "Provide the domain you wish to query.",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [{ "name": "Document", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "0",
+    "scriptOutputColsSeparator": "https?:\/\/(.+?)*",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Document" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "https://github.com/dievus/msdorkdump",
+    "scriptName": "Have-I-Been-Pwned",
+    "scriptDescription": "Public databases of breached accounts. Have I Been Pwned allows you to search across multiple data breaches to see if your email address has been compromised.",
+    "scriptInputTags": ["username", "email"],
+    "scriptOutputTags": ["breach"],
+    "scriptSpeed": "4",
+    "scriptSuccessRate": "4",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\msdorkdump\\msdorkdump.py",
+    "scriptFlags": [
+      {
+        "flag": "-t",
+        "name": "Domain",
+        "description": "Provide the domain you wish to query.",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [{ "name": "Document", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "0",
+    "scriptOutputColsSeparator": "https?:\/\/(.+?)*",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Document" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "https://github.com/dievus/msdorkdump",
+    "scriptName": "Photon",
+    "scriptDescription": " Incredibly fast crawler designed for OSINT. Extracts urls, emails, intel & endpoints from a target.",
+    "scriptInputTags": ["URL"],
+    "scriptOutputTags": ["documents", "emails", "URLs", "files"],
+    "scriptSpeed": "4",
+    "scriptSuccessRate": "3",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\msdorkdump\\msdorkdump.py",
+    "scriptFlags": [
+      {
+        "flag": "-t",
+        "name": "Domain",
+        "description": "Provide the domain you wish to query.",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [{ "name": "Document", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "0",
+    "scriptOutputColsSeparator": "https?:\/\/(.+?)*",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Document" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "https://github.com/dievus/msdorkdump",
+    "scriptName": "Webenum",
+    "scriptDescription": "A Simple W3b enumeration tool that extracts subdomains of a URL.",
+    "scriptInputTags": ["URL"],
+    "scriptOutputTags": ["subdomains", "URLs"],
+    "scriptSpeed": "2",
+    "scriptSuccessRate": "2",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\msdorkdump\\msdorkdump.py",
+    "scriptFlags": [
+      {
+        "flag": "-t",
+        "name": "Domain",
+        "description": "Provide the domain you wish to query.",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [{ "name": "Document", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "0",
+    "scriptOutputColsSeparator": "https?:\/\/(.+?)*",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Document" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "https://github.com/dievus/msdorkdump",
+    "scriptName": "MsDorkDump",
+    "scriptDescription": "MSDorkDump is a Google Dork File Finder that queries a specified domain name and variety of file extensions (pdf, doc, docx, etc), downloads , and then runs Exiftool on them to enumerate metadata.",
+    "scriptInputTags": ["domain"],
+    "scriptOutputTags": ["documents", "office", "pdf", "files"],
+    "scriptSpeed": "2",
+    "scriptSuccessRate": "3",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\msdorkdump\\msdorkdump.py",
+    "scriptFlags": [
+      {
+        "flag": "-t",
+        "name": "Domain",
+        "description": "Provide the domain you wish to query.",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [{ "name": "Document", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "0",
+    "scriptOutputColsSeparator": "https?:\/\/(.+?)*",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Document" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
   }
 ]

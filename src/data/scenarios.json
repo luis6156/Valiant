@@ -1,11 +1,11 @@
 [
   {
     "scriptPage": "https://github.com/m8sec/CrossLinked",
-    "scriptName": "DomainEnum",
-    "scriptDescription": "The Domain Enumeration Scenario is a powerful tool designed to assist in the process of domain reconnaissance and enumeration. It provides a systematic approach to gather information about a target domain, facilitating further analysis.",
+    "scriptName": "CrossPwned",
+    "scriptDescription": "Uses CrossLinked and the API of Have-I-Been-Pwned to check if an employee address has been in a public breach. This information can be used to query the reuse of passwords across accounts or for phishing purposes.",
     "scriptInputTags": ["domain", "company", "email"],
-    "scriptOutputTags": ["emails", "linkedin", "position", "full-name"],
-    "scriptSpeed": "4",
+    "scriptOutputTags": ["emails", "breached"],
+    "scriptSpeed": "3",
     "scriptSuccessRate": "3",
     "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py",
     "scriptFlags": [
@@ -59,12 +59,72 @@
   },
   {
     "scriptPage": "https://github.com/un1k0n/GitStalk",
-    "scriptName": "SocialMediaEnum",
-    "scriptDescription": "The Social Media Enumeration Script is a specialized tool designed to facilitate the process of gathering information from social media platforms for reconnaissance and intelligence purposes.",
-    "scriptInputTags": ["username"],
-    "scriptOutputTags": ["email", "collabs", "names"],
-    "scriptSpeed": "4",
-    "scriptSuccessRate": "1",
+    "scriptName": "CrossPoastal",
+    "scriptDescription": "Links CrossLinked and Poastal to enumerate all social accounts used by an employee. Best suited for full enumeration of a person.",
+    "scriptInputTags": ["domain", "company", "email"],
+    "scriptOutputTags": ["emails", "socials"],
+    "scriptSpeed": "2",
+    "scriptSuccessRate": "3",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\repositories\\gitstalk\\gitstalk.py",
+    "scriptFlags": [
+      {
+        "name": "Username",
+        "description": "Provide the GitHub username you wish to query.",
+        "type": "argument",
+        "required": true
+      },
+      {
+        "name": "GitHub Bearer Token",
+        "description": "Include your bearer token to increase the rate limit.",
+        "type": "argument",
+        "required": false
+      }
+    ],
+    "scriptColumns": [{"name": "Full Name", "type": "string"}, { "name": "Email", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "2",
+    "scriptOutputColsSeparator": "(?<=\\|)[^|]+|[^|]+(?=\\|)",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Emails" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "https://github.com/un1k0n/GitStalk",
+    "scriptName": "FullSiteMap",
+    "scriptDescription": "Combine MsDorkDump, Photon and Webenum to gather as much information about a website as possible. Best suited for full enumeration of a website.",
+    "scriptInputTags": ["URL"],
+    "scriptOutputTags": ["files", "subdomains", "emails", "config"],
+    "scriptSpeed": "2",
+    "scriptSuccessRate": "4",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\repositories\\gitstalk\\gitstalk.py",
+    "scriptFlags": [
+      {
+        "name": "Username",
+        "description": "Provide the GitHub username you wish to query.",
+        "type": "argument",
+        "required": true
+      },
+      {
+        "name": "GitHub Bearer Token",
+        "description": "Include your bearer token to increase the rate limit.",
+        "type": "argument",
+        "required": false
+      }
+    ],
+    "scriptColumns": [{"name": "Full Name", "type": "string"}, { "name": "Email", "type": "string" }],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "2",
+    "scriptOutputColsSeparator": "(?<=\\|)[^|]+|[^|]+(?=\\|)",
+    "scriptVisualizers": [{ "type": "table", "labelXColumn": "Emails" }],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "https://github.com/un1k0n/GitStalk",
+    "scriptName": "CrossPhish",
+    "scriptDescription": "Uses CrossLinked, PhishMailer and Bait to query an organization for employees and then send them a phishing email.",
+    "scriptInputTags": ["domain", "company", "email"],
+    "scriptOutputTags": ["template", "email"],
+    "scriptSpeed": "3",
+    "scriptSuccessRate": "3",
     "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\repositories\\gitstalk\\gitstalk.py",
     "scriptFlags": [
       {

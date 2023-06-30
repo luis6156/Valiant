@@ -8,7 +8,7 @@ import ScriptCard from '@/components/ScriptSearch/ScriptCard';
 import ScriptRun from '../ScriptsSearch/ScriptRun';
 
 const FILENAME = 'scenarios.json';
-const FILENAME_CUSTOM = 'scripts_custom.json';
+const FILENAME_CUSTOM = 'scenarios_custom.json';
 
 const ScenarioSearch = () => {
   const [showCustomScripts, setShowCustomScripts] = useState<boolean>(false);
@@ -27,7 +27,7 @@ const ScenarioSearch = () => {
       });
 
       if (!existsFile) {
-        setError('File not found, please import scripts first.');
+        setError('File not found, please create scenarios first.');
         return;
       }
 
@@ -89,8 +89,8 @@ const ScenarioSearch = () => {
     <>
       <div className='mt-3 mb-3'>
         <Header
-          title='Explore Scripts'
-          subtitle='Explore the best scripts for OSINT assessment'
+          title='Explore Scenarios'
+          subtitle='Explore the most versatile OSINT scenarios'
         />
       </div>
 
@@ -115,7 +115,7 @@ const ScenarioSearch = () => {
               } align-items-center justify-content-center`}
               onClick={onClickShowCustomScripts}
             >
-              Custom Scripts
+              Custom Scenarios
             </div>
           </div>
           {error && <AttentionText text='' danger={error} />}

@@ -64,8 +64,8 @@ const ScenariosStatus = ({ data }: Props) => {
     <>
       <div className='mt-3 mb-3'>
         <Header
-          title='Scripts Status'
-          subtitle='Check the status of your scripts and visualize the results'
+          title='Scenarios Status'
+          subtitle='Check the status of your scenarios and visualize the results'
         />
       </div>
       {scriptIndex > -1 ? (
