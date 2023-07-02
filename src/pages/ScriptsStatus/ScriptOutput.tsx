@@ -401,7 +401,7 @@ const ScriptOutput = ({
         </h5>
       </div>
       <div className='mb-3'>
-        <Table data={output} columns={processedColumns} />
+        <Table data={output} columns={processedColumns} showExport={true} />
       </div>
       {/* <div className='mb-3'>
         <LineChart
