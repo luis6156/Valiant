@@ -100,6 +100,7 @@ body,
 body {
   font-family: 'Montserrat', sans-serif !important;
   background-color: var(--background-color) !important;
+  transition: background-color 0.3s ease-in-out;
 }
 
 h1 {
@@ -110,6 +111,10 @@ h1 {
 h2 {
   font-weight: 600 !important;
   color: var(--h2-color) !important;
+}
+
+h4 {
+  color: var(--title-page-color) !important;
 }
 
 h5 {
@@ -342,8 +347,13 @@ option {
   height: 3rem;
   border-radius: 50%;
   background-color: #222;
-  border: 3px solid #F74A39;
+  border: 6px solid #F74A39;
   margin: 10px;
+  transition: all 0.2s ease-in !important;
+}
+
+.circle-selected {
+  border-width: 3px !important;
 }
 
 .circle-light {
@@ -353,6 +363,7 @@ option {
   background-color: #f1f1f1;
   border: 7px solid #E56B70;
   margin: 10px;
+  transition: all 0.2s ease-in !important;
 }
 
 .circle-alternate {
@@ -362,6 +373,7 @@ option {
   background-color: #f4f4f0;
   border: 7px solid #3C2A21;
   margin: 10px;
+  transition: all 0.2s ease-in !important;
 }
 
 .btn-icon {

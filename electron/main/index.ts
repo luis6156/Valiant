@@ -182,6 +182,17 @@ ipcMain.handle('fs-appendfile-sync', async (event, { data, fileName }) => {
   fs.appendFileSync(join(__dirname, '../../src/data/', fileName), data);
 });
 
+ipcMain.handle('change-theme', async (event, { theme }) => {
+  win?.setTitleBarOverlay({
+    color:
+      theme === 'dark' ? '#111111' : theme === 'light' ? '#f1f1f1' : '#F4F4F0',
+    symbolColor:
+      theme === 'dark' ? '#F74A39' : theme === 'light' ? '#E56B70' : '#3C2A21',
+    height: 30,
+  });
+  console.log(`changing theme to ${theme}`);
+});
+
 const runScript = async (
   executionName: string,
   scriptExecutable: string,
@@ -358,7 +369,7 @@ ipcMain.on(
 
     const callScripts = async () => {
       const crossPwned = [];
-    
+
       for (const item of resCrossLinked) {
         const resCrossPwned = await runScript(
           executionName,
@@ -374,13 +385,13 @@ ipcMain.on(
           ],
           'stdout'
         );
-    
+
         crossPwned.push(resCrossPwned['output'][0]);
-    
+
         // Delay for 6 seconds before making the next call
         await new Promise((resolve) => setTimeout(resolve, 6000));
       }
-    
+
       return crossPwned;
     };
 

@@ -201,6 +201,14 @@ btn-info.filters {
   font-weight: 500;
 }
 
+.github-title a {
+  color: var(--h2-color) !important;
+}
+
+.github-row-title a {
+  color: var(--h2-color) !important;
+}
+
 .github-description {
   margin-top: 0.3rem;
   color: var(--details-color);

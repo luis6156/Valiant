@@ -11,6 +11,7 @@ import {
   uploadBytes,
 } from '@firebase/storage';
 import { Icon } from '@iconify/react';
+import { set } from 'lodash';
 import React, { useRef, useState } from 'react';
 
 const Settings = () => {
@@ -22,6 +23,7 @@ const Settings = () => {
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = React.useState(false);
   const { resetPassword } = useAuth();
+  const [theme, setTheme] = useState('dark');
 
   const handleUploadClick = async () => {
     const file = await ipcRenderer.invoke('get-sync-files', {});
@@ -71,6 +73,27 @@ const Settings = () => {
 
     setLoading(false);
   }
+
+  const handleChangeTheme = (theme: string) => {
+    setTheme(theme);
+
+    ipcRenderer.invoke('change-theme', { theme });
+
+    const root = document.documentElement;
+    root.style.setProperty('--background-color', theme === 'dark' ? '#111111' : theme === 'light' ? '#f1f1f1' : '#F4F4F0');
+    root.style.setProperty('--primary-color', theme === 'dark' ? '#F74A39' : theme === 'light' ? '#E56B70' : '#3C2A21');
+    root.style.setProperty('--secondary-color', theme === 'dark' ? '#F1FAEE' : theme === 'light' ? '#7899D4' : '#D5CEA3');
+    root.style.setProperty('--secondary-color-contrast', theme === 'dark' ? '#323232' : theme === 'light' ? '#f8f8f8' : '#f8f8f8');
+    root.style.setProperty('--h1-color', theme === 'dark' ? '#f1f1f1' : '#444444');
+    root.style.setProperty('--h2-color', theme === 'dark' ? '#bbb' : '#444444');
+    root.style.setProperty('--details-color', theme === 'dark' ? '#949494' : '#777777');
+    root.style.setProperty('--title-page-color', theme === 'dark' ? '#dadada' : '#444444');
+    root.style.setProperty('--primary-color-selected', theme === 'dark' ? '#A5271A' : theme === 'light' ? '#F0BBBD' : '#7D5948');
+    root.style.setProperty('--button-color-selected', theme === 'dark' ? '#A5271A' : theme === 'light' ? '#F0BBBD' : '#7D5948');
+    root.style.setProperty('--card-color', theme === 'dark' ? '#181818' : theme === 'light' ? '#FFFFFF' : '#FFFFFF');
+    root.style.setProperty('--icon-glow-color', theme === 'dark' ? '#f8f8f8' : theme === 'light' ? '#222' : '#222');
+    root.style.setProperty('--higher-contrast-color', theme === 'dark' ? '#dadada' : theme === 'light' ? '#333' : '#333');
+  };
 
   return (
     <>
@@ -183,9 +206,18 @@ const Settings = () => {
       )}
       <p className='settings-title mt-4 mb-3'>Dashboard Theme</p>
       <div className='d-flex'>
-        <div className='circle-dark'></div>
-        <div className='circle-light'></div>
-        <div className='circle-alternate'></div>
+        <div
+          className={`circle-dark ${theme === 'dark' && 'circle-selected'}`}
+          onClick={() => handleChangeTheme('dark')}
+        ></div>
+        <div
+          className={`circle-light ${theme === 'light' && 'circle-selected'}`}
+          onClick={() => handleChangeTheme('light')}
+        ></div>
+        <div
+          className={`circle-alternate ${theme === 'alternate' && 'circle-selected'}`}
+          onClick={() => handleChangeTheme('alternate')}
+        ></div>
       </div>
     </>
   );
