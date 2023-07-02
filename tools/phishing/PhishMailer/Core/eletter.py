@@ -181,35 +181,35 @@ def Facebook():
 	Html_file.close()
 	print(alert + " HTML File Created")
 	
-def Gmail():
-	Target = input(start + " Enter Target Name: " + white)
-	TargetEmail = input(start + " Enter Target Email: " + white)
-	Day = input(start + " Enter Day ex.Monday: " + white)
-	Date = input(start + " Enter Date: " + white)
-	Year = input(start + " Enter Year: " + white)
-	Time = input(start + " Enter Time (Example, 10:00 pm/am): " + white)
+def Gmail(name, email, day, date, year, monthName, country, city, url, time = '10:00 am'):
+	Target = name
+	TargetEmail = email
+	Day = day
+	Date = date
+	Year = year
+	Time = time
 	
-	print("")
-	print(start + "Enter Month When Login Happend")
-	print(numbering(1) + white + " January")
-	print(numbering(2) + white + " February")
-	print(numbering(3) + white + " March")
-	print(numbering(4) + white + " April")
-	print(numbering(5) + white + " May")
-	print(numbering(6) + white + " June")
-	print(numbering(7) + white + " July")
-	print(numbering(8) + white + " August")
-	print(numbering(9) + white + " September")
-	print(numbering(10) + white + " October")
-	print(numbering(11) + white + " November")
-	print(numbering(12) + white + " December")
-	monthpick = int(input(green + "root@phishmailer:~ " + white))
+	# print("")
+	# print(start + "Enter Month When Login Happend")
+	# print(numbering(1) + white + " January")
+	# print(numbering(2) + white + " February")
+	# print(numbering(3) + white + " March")
+	# print(numbering(4) + white + " April")
+	# print(numbering(5) + white + " May")
+	# print(numbering(6) + white + " June")
+	# print(numbering(7) + white + " July")
+	# print(numbering(8) + white + " August")
+	# print(numbering(9) + white + " September")
+	# print(numbering(10) + white + " October")
+	# print(numbering(11) + white + " November")
+	# print(numbering(12) + white + " December")
+	# monthpick = int(input(green + "root@phishmailer:~ " + white))
 	
-	print("")
-	Country = input(start + " Enter Country: " + white)
-	City = input(start + " Enter A City: " + white)
-	PhishUrl = input(start + " Enter A Phishing Url: " + white)
-	month = monthName(monthpick)
+	# print("")
+	Country = country
+	City = city
+	PhishUrl = url
+	month = monthName
 
 	Gmail = ("""<table style="min-width: 348px; width: 100%; height: 100%;" border="0" cellspacing="0" cellpadding="0">
 	<tbody>
@@ -342,11 +342,23 @@ def Gmail():
 	</table>
 	<p><br /><br /></p>""".format(Target, TargetEmail, Target, TargetEmail, Day, month, Date, Year, Time, City, Country, PhishUrl, PhishUrl, PhishUrl, Year))
 	
-	filename = input(start + " Enter Name On HTML File To Save: ")
+	filename = "template_html"
 	Html_file = open(filename + ".html","w")
 	Html_file.write(Gmail)
 	Html_file.close()
-	print(alert + " HTML File Created")
+	# print(alert + " HTML File Created")
+ 	# get file path of HTML file
+  # get parent directory of current directory
+	current_dir = os.getcwd()
+	# get parent directory of current directory
+	path = current_dir + "/" + filename + ".html"
+ 
+	with open("output_stats.txt", 'w') as myfile:
+		data = ["smtp.gmail.com", 587, email, "Invalid login report", path]
+		line = ", ".join(str(x) for x in data)
+		myfile.write(line)
+		# os.print("smtp.gmail.com", 587, email, "Invalid login report", path, sep=", ", file=myfile)
+#  print(Html_file)
 
 def Twitter():
 	AccountName = input(start + " Enter Username: ")

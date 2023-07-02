@@ -52,7 +52,7 @@ os.system("clear")
 
 def CurrentDir():
 	path = os.getcwd()
-	print(green + "[" + white + "+" + green + "]" + white + " Your Templates Will Be Saved Here " + path + '/"TemplateName.html"')
+	# print(green + "[" + white + "+" + green + "]" + white + " Your Templates Will Be Saved Here " + path + '/"TemplateName.html"')
 
 
 def mainMenu():
@@ -62,7 +62,7 @@ def mainMenu():
 	
 	CurrentDir()
 	
-	mailPick = int(input(green + "root@phishmailer:~ " + white))
+	mailPick = 3
 
 	try:
 
@@ -73,7 +73,21 @@ def mainMenu():
                     Facebook()
 
             elif mailPick == 3:
-                    Gmail()
+                    if len(sys.argv) < 11:
+                            print('Insufficient arguments')
+                            sys.exit(1)
+                
+                    name = sys.argv[1]
+                    email = sys.argv[2]
+                    day = sys.argv[3]
+                    date = sys.argv[4]
+                    year = sys.argv[5]
+                    monthName = sys.argv[6]
+                    country = sys.argv[7]
+                    city = sys.argv[8]
+                    url = sys.argv[9]
+                    time = sys.argv[10]
+                    Gmail(name, email, day, date, year, monthName, country, city, url, time)
 
             elif mailPick == 4:
                     GmailActivity()

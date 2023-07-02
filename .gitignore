@@ -122,3 +122,6 @@ tools/websites/photon/www.upb.ro
 tools/repositories/gitrekt/results.txt
 tools/phishing/Bait/script_output.txt
 tools/phishing/Bait/note.txt
+tools/phishing/PhishMailer/output_stats.txt
+tools/phishing/PhishMailer/note.txt
+tools/phishing/PhishMailer/template_html.html
