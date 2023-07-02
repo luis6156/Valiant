@@ -1,7 +1,7 @@
 import FloatingLabelInput from '@/components/FloatingLabelInput';
 import { useAuth } from '@/contexts/AuthContext';
 import { Icon } from '@iconify/react';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 interface Props {
@@ -13,7 +13,7 @@ const LoginForm = ({ onForgotPasswordClick }: Props) => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const [error, setError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-  const { login } = useAuth();
+  const { login, loginWithGoogle, loginWithGitHub, currentUser } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -37,17 +37,57 @@ const LoginForm = ({ onForgotPasswordClick }: Props) => {
     setLoading(false);
   }
 
+  const handleGoogleAuth = async () => {
+    try {
+      setError('');
+      setLoading(true);
+      await loginWithGoogle();
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+      setError('Failed to login');
+    }
+
+    setLoading(false);
+  };
+
+  const handleGitHubAuth = async () => {
+    try {
+      setError('');
+      setLoading(true);
+      await loginWithGitHub();
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+      setError('Failed to login');
+    }
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (currentUser?.uid) {
+      navigate('/');
+    }
+  }, [currentUser]);
+
   return (
     <>
       <div className='d-flex justify-content-center margin-login'>
         <div>
           <h1>Sign In</h1>
           <p>Continue with Google or GitHub or enter your details</p>
-          <button className='btn btn-google btn-primary w-100 mt-4'>
+          <button
+            className='btn btn-google btn-primary w-100 mt-4'
+            onClick={() => handleGoogleAuth()}
+          >
             <Icon height='25' width='25' icon='flat-color-icons:google' />
             <span className='ms-2 btn-google-text'>Log in with Google</span>
           </button>
-          <button className='btn btn-google btn-primary w-100 mt-4'>
+          <button
+            className='btn btn-google btn-primary w-100 mt-4'
+            onClick={() => handleGitHubAuth()}
+          >
             <Icon height='25' width='25' icon='mdi:github' />
             <span className='ms-2 btn-google-text'>Log in with GitHub</span>
           </button>

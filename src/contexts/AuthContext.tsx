@@ -7,8 +7,15 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  signInWithRedirect,
+  getRedirectResult,
 } from 'firebase/auth';
-import { firebaseAuth, firebaseStorage } from '../../src/firebase';
+import {
+  firebaseAuth,
+  firebaseStorage,
+  githubProvider,
+  googleProvider,
+} from '../../src/firebase';
 import { StorageReference, ref } from '@firebase/storage';
 
 interface AuthContextProps {
@@ -18,6 +25,8 @@ interface AuthContextProps {
   login: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
+  loginWithGoogle: () => Promise<void>;
+  loginWithGitHub: () => Promise<void>;
 }
 
 const AuthContext = React.createContext<AuthContextProps>(
@@ -30,8 +39,9 @@ export function useAuth() {
 
 const AuthProvider = ({ children }: any) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [userStorageRef, setUserStorageRef] =
-    useState<StorageReference | null>(null);
+  const [userStorageRef, setUserStorageRef] = useState<StorageReference | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
   const auth = firebaseAuth;
 
@@ -51,6 +61,14 @@ const AuthProvider = ({ children }: any) => {
     return sendPasswordResetEmail(auth, email);
   }
 
+  function loginWithGoogle() {
+    return signInWithRedirect(auth, googleProvider);
+  }
+
+  function loginWithGitHub() {
+    return signInWithRedirect(auth, githubProvider);
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -66,6 +84,26 @@ const AuthProvider = ({ children }: any) => {
       setLoading(false);
     });
 
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result?.user) {
+          setCurrentUser(result.user);
+          const storageRef = ref(
+            firebaseStorage,
+            `${result.user.uid}/files.zip`
+          );
+          setUserStorageRef(storageRef);
+          console.log('User is signed in.');
+        } else {
+          console.log('No user is signed in.');
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log('Error occurred during redirect authentication:', error);
+        setLoading(false);
+      });
+
     return unsubscribe;
   }, []);
 
@@ -76,6 +114,8 @@ const AuthProvider = ({ children }: any) => {
     logout,
     resetPassword,
     userStorageRef,
+    loginWithGoogle,
+    loginWithGitHub,
   };
 
   return (

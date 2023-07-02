@@ -1,5 +1,5 @@
-import {initializeApp} from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { GithubAuthProvider, GoogleAuthProvider, getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -15,4 +15,11 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 export const firebaseAuth = getAuth(firebaseApp);
 export const firebaseStorage = getStorage(firebaseApp);
+
+export const googleProvider = new GoogleAuthProvider().setCustomParameters({
+  prompt: 'select_account',
+});
+
+export const githubProvider = new GithubAuthProvider();
+
 export default firebaseApp;
