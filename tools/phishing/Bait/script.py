@@ -26,12 +26,12 @@ def send_email(smtp_server, smtp_port, sender_email, sender_password, recipient_
 
         # Send the email
         smtp_connection.send_message(email_message)
-        print("Email sent successfully!")
+        print(sender_email, recipient_email, "Success", sep=" ")
 
         # Close the connection
         smtp_connection.quit()
     except smtplib.SMTPException as e:
-        print("Error: Unable to send email.")
+        print(sender_email, recipient_email, "Fail", sep=" ")
         print(e)
 
 if __name__ == "__main__":

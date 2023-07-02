@@ -120,3 +120,5 @@ tools/websites/msdorkdump/script_output.txt
 tools/websites/webenum/output.txt
 tools/websites/photon/www.upb.ro
 tools/repositories/gitrekt/results.txt
+tools/phishing/Bait/script_output.txt
+tools/phishing/Bait/note.txt
