@@ -11,6 +11,7 @@ interface Props {
   successRate: string;
   index: number;
   handleOnClick: (index: number) => void;
+  isScenario?: boolean;
 }
 
 const ScriptCard = ({
@@ -23,6 +24,7 @@ const ScriptCard = ({
   successRate,
   index,
   handleOnClick,
+  isScenario = false,
 }: Props) => {
   const handleCardClick = () => {
     handleOnClick(index);
@@ -36,9 +38,11 @@ const ScriptCard = ({
             <p onClick={handleCardClick} className='script-card-name'>
               {name}
             </p>
-            <ExternalLink href={url || ''} underline={false}>
-              <Icon className='github-row-icon-brand' icon='bi:github' />
-            </ExternalLink>
+            {!isScenario && (
+              <ExternalLink href={url || ''} underline={false}>
+                <Icon className='github-row-icon-brand' icon='bi:github' />
+              </ExternalLink>
+            )}
           </div>
           <div className='mt-3'>
             <p className='script-card-desc'>{description}</p>

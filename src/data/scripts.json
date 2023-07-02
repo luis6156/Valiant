@@ -42,7 +42,8 @@
       { "name": "Last Name", "type": "string" },
       { "name": "Title", "type": "string" },
       { "name": "URL", "type": "string" },
-      { "name": "Raw Text", "type": "string" }
+      { "name": "Raw Text", "type": "string" },
+      { "name": "Email", "type": "string" }
     ],
     "scriptExecutable": "python",
     "scriptOutputSkipRows": "1",

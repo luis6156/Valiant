@@ -182,6 +182,230 @@ ipcMain.handle('fs-appendfile-sync', async (event, { data, fileName }) => {
   fs.appendFileSync(join(__dirname, '../../src/data/', fileName), data);
 });
 
+const runScript = async (
+  executionName: string,
+  scriptExecutable: string,
+  scriptPath: string,
+  scriptName: string,
+  args: { name?: string; value?: string }[],
+  outputSkipRows: string,
+  outputColsSeparator: string,
+  outputColumns: { name: string; type: string }[],
+  outputFile: string
+): Promise<{
+  scriptName: string;
+  executionName: string;
+  startTime: string;
+  endTime: string;
+  isRunning: boolean;
+  output: any[];
+  outputColumns: { name: string; type: string }[];
+}> => {
+  return new Promise((resolve, reject) => {
+    const startTime = new Date().toLocaleString();
+    const useStdout = outputFile === 'stdout';
+    const outputFilePath = useStdout ? 'script_output.txt' : outputFile;
+
+    // Change working directory to the script directory
+    const scriptDir = path.dirname(scriptPath);
+    process.chdir(scriptDir);
+
+    if (fs.existsSync(outputFilePath)) {
+      fs.unlinkSync(outputFilePath);
+    }
+
+    const commandArgs: string[] = [];
+    args.forEach((arg: { name?: string; value?: string }) => {
+      if (arg.name) {
+        commandArgs.push(arg.name);
+      }
+      if (arg.value) {
+        commandArgs.push(arg.value);
+      }
+    });
+
+    const command = [scriptPath, ...commandArgs];
+
+    console.log('running command: ', command);
+
+    let scriptProcess;
+
+    if (useStdout) {
+      scriptProcess = spawn(scriptExecutable, command, {
+        cwd: scriptDir,
+        stdio: ['inherit', 'pipe', 'ignore'],
+      });
+      const outputStream = fs.createWriteStream(outputFilePath);
+      scriptProcess.stdout.pipe(outputStream);
+    } else {
+      scriptProcess = spawn(scriptExecutable, command, { cwd: scriptDir });
+    }
+
+    scriptProcess.stdout.on('data', (data) => {
+      console.log(`stdout from script: ${data}`);
+    });
+
+    scriptProcess.stderr?.on('data', (data) => {
+      console.error(`stderr from script: ${data}`);
+      reject(new Error(`Error running script: ${data}`));
+    });
+
+    scriptProcess.on('close', (code) => {
+      const output = fs.readFileSync(outputFilePath, 'utf8');
+
+      // Skip as many rows from the input as specified
+      const outputRows = output.split('\r\n').slice(Number(outputSkipRows));
+
+      const processedData: any[] = [];
+
+      console.log('sep: ', outputColsSeparator);
+
+      const regexPattern = new RegExp(outputColsSeparator, 'g');
+
+      console.log('regexPattern: ', regexPattern);
+
+      outputRows.forEach((row: string) => {
+        console.log('row: ', row);
+        const matches = row.match(regexPattern) || [];
+        const rowData: any = {};
+
+        outputColumns.forEach(
+          (column: { name: string; type: string }, index: number) => {
+            if (index >= matches.length) {
+              return; // Skip the remaining tokens in the row
+            }
+
+            const match = matches[index];
+            rowData[column.name] = match.replace(/"/g, '').trim();
+          }
+        );
+
+        // Check if the rowData object contains any non-empty values
+        if (Object.values(rowData).some((value) => value !== '')) {
+          processedData.push(rowData);
+        }
+      });
+
+      console.log('processedData: ', processedData);
+
+      console.log(`script exited with code ${code}`);
+
+      const result = {
+        scriptName,
+        executionName: executionName,
+        startTime,
+        endTime: new Date().toLocaleString(),
+        isRunning: false,
+        output: processedData,
+        outputColumns,
+      };
+
+      resolve(result);
+    });
+  });
+};
+
+ipcMain.on(
+  'run-scenario-crosspwned',
+  async (
+    event,
+    { executionName, scriptExecutable, scriptPath, scriptName, args }
+  ) => {
+    const startTime = new Date().toLocaleString();
+
+    win?.webContents.send('scenario-status', {
+      scriptName,
+      executionName: executionName,
+      startTime,
+      endTime: '-',
+      isRunning: true,
+      output: [],
+      outputColumns: [
+        { name: 'Email', type: 'string' },
+        { name: 'Is Breached', type: 'string' },
+      ],
+    });
+
+    // console.log('args::', args);
+    const argsCrossLinked = [];
+    // Add all args to argsCrossLinked except the first one
+    for (let i = 1; i < args.length; i++) {
+      argsCrossLinked.push(args[i]);
+    }
+
+    let resCrossLinked: any = await runScript(
+      executionName,
+      'python',
+      'C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py',
+      'CrossLinked',
+      argsCrossLinked,
+      '1',
+      '"([^"]*)"',
+      [
+        { name: 'Datetime', type: 'string' },
+        { name: 'Search', type: 'string' },
+        { name: 'First Name', type: 'string' },
+        { name: 'Last Name', type: 'string' },
+        { name: 'Title', type: 'string' },
+        { name: 'URL', type: 'string' },
+        { name: 'Raw Text', type: 'string' },
+        { name: 'Email', type: 'string' },
+      ],
+      'names.csv'
+    );
+
+    resCrossLinked = resCrossLinked['output'];
+
+    const callScripts = async () => {
+      const crossPwned = [];
+    
+      for (const item of resCrossLinked) {
+        const resCrossPwned = await runScript(
+          executionName,
+          'python',
+          'C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\have-i-been-pwned\\__main__.py',
+          'Have-I-Been-Pwned',
+          [{ value: args[0].value }, { value: item['Email'] }],
+          '0',
+          '[^ ]+',
+          [
+            { name: 'Email', type: 'string' },
+            { name: 'Is Breached', type: 'string' },
+          ],
+          'stdout'
+        );
+    
+        crossPwned.push(resCrossPwned['output'][0]);
+    
+        // Delay for 6 seconds before making the next call
+        await new Promise((resolve) => setTimeout(resolve, 6000));
+      }
+    
+      return crossPwned;
+    };
+
+    const res = await callScripts();
+
+    console.log('results: ', res);
+
+    console.log('SCENARIO DONE!');
+
+    // Send message to the renderer process
+    win?.webContents.send('scenario-status', {
+      scriptName,
+      executionName: executionName,
+      startTime,
+      endTime: new Date().toLocaleString(),
+      isRunning: false,
+      output: res,
+      outputColumns: [
+        { name: 'Email', type: 'string' },
+        { name: 'Is Breached', type: 'string' },
+      ],
+    });
+  }
+);
+
 ipcMain.on(
   'run-script',
   (
@@ -573,231 +797,4 @@ ipcMain.handle('export-configuration', (event, { password }) => {
   archive.finalize();
 
   return 'Files exported successfully.';
-});
-
-ipcMain.on('run-cross-linked', (event, { emailFormat, domain }) => {
-  const scriptLocation = path.resolve(
-    __dirname,
-    '../../tools/social/crosslinked/crosslinked.py'
-  );
-  const namesTextLocation = path.resolve(__dirname, '../../names.txt');
-  const namesCsvLocation = path.resolve(__dirname, '../../names.csv');
-  const crossLinkedLocation = dirname(scriptLocation);
-
-  process.chdir(crossLinkedLocation);
-
-  exec(
-    `python ${scriptLocation} -f '${emailFormat}' ${domain}`,
-    (error, stdout, stderr) => {
-      if (error) {
-        event.reply('cross-linked-reply', error.message);
-        console.log(error.message);
-        return;
-      }
-      if (stderr) {
-        event.reply('cross-linked-reply', stderr);
-        console.log(stderr);
-        return;
-      }
-      fs.readFile('names.txt', 'utf8', function (err, data) {
-        if (err) {
-          event.reply('cross-linked-reply', err);
-          console.log(err);
-          return;
-        }
-        console.log(`stdout: ${data}`);
-        event.reply('cross-linked-reply', data);
-      });
-    }
-  );
-});
-
-ipcMain.on('run-poastal', (event, { email }) => {
-  const scriptLocation = path.resolve(
-    __dirname,
-    '../../tools/social/poastal/backend/cli.py'
-  );
-  const postalLocation = dirname(scriptLocation);
-
-  process.chdir(postalLocation);
-
-  exec(`python ${scriptLocation} ${email}`, (error, stdout, stderr) => {
-    if (error) {
-      event.reply('poastal-reply', error.message);
-      console.log(error.message);
-      return;
-    }
-    if (stderr) {
-      event.reply('poastal-reply', stderr);
-      console.log(stderr);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    event.reply('poastal-reply', stdout);
-  });
-});
-
-ipcMain.on('run-socialscan', (event, { user }) => {
-  const scriptLocation = path.resolve(
-    __dirname,
-    '../../tools/social/socialscan/socialscan/__main__.py'
-  );
-  const socialscanLocation = dirname(scriptLocation);
-
-  process.chdir(socialscanLocation);
-
-  const child = exec(
-    `python ${scriptLocation} ${user} --json results.json`,
-    (error, stdout, stderr) => {
-      if (error) {
-        event.reply('socialscan-reply', error.message);
-        console.log(error.message);
-        return;
-      }
-      if (stderr) {
-        event.reply('socialscan-reply', stderr);
-        console.log(stderr);
-        return;
-      }
-    }
-  );
-
-  child.on('exit', (code) => {
-    if (code === 0) {
-      fs.readFile('results.json', 'utf8', (err, data) => {
-        if (err) {
-          event.reply('socialscan-reply', err);
-          console.log(err);
-          return;
-        }
-        console.log(`stdout: ${data}`);
-        event.reply('socialscan-reply', data);
-      });
-    }
-  });
-});
-
-ipcMain.on('run-gitstalk', (event, { username }) => {
-  const scriptLocation = path.resolve(
-    __dirname,
-    '../../tools/repositories/gitstalk/gitstalk.py'
-  );
-  const gitStalkLocation = dirname(scriptLocation);
-
-  process.chdir(gitStalkLocation);
-
-  exec(`python ${scriptLocation} ${username}`, (error, stdout, stderr) => {
-    if (error) {
-      event.reply('gitstalk-reply', error.message);
-      console.log(error.message);
-      return;
-    }
-    if (stderr) {
-      event.reply('gitstalk-reply', stderr);
-      console.log(stderr);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    event.reply('gitstalk-reply', stdout);
-  });
-});
-
-ipcMain.on('run-gitrekt', (event, { url }) => {
-  const scriptLocation = path.resolve(
-    __dirname,
-    '../../tools/repositories/gitrekt/gitrekt.py'
-  );
-  const gitRektLocation = dirname(scriptLocation);
-
-  process.chdir(gitRektLocation);
-
-  exec(`python ${scriptLocation} -u ${url}`, (error, stdout, stderr) => {
-    if (error) {
-      event.reply('gitrekt-reply', error.message);
-      console.log(error.message);
-      return;
-    }
-    if (stderr) {
-      event.reply('gitrekt-reply', stderr);
-      console.log(stderr);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    event.reply('gitrekt-reply', stdout);
-  });
-});
-
-ipcMain.on('run-msdorkdump', (event, { url }) => {
-  const scriptLocation = path.resolve(
-    __dirname,
-    '../../tools/websites/msdorkdump/msdorkdump.py'
-  );
-  const msdorkdumpLocation = dirname(scriptLocation);
-
-  process.chdir(msdorkdumpLocation);
-
-  exec(`python ${scriptLocation} -t ${url}`, (error, stdout, stderr) => {
-    if (error) {
-      event.reply('msdorkdump-reply', error.message);
-      console.log(error.message);
-      return;
-    }
-    if (stderr) {
-      event.reply('msdorkdump-reply', stderr);
-      console.log(stderr);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    event.reply('msdorkdump-reply', stdout);
-  });
-});
-
-ipcMain.on('run-photon', (event, { url }) => {
-  const scriptLocation = path.resolve(
-    __dirname,
-    '../../tools/websites/photon/photon.py'
-  );
-  const photonLocation = dirname(scriptLocation);
-
-  process.chdir(photonLocation);
-
-  exec(`python ${scriptLocation} -u ${url}`, (error, stdout, stderr) => {
-    if (error) {
-      event.reply('photon-reply', error.message);
-      console.log(error.message);
-      return;
-    }
-    if (stderr) {
-      event.reply('photon-reply', stderr);
-      console.log(stderr);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    event.reply('photon-reply', stdout);
-  });
-});
-
-ipcMain.on('run-webenum', (event, { url }) => {
-  const scriptLocation = path.resolve(
-    __dirname,
-    '../../tools/websites/webenum/w3b3num.py'
-  );
-  const webenumLocation = dirname(scriptLocation);
-
-  process.chdir(webenumLocation);
-
-  exec(`python ${scriptLocation} ${url}`, (error, stdout, stderr) => {
-    if (error) {
-      event.reply('webenum-reply', error.message);
-      console.log(error.message);
-      return;
-    }
-    if (stderr) {
-      event.reply('webenum-reply', stderr);
-      console.log(stderr);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    event.reply('webenum-reply', stdout);
-  });
 });

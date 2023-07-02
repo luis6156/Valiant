@@ -15,10 +15,12 @@ import ScenariosCreate from './ScenariosCreate/ScenariosCreate';
 import ScenariosSearch from './ScenariosSearch/ScenariosSearch';
 import ScenariosStatus from './ScenariosStatus/ScenariosStatus';
 import CreateScenarioProvider from '@/contexts/CreateScenarioContext';
+import useScenariosStatusListener from '@/hooks/useScenariosStatusListener';
 
 const Dashboard = () => {
   const { activeIcon } = useSidebar();
   const scriptsStatusData = useScriptsStatusListener();
+  const scenariosStatusData = useScenariosStatusListener();
 
   return (
     <>
@@ -45,7 +47,7 @@ const Dashboard = () => {
             ) : activeIcon === 'pipes-search' ? (
               <ScenariosSearch />
             ) : activeIcon === 'pipes-status' ? (
-              <ScenariosStatus data={[]} />
+              <ScenariosStatus data={scenariosStatusData} />
             ) : activeIcon === 'import-export' ? (
               <ImportExport />
             ) : activeIcon === 'settings' ? (

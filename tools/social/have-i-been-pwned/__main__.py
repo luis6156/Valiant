@@ -25,7 +25,7 @@ def check_email_breaches(api_key, email):
         # print(f'The email "{email}" has not been found in any known breaches.')
     else:
         # An error occurred
-        print('API error')
+        print('rate_limit')
         # print('An error occurred while checking the email for breaches.')
 
 if __name__ == '__main__':

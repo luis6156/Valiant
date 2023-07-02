@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import '../../styles/ScriptsSearch/ScriptsSearch.scss';
 import ScriptCard from '@/components/ScriptSearch/ScriptCard';
 import ScriptRun from '../ScriptsSearch/ScriptRun';
+import ScenarioRun from './ScenarioRun';
 
 const FILENAME = 'scenarios.json';
 const FILENAME_CUSTOM = 'scenarios_custom.json';
@@ -147,14 +148,15 @@ const ScenarioSearch = () => {
                   successRate={script.scriptSuccessRate}
                   index={index}
                   handleOnClick={onClickScript}
+                  isScenario={true}
                 />
               </div>
             ))}
           </div>
         </>
       ) : (
-        <ScriptRun
-          url={scripts[selectedScript].scriptPage}
+        <ScenarioRun
+          scenarioType={scripts[selectedScript].scriptName === 'CrossPwned' ? 'crosspwned' : 'normal'}
           scriptExecutable={scripts[selectedScript].scriptExecutable}
           scriptPath={scripts[selectedScript].scriptPath}
           name={scripts[selectedScript].scriptName}

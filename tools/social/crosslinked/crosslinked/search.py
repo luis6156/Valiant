@@ -133,8 +133,9 @@ class CrossLinked:
         self.results.append(data)
         # Search results are logged to names.csv but names.txt is not generated until end to prevent duplicates
         logging.debug('  Fname: {:13} Lname: {:13} RawTxt: {}'.format(data['fname'], data['lname'], data['text']))
-        csv.info('"{}","{}","{}","{}","{}","{}","{}",'.format(self.runtime, self.search_engine, data['fname'],
-                                                           data['lname'], data['title'], data['url'], data['text']))
+        email = str(data['fname'][0]).lower() + str(data['lname']).lower() + '@' + self.target + '.com'
+        csv.info('"{}","{}","{}","{}","{}","{}","{}","{}",'.format(self.runtime, self.search_engine, data['fname'],
+                                                           data['lname'], data['title'], data['url'], data['text'], email))
 
 
 def get_statuscode(resp):
