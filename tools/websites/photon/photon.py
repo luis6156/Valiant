@@ -11,6 +11,7 @@ import sys
 import time
 import warnings
 import random
+import itertools
 
 from core.colors import good, info, run, green, red, white, end, bad
 
@@ -384,15 +385,15 @@ dataset_names = ['files', 'intel', 'robots', 'custom', 'failed', 'internal',
 
 writer(datasets, dataset_names, output_dir)
 # Printing out results
-print(('%s-%s' % (red, end)) * 50)
-for dataset, dataset_name in zip(datasets, dataset_names):
-    if dataset:
-        print('%s %s: %s' % (good, dataset_name.capitalize(), len(dataset)))
-print(('%s-%s' % (red, end)) * 50)
+# print(('%s-%s' % (red, end)) * 50)
+# for dataset, dataset_name in zip(datasets, dataset_names):
+#     if dataset:
+#         print('%s %s: %s' % (good, dataset_name.capitalize(), len(dataset)))
+# print(('%s-%s' % (red, end)) * 50)
 
-print('%s Total requests made: %i' % (info, len(processed)))
-print('%s Total time taken: %i minutes %i seconds' % (info, minutes, seconds))
-print('%s Requests per second: %i' % (info, int(len(processed) / diff)))
+# print('%s Total requests made: %i' % (info, len(processed)))
+# print('%s Total time taken: %i minutes %i seconds' % (info, minutes, seconds))
+# print('%s Requests per second: %i' % (info, int(len(processed) / diff)))
 
 datasets = {
     'files': list(files), 'intel': list(intel), 'robots': list(robots),
@@ -418,7 +419,27 @@ if args.export:
     # exporter(directory, format, datasets)
     exporter(output_dir, args.export, datasets)
 
-print('%s Results saved in %s%s%s directory' % (good, green, output_dir, end))
+# Make a list of objects containing one of each link
+output_obj = []
+
+for external_link, file_link, fuzzable_link, internal_link in itertools.zip_longest(external, files, fuzzable, internal):
+    print(external_link, file_link, fuzzable_link, internal_link)
+# for i in range(len(external)):
+#     obj = {
+#         external[i] or '',
+#         files[i] or '',
+#         fuzzable[i] or '',
+#         internal[i] or '',
+#     }
+#     output_obj.append(obj)
+    
+# print(output_obj)
+# print(external)
+# print(files)
+# print(fuzzable)
+# print(internal)
+
+# print('%s Results saved in %s%s%s directory' % (good, green, output_dir, end))
 
 if args.std:
     for string in datasets[args.std]:

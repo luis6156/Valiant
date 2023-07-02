@@ -238,5 +238,42 @@
     "scriptOutputColsSeparator": "[^ ]+",
     "scriptVisualizers": [{ "type": "table", "labelXColumn": "Is Breached" }],
     "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "",
+    "scriptName": "Photon",
+    "scriptDescription": "Relatively fast crawler designed for web OSINT. Extracts internal, external, fuzzable links as well as files from a target. ",
+    "scriptInputTags": ["URL"],
+    "scriptOutputTags": ["files", "documents", "URLs"],
+    "scriptSpeed": "2",
+    "scriptSuccessRate": "4",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\photon\\photon.py",
+    "scriptFlags": [
+      {
+        "flag": "-u",
+        "name": "Target URL",
+        "description": "Provide the target URL that you wish to query for data.",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [
+      { "name": "External Links", "type": "string" },
+      { "name": "Images", "type": "string" },
+      { "name": "Fuzzable Links", "type": "string" },
+      { "name": "Internal Links", "type": "string" }
+    ],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "5",
+    "scriptOutputColsSeparator": "(https?://\\S+)|None",
+    "scriptVisualizers": [
+      {
+        "type": "table",
+        "labelXColumn": "External Links",
+        "labelYColumn": "Images",
+        "labelZColumn": "Fuzzable Links"
+      }
+    ],
+    "scriptOutputFormat": { "type": "stdout", "name": "" }
   }
 ]
