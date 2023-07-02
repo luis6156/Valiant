@@ -1,5 +1,6 @@
 import re
 import os
+import itertools
 
 try:
     # python2
@@ -152,20 +153,31 @@ def write_to_files(results, url):
     """
     write the results to a file
     """
-    netloc = validate_url(url, parts=True).netloc
-    if not os.path.exists(RESULTS_FOLDER):
-        os.makedirs(RESULTS_FOLDER)
-    path = "{}/{}".format(RESULTS_FOLDER, netloc)
-    if not os.path.exists(path):
-        os.makedirs(path)
-        for key in results.keys():
-            results_path = "{}/{}/{}.results".format(RESULTS_FOLDER, netloc, key)
-            with open(results_path, "a+") as f:
-                for result in results[key]:
-                    f.write(result.strip() + "\n")
-        print("results written to: {}".format(path))
-    else:
-        print("path ({}) already exists, skipping writing".format(path))
+    with open("results.txt", "w") as file:
+        emails = results["emails"]
+        urls = results["urls"]
+        for email, url in itertools.zip_longest(emails, urls):
+            if email is None and not (url.startswith("hxxps") or url.startswith("hxxp")):
+                continue
+            else:
+                if email is None:
+                    email = ' '
+                print(url, email, file=file, sep=" ")
+        
+    # netloc = validate_url(url, parts=True).netloc
+    # if not os.path.exists(RESULTS_FOLDER):
+    #     os.makedirs(RESULTS_FOLDER)
+    # path = "{}/{}".format(RESULTS_FOLDER, netloc)
+    # if not os.path.exists(path):
+    #     os.makedirs(path)
+    #     for key in results.keys():
+    #         results_path = "{}/{}/{}.results".format(RESULTS_FOLDER, netloc, key)
+    #         with open(results_path, "a+") as f:
+    #             for result in results[key]:
+    #                 f.write(result.strip() + "\n")
+    #     print("results written to: {}".format(path))
+    # else:
+    #     print("path ({}) already exists, skipping writing".format(path))
 
 
 def main(url, proxy):

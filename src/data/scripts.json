@@ -311,5 +311,35 @@
       }
     ],
     "scriptOutputFormat": { "type": "file", "name": "output.txt" }
+  },
+  {
+    "scriptPage": "https://github.com/Ekultek/GitRekt",
+    "scriptName": "GitRekt",
+    "scriptDescription": "GitRekt is a tool that can be used to scrape a websites .git folder. By default GitRekt will search for email addresses and URL's that should otherwise be hidden.",
+    "scriptInputTags": ["URL"],
+    "scriptOutputTags": ["URLs", "emails"],
+    "scriptSpeed": "3",
+    "scriptSuccessRate": "1",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\repositories\\gitrekt\\gitrekt.py",
+    "scriptFlags": [
+      {
+        "flag": "-u",
+        "name": "Target URL",
+        "description": "Provide the URL you wish to query. Use the following format \"https://{domain}.com\".",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [
+      { "name": "URLs", "type": "string" },
+      { "name": "Emails", "type": "string" }
+    ],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "0",
+    "scriptOutputColsSeparator": "\\S+",
+    "scriptVisualizers": [
+      { "type": "table", "labelXColumn": "Emails", "labelYColumn": "URLs" }
+    ],
+    "scriptOutputFormat": { "type": "file", "name": "results.txt" }
   }
 ]
