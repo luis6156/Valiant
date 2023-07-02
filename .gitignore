@@ -107,8 +107,11 @@ tools/social/crosslinked/names.csv
 tools/social/socialscan/socialscan/results.json
 
 src/data/scripts-status.json
+src/data/scenarios-status.json
 
 tools/websites/msdorkdump/upb.ro
 tools/repositories/gitstalk/script_output.txt
+tools/social/socialscan/socialscan/script_output.txt
+tools/social/poastal/backend/script_output.txt
 tools/websites/msdorkdump/script_output.txt
 tools/websites/photon/www.upb.ro

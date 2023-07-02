@@ -45,7 +45,7 @@ const Dashboard = () => {
             ) : activeIcon === 'pipes-search' ? (
               <ScenariosSearch />
             ) : activeIcon === 'pipes-status' ? (
-              <ScenariosStatus data={scriptsStatusData} />
+              <ScenariosStatus data={[]} />
             ) : activeIcon === 'import-export' ? (
               <ImportExport />
             ) : activeIcon === 'settings' ? (

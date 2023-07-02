@@ -53,34 +53,9 @@ def check_email(email):
     discord_result = discord_email(email)
 
     result = {
-        'Duolingo Name': duolingo_name,
-        'GitHub Name': github_name,  # Add GitHub Name to the table
-        'Location': github_location,  # Add GitHub Location to the table
-        'Image': {
-            'Duolingo': duolingo_image_url,
-            'GitHub': github_image,
-            'Gravatar': gravatar_image,
-        },
-        'Deliverable': deliverable_result,
-        'Disposable': disposable_result,
-        'Spam': spam_result,
         #start profiles
         'Profiles':{
-            'Facebook': adobe_facebook_result,
-            'Twitter': twitter_result,
-            'Snapchat': snapchat_result,
-            # 'Parler': parler_result,
-            'Rumble': rumble_result,
-            'MeWe': mewe_result,
-            'Imgur': imgur_result,
-            'Adobe': adobe_result,
-            'Wordpress': wordpress_result,
-            'Duolingo': duolingo_result,
-            'Hulu': hulu_result,
-            'Rubmaps': rubmaps_result,
-            'Github': github_result,
-            'Gravatar': gravatar_result,
-            'Discord': discord_result,
+            'Facebook': adobe_facebook_result, 'Twitter': twitter_result, 'Snapchat': snapchat_result, 'Rumble': rumble_result, 'MeWe': mewe_result, 'Imgur': imgur_result, 'Adobe': adobe_result, 'Wordpress': wordpress_result, 'Duolingo': duolingo_result, 'Hulu': hulu_result, 'Rubmaps': rubmaps_result, 'Github': github_result, 'Gravatar': gravatar_result, 'Discord': discord_result,
         },
     }
 
@@ -93,4 +68,5 @@ if __name__ == '__main__':
 
     email = args.email
     result = check_email(email)
-    print(json.dumps(result, indent=4))
+    output = json.dumps(result, separators=(',', ': '))
+    print(output)

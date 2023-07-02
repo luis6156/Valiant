@@ -18,8 +18,8 @@ const ScriptOutput = ({
   outputColumns,
   handleGoBack,
 }: Props) => {
-  console.log(output);
-  console.log(outputColumns);
+  // console.log(output);
+  // console.log(outputColumns);
 
   let processedColumns = outputColumns.map(
     (column: { name: string; type: string }) => {
@@ -246,146 +246,146 @@ const ScriptOutput = ({
   //   },
   // ];
 
-  processedColumns = [
-    {
-      field: 'certificate',
-      headerText: 'Certificate Information',
-      width: 100,
-    },
-    {
-      field: 'dns',
-      headerText: 'DNS Record',
-      width: 100,
-    },
-    {
-      field: 'whois',
-      headerText: 'Whois Information',
-      width: 100,
-    },
-    {
-      field: 'internal_links',
-      headerText: 'Internal Links',
-      width: 100,
-    },
-    {
-      field: 'external_links',
-      headerText: 'External Links',
-      width: 100,
-    },
-    {
-      field: 'document',
-      headerText: 'Documents',
-      width: 100,
-    }
-  ];
+  // processedColumns = [
+  //   {
+  //     field: 'certificate',
+  //     headerText: 'Certificate Information',
+  //     width: 100,
+  //   },
+  //   {
+  //     field: 'dns',
+  //     headerText: 'DNS Record',
+  //     width: 100,
+  //   },
+  //   {
+  //     field: 'whois',
+  //     headerText: 'Whois Information',
+  //     width: 100,
+  //   },
+  //   {
+  //     field: 'internal_links',
+  //     headerText: 'Internal Links',
+  //     width: 100,
+  //   },
+  //   {
+  //     field: 'external_links',
+  //     headerText: 'External Links',
+  //     width: 100,
+  //   },
+  //   {
+  //     field: 'document',
+  //     headerText: 'Documents',
+  //     width: 100,
+  //   }
+  // ];
 
-  output = [
-    {
-      certificate: ` Certificate Cipher: ('ECDHE-RSA-CHACHA20-POLY1305', 'TLSv1.2', 256)
-      Certificate Protocol: TLSv1.2
-      Certificate Expiration Date: Aug  8 16:45:24 2023 GMT`,
-      dns: `The DNS response does not contain an answer to the question: upb.ro. IN AAAA`,
-      whois: `{'domain_name': 'upb.ro', 'status': 'OK', 'registrar': 'ICI - Registrar', 'referral_url': 'http://www.rotld.ro',
-      'creation_date': datetime.datetime(1994, 8, 7, 0, 0), 'expiration_date': datetime.datetime(2028, 9, 4, 0, 0),
-      'name_servers': ['pub.pub.ro', 'pub2.pub.ro'], 'dnssec': 'Inactive'}`,
-      external_links: 'http://antreprenoriat.upb.ro/fii-antreprenor-7-0/?fbclid=IwAR29nVchRBChHqIZidGHk_lTrNztR0FjhhqM-nM9bfvWAisn4EL-lbEvMss',
-      internal_links: 'https://upb.ro/achizitii-publice/',
-      document: 'http://atee.upb.ro/atee2017/ATEE_2017_template_en_blind.doc'
-    },
-    {
-      certificate: '',
-      dns: '',
-      whois: '',
-      external_links: 'https://community.eelisa.eu/activities/2023-student-unmanned-systems-eelisa-competition/',
-      internal_links: 'https://upb.ro/evenimente-upb/',
-      document: 'https://upb.ro/wp-content/uploads/2020/03/Bogatu-Lucian_CV.pdf',
-    },
-    {
-      certificate: '',
-      dns: '',
-      whois: '',
-      external_links: 'http://antreprenoriat.upb.ro',
-      internal_links: 'https://upb.ro/?method=ical&',
-      document: 'https://www.scientificbulletin.upb.ro/rev_docs_arhiva/fulld9b_425565.pdf',
-    },
-    {
-      certificate: '',
-      dns: '',
-      whois: '',
-      external_links: 'https://www.kaat.upb.ro/',
-      internal_links: 'https://upb.ro/wp-sitemap-posts-mec-events-1.xml',
-      document: 'https://www.scientificbulletin.upb.ro/rev_docs_arhiva/full6151.pdf',
-    },
-    {
-      certificate: '',
-      dns: '',
-      whois: '',
-      external_links: 'https://international.upb.ro/',
-      internal_links: 'https://upb.ro/alumni/mailto:alumni@upb.ro',
-      document: 'https://www.scientificbulletin.upb.ro/rev_docs_arhiva/full48f_892207.pdf',
-    },{
-      certificate: '',
-      dns: '',
-      whois: '',
-      external_links: 'https://www.scientificbulletin.upb.ro/index.php',
-      internal_links: 'https://upb.ro/tag/elissa/',
-      document: 'https://www.scientificbulletin.upb.ro/rev_docs_arhiva/fullbc5_384749.pdf',
-    },{
-      certificate: '',
-      dns: '',
-      whois: '',
-      external_links: 'http://www.unesco.chair.upb.ro',
-      internal_links: 'https://upb.ro/2023/05/24/',
-      document: 'https://solacolu.chim.upb.ro/pg122-133.pdf',
-    },{
-      certificate: '',
-      dns: '',
-      whois: '',
-      external_links: 'https://autofest.upb.ro/',
-      internal_links: 'https://upb.ro/2023/05/26/',
-      document: 'https://solacolu.chim.upb.ro/pg119-128.pdf',
-    },{
-      certificate: '',
-      dns: '',
-      whois: '',
-      external_links: 'https://spacefest.upb.ro/',
-      internal_links: 'https://upb.ro/catedra-unesco/',
-      document: 'https://www.scientificbulletin.upb.ro/rev_docs_arhiva/full6151.pdf',
-    },{
-      certificate: '',
-      dns: '',
-      whois: '',
-      external_links: 'https://www.facebook.com/POLIJobs.UPB/',
-      internal_links: 'https://upb.ro/wp-sitemap-taxonomies-post_format-1.xml',
-      document: 'https://my.upb.ro/tutorials/Ghid_accesare_resurse_gratuite_Microsoft_f%C4%83r%C4%83_Office.pdf',
-    },{
-      certificate: '',
-      dns: '',
-      whois: '',
-      external_links: 'https://attend.ieee.org/isc2-2023/',
-      internal_links: 'https://upb.ro/calendar-evenimente/poli-spacefest/?occurrence=2023-06-11',
-      document: 'https://solacolu.chim.upb.ro/pg25-35web.pdf',
-    },
-  ];
+  // output = [
+  //   {
+  //     certificate: ` Certificate Cipher: ('ECDHE-RSA-CHACHA20-POLY1305', 'TLSv1.2', 256)
+  //     Certificate Protocol: TLSv1.2
+  //     Certificate Expiration Date: Aug  8 16:45:24 2023 GMT`,
+  //     dns: `The DNS response does not contain an answer to the question: upb.ro. IN AAAA`,
+  //     whois: `{'domain_name': 'upb.ro', 'status': 'OK', 'registrar': 'ICI - Registrar', 'referral_url': 'http://www.rotld.ro',
+  //     'creation_date': datetime.datetime(1994, 8, 7, 0, 0), 'expiration_date': datetime.datetime(2028, 9, 4, 0, 0),
+  //     'name_servers': ['pub.pub.ro', 'pub2.pub.ro'], 'dnssec': 'Inactive'}`,
+  //     external_links: 'http://antreprenoriat.upb.ro/fii-antreprenor-7-0/?fbclid=IwAR29nVchRBChHqIZidGHk_lTrNztR0FjhhqM-nM9bfvWAisn4EL-lbEvMss',
+  //     internal_links: 'https://upb.ro/achizitii-publice/',
+  //     document: 'http://atee.upb.ro/atee2017/ATEE_2017_template_en_blind.doc'
+  //   },
+  //   {
+  //     certificate: '',
+  //     dns: '',
+  //     whois: '',
+  //     external_links: 'https://community.eelisa.eu/activities/2023-student-unmanned-systems-eelisa-competition/',
+  //     internal_links: 'https://upb.ro/evenimente-upb/',
+  //     document: 'https://upb.ro/wp-content/uploads/2020/03/Bogatu-Lucian_CV.pdf',
+  //   },
+  //   {
+  //     certificate: '',
+  //     dns: '',
+  //     whois: '',
+  //     external_links: 'http://antreprenoriat.upb.ro',
+  //     internal_links: 'https://upb.ro/?method=ical&',
+  //     document: 'https://www.scientificbulletin.upb.ro/rev_docs_arhiva/fulld9b_425565.pdf',
+  //   },
+  //   {
+  //     certificate: '',
+  //     dns: '',
+  //     whois: '',
+  //     external_links: 'https://www.kaat.upb.ro/',
+  //     internal_links: 'https://upb.ro/wp-sitemap-posts-mec-events-1.xml',
+  //     document: 'https://www.scientificbulletin.upb.ro/rev_docs_arhiva/full6151.pdf',
+  //   },
+  //   {
+  //     certificate: '',
+  //     dns: '',
+  //     whois: '',
+  //     external_links: 'https://international.upb.ro/',
+  //     internal_links: 'https://upb.ro/alumni/mailto:alumni@upb.ro',
+  //     document: 'https://www.scientificbulletin.upb.ro/rev_docs_arhiva/full48f_892207.pdf',
+  //   },{
+  //     certificate: '',
+  //     dns: '',
+  //     whois: '',
+  //     external_links: 'https://www.scientificbulletin.upb.ro/index.php',
+  //     internal_links: 'https://upb.ro/tag/elissa/',
+  //     document: 'https://www.scientificbulletin.upb.ro/rev_docs_arhiva/fullbc5_384749.pdf',
+  //   },{
+  //     certificate: '',
+  //     dns: '',
+  //     whois: '',
+  //     external_links: 'http://www.unesco.chair.upb.ro',
+  //     internal_links: 'https://upb.ro/2023/05/24/',
+  //     document: 'https://solacolu.chim.upb.ro/pg122-133.pdf',
+  //   },{
+  //     certificate: '',
+  //     dns: '',
+  //     whois: '',
+  //     external_links: 'https://autofest.upb.ro/',
+  //     internal_links: 'https://upb.ro/2023/05/26/',
+  //     document: 'https://solacolu.chim.upb.ro/pg119-128.pdf',
+  //   },{
+  //     certificate: '',
+  //     dns: '',
+  //     whois: '',
+  //     external_links: 'https://spacefest.upb.ro/',
+  //     internal_links: 'https://upb.ro/catedra-unesco/',
+  //     document: 'https://www.scientificbulletin.upb.ro/rev_docs_arhiva/full6151.pdf',
+  //   },{
+  //     certificate: '',
+  //     dns: '',
+  //     whois: '',
+  //     external_links: 'https://www.facebook.com/POLIJobs.UPB/',
+  //     internal_links: 'https://upb.ro/wp-sitemap-taxonomies-post_format-1.xml',
+  //     document: 'https://my.upb.ro/tutorials/Ghid_accesare_resurse_gratuite_Microsoft_f%C4%83r%C4%83_Office.pdf',
+  //   },{
+  //     certificate: '',
+  //     dns: '',
+  //     whois: '',
+  //     external_links: 'https://attend.ieee.org/isc2-2023/',
+  //     internal_links: 'https://upb.ro/calendar-evenimente/poli-spacefest/?occurrence=2023-06-11',
+  //     document: 'https://solacolu.chim.upb.ro/pg25-35web.pdf',
+  //   },
+  // ];
 
-  const linechart = [
-    {
-      x: '2021-08-01',
-      y: 1,
-    },
-    {
-      x: '2021-08-02',
-      y: 2,
-    },
-    {
-      x: '2021-08-03',
-      y: 3,
-    },
-    {
-      x: '2021-08-04',
-      y: 4,
-    },
-  ];
+  // const linechart = [
+  //   {
+  //     x: '2021-08-01',
+  //     y: 1,
+  //   },
+  //   {
+  //     x: '2021-08-02',
+  //     y: 2,
+  //   },
+  //   {
+  //     x: '2021-08-03',
+  //     y: 3,
+  //   },
+  //   {
+  //     x: '2021-08-04',
+  //     y: 4,
+  //   },
+  // ];
 
   return (
     <>

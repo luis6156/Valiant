@@ -119,15 +119,16 @@ def pretty_print(results, *, view_value, available_only, show_urls):
             if available_only and not response.available:
                 continue
             if not response.success:
-                print(COLOUR_ERROR.Primary + f"{value}: {response.message}", file=sys.stderr)
+                print(COLOUR_ERROR.Primary + f"{value}: {'failed'}", end=', ')
             elif not response.valid:
                 print(
                     COLOUR_INVALID.Primary
-                    + f"{value}: {COLOUR_INVALID.Secondary}{response.message}"
+                    + f"{value}: {COLOUR_INVALID.Secondary}{'failed'}",
+                    end=', '
                 )
             else:
                 col = COLOUR_AVAILABLE if response.available else COLOUR_UNAVAILABLE
-                result_text = col.Primary + value
+                result_text = col.Primary + value + f"{'taken' if response.available else 'reserved'}"
                 if response.link and show_urls:
                     result_text += col.Secondary + f" - {response.link}"
                 print(result_text)
