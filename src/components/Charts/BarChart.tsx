@@ -1,7 +1,9 @@
 import {
+  AxisModel,
   BarSeries,
   Category,
   ChartComponent,
+  ColumnSeries,
   DataLabel,
   Inject,
   Legend,
@@ -20,19 +22,19 @@ const BarChart = ({ data, xColumn, yColumn }: Props) => {
   return (
     <ChartComponent
       id='bar-chart'
-      primaryXAxis={{ title: xColumn }}
+      primaryXAxis={{ valueType: 'Category', title: xColumn }}
       primaryYAxis={{ title: yColumn }}
       title='Bar Chart'
       width='80%'
       tooltip={{ enable: true }}
     >
-      <Inject services={[BarSeries, Legend, Tooltip, DataLabel, Category]} />
+      <Inject services={[ColumnSeries, Legend, Tooltip, DataLabel, Category]} />
       <SeriesCollectionDirective>
         <SeriesDirective
           dataSource={data}
-          xName={xColumn}
-          yName={yColumn}
-          type='Bar'
+          xName='key'
+          yName='value'
+          type='Column'
         ></SeriesDirective>
       </SeriesCollectionDirective>
     </ChartComponent>

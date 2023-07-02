@@ -266,6 +266,7 @@ const TabVisualizer = ({ index, setTabs }: Props) => {
                     {column.name}
                   </option>
                 ))}
+              <option value='count'>Count</option>
             </select>
           </div>
           <div className='mt-3'>
@@ -288,6 +289,7 @@ const TabVisualizer = ({ index, setTabs }: Props) => {
                     {column.name}
                   </option>
                 ))}
+              <option value='count'>Count</option>
             </select>
           </div>
           {scriptVisualizers[index].type === 'scatter-chart' && (
@@ -311,6 +313,7 @@ const TabVisualizer = ({ index, setTabs }: Props) => {
                       {column.name}
                     </option>
                   ))}
+                <option value='count'>Count</option>
               </select>
             </div>
           )}
@@ -320,6 +323,11 @@ const TabVisualizer = ({ index, setTabs }: Props) => {
           <AttentionText text='This visualizer does not require any labels as all data will be displayed.' />
         </div>
       ) : null}
+      {scriptVisualizers[index].type !== 'table' && (
+        <div className='mt-3'>
+          <AttentionText text='This visualizer requires at least a numerical column.' />
+        </div>
+      )}
     </>
   );
 };

@@ -1,3 +1,4 @@
+import { ScriptVisualizerFormat } from '@/contexts/ImportScriptContext';
 import { useEffect, useState } from 'react';
 
 export type ScriptStatus = {
@@ -8,6 +9,7 @@ export type ScriptStatus = {
   status: string;
   output: any[];
   outputColumns: { name: string; type: string }[];
+  visualizers: ScriptVisualizerFormat[];
 };
 
 const FILENAME = 'scripts-status.json';
@@ -53,6 +55,7 @@ const useScriptsStatusListener = () => {
               status: scriptData.isRunning ? 'Running' : 'Completed',
               output: scriptData.output,
               outputColumns: scriptData.outputColumns,
+              visualizers: scriptData.visualizers,
             },
           ];
         }

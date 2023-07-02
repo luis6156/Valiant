@@ -320,7 +320,7 @@ ipcMain.on(
   'run-scenario-crosspwned',
   async (
     event,
-    { executionName, scriptExecutable, scriptPath, scriptName, args }
+    { executionName, scriptName, args, visualizers }
   ) => {
     const startTime = new Date().toLocaleString();
 
@@ -335,9 +335,9 @@ ipcMain.on(
         { name: 'Email', type: 'string' },
         { name: 'Is Breached', type: 'string' },
       ],
+      visualizers,
     });
 
-    // console.log('args::', args);
     const argsCrossLinked = [];
     // Add all args to argsCrossLinked except the first one
     for (let i = 1; i < args.length; i++) {
@@ -413,6 +413,7 @@ ipcMain.on(
         { name: 'Email', type: 'string' },
         { name: 'Is Breached', type: 'string' },
       ],
+      visualizers,
     });
   }
 );
@@ -431,6 +432,7 @@ ipcMain.on(
       outputColsSeparator,
       outputColumns,
       outputFile,
+      visualizers,
     }
   ) => {
     const startTime = new Date().toLocaleString();
@@ -446,6 +448,7 @@ ipcMain.on(
       isRunning: true,
       output: [],
       outputColumns,
+      visualizers,
     });
 
     // Change working directory to the script directory
@@ -546,6 +549,7 @@ ipcMain.on(
         isRunning: false,
         output: processedData,
         outputColumns,
+        visualizers,
       });
       console.log(`script exited with code ${code}`);
     });

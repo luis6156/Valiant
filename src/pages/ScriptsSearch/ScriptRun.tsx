@@ -98,6 +98,7 @@ const ScriptRun = ({
       outputColsSeparator,
       outputColumns,
       outputFile: outputFile ? outputFile : '', // TODO add variant with flag
+      visualizers,
     });
 
     setTimeout(() => {

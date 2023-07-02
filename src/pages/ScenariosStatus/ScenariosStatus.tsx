@@ -75,6 +75,7 @@ const ScenariosStatus = ({ data }: Props) => {
           output={data[scriptIndex].output}
           outputColumns={data[scriptIndex].outputColumns}
           handleGoBack={onGoBack}
+          visualizers={data[scriptIndex].visualizers}
         />
       ) : (
         <div>

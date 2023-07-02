@@ -44,6 +44,7 @@ const useScenariosStatusListener = () => {
               status: scriptData.isRunning ? 'Running' : 'Completed',
               output: scriptData.output,
               outputColumns: scriptData.outputColumns,
+              visualizers: scriptData.visualizers,
             },
           ];
         }
