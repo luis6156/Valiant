@@ -11,11 +11,7 @@ import ssl
 from certifier import CertInfo
 import dns.resolver
 import whois
-from rich import print,pretty
 from time import sleep
-
-# Executing rich's pretty method
-pretty.install()
 
 VERSION = '2.0.0'
 BANNER = 'hi'
@@ -49,20 +45,18 @@ def getHeader(url):
 def getcertinfo(url):
     try:
         cert = CertInfo(url, 443)
-        print(
-            f"""
-            certificate: 
-            {ssl.get_server_certificate((url,443))}
-            ---------------------------------------
-            ---------------------------------------
-            ----------Certificate Info-------------
-            Certificate Cipher: {cert.cipher()}
-            Certificate Protocol: {cert.protocol()}
-            Certificate Expiration Date: {cert.expire()}
-            """
-        )
+        cipher = str(cert.cipher()).strip()
+        cipher = cipher.replace("\r\n", "")
+        cipher = cipher.replace("\n", "")
+        protocol = cert.protocol().replace("\r\n", "")
+        protocol = protocol.replace("\n", "")
+        expire = cert.expire().strip()
+        out = str('Certificate Cipher: ' + cipher + ' Certificate Protocol: ' + protocol + ', Certificate Expiration Date: ' + expire)
+        out = out.replace("\r\n", "")
+        out = out.replace("\n", "")
+        return out
     except Exception as e:
-        print(f'Following Error occured:\n {e}')
+        return f'Following Error occured:\n {e}'
 
 
 def getdnsinfo(url):
@@ -84,7 +78,7 @@ def getdnsinfo(url):
         for x in mxrec:
             print(x)
     except Exception as e:
-        print(f'Following Error occured:\n {e}')
+        return f'{e}'
 
 
 def getwhoisinfo(url):
@@ -105,10 +99,9 @@ def getsubdomain(url):
                 try:
                     formated_host = url.split('//')[1]
                 except Exception:
-                    print("[red]Error:Bad Format[/red]\nUsage:w3b3num.py https://www.example.com")      
-    print(f"[green]Host:{formated_host}[/green]")            
-
+                    print("[red]Error:Bad Format[/red]\nUsage:w3b3num.py https://www.example.com")          
     
+    list_url = []
     with open('subdomains.txt') as subfile:
         content = subfile.read()
         subdomains = content.splitlines()
@@ -116,16 +109,18 @@ def getsubdomain(url):
             re_url = f'{protocol}://{subdomain}.{formated_host}'
             try:
                 requests.get(re_url,stream=True,timeout=3)
-                print('[+]',re_url)
+                list_url.append(re_url)
             except Exception:
                 pass
+            
+    return list_url
                 
 
 
 
 
 def main():
-    print(f"[red]{BANNER}[/red]")
+    # print(f"[red]{BANNER}[/red]")
     host = ''
     if  len(sys.argv)  != 2:
         print("[red]Url operand missing[/red]")
@@ -134,28 +129,48 @@ def main():
     else:
         host = sys.argv[1]
     sleep(2)
-    print('[purple bold]Header Meta Data:[/purple bold]')    
-    print('[purple]-----------------------------------------------------------------------------[/purple]')
-    getHeader(host)
-    print('[purple]-----------------------------------------------------------------------------[/purple]')
-    print('[blue bold]Certificate Inforamtion:[/blue bold]')
-    print('[blue]-----------------------------------------------------------------------------[/blue]')
-    getcertinfo(striphost(host))
-    print('[blue]-----------------------------------------------------------------------------[/blue]')
-    print('[red bold]DNS Record:[/red bold]')
-    print('[red]-----------------------------------------------------------------------------[/red]')
-    getdnsinfo(striphost(host))
-    print('[red]-----------------------------------------------------------------------------[/red]')
-    print('\n[green bold]Whois Information:[/green bold]')
-    print('[green]-----------------------------------------------------------------------------[/green]')
-    print(getwhoisinfo(striphost(host)))
-    print('[green]-----------------------------------------------------------------------------[/green]')
-    print('\n[cyan bold]Subdomains:[/cyan bold]')
-    print('[cyan]-----------------------------------------------------------------------------[/cyan]')
-    getsubdomain(host)
-    print('[cyan]-----------------------------------------------------------------------------[/cyan]')
+    output = []
+    # print('[purple bold]Header Meta Data:[/purple bold]')    
+    # print('[purple]-----------------------------------------------------------------------------[/purple]')
+    # getHeader(host)
+    # print('[purple]-----------------------------------------------------------------------------[/purple]')
+    # print('[blue bold]Certificate Inforamtion:[/blue bold]')
+    # print('[blue]-----------------------------------------------------------------------------[/blue]')
+    subdomains = getsubdomain(host)
+    cert = getcertinfo(striphost(host))
+    # print('[blue]-----------------------------------------------------------------------------[/blue]')
+    # print('[red bold]DNS Record:[/red bold]')
+    # print('[red]-----------------------------------------------------------------------------[/red]')
+    dns = getdnsinfo(striphost(host))
+    # print('[red]-----------------------------------------------------------------------------[/red]')
+    # print('\n[green bold]Whois Information:[/green bold]')
+    # print('[green]-----------------------------------------------------------------------------[/green]')
+    whois = getwhoisinfo(striphost(host))
+    # print('[green]-----------------------------------------------------------------------------[/green]')
+    # print('\n[cyan bold]Subdomains:[/cyan bold]')
+    # print('[cyan]-----------------------------------------------------------------------------[/cyan]')
+    # getsubdomain(host)
+    # print('[cyan]-----------------------------------------------------------------------------[/cyan]')
     
-
+    # print(subdomains)
+    
+    # output.append(f"{subdomains[0]} ; {cert} ; {dns} ; {whois}")
+    whois = str(whois)
+    whois = whois.replace('\n','')
+    # cert = cert.replace('\n','')
+    # cert = str(cert)
+    # cert = cert.replace(',\n',',')
+    # for i in range (len(cert)):
+    #     if cert[i] == '\r\n':
+    #         cert[i] = ''
+    # cert = cert.replace('\'', "")
+    # print(cert)
+    with open("output.txt", "w") as file:
+        output = f"{subdomains[0]} ; {cert} ; {dns} ; {whois}"
+        print(output, file=file)
+    
+        for i in range(1,len(subdomains)):
+            print(f"{subdomains[i]} ;  ;  ; ", file=file)
 
 
 main()

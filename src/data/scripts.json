@@ -275,5 +275,41 @@
       }
     ],
     "scriptOutputFormat": { "type": "stdout", "name": "" }
+  },
+  {
+    "scriptPage": "",
+    "scriptName": "Webenum",
+    "scriptDescription": "A simple web enumeration tool that extracts subdomains of a URL, certificate data, DNS data and whois data.",
+    "scriptInputTags": ["URL"],
+    "scriptOutputTags": ["subdomains", "URLs", "cert", "dns", "whois"],
+    "scriptSpeed": "3",
+    "scriptSuccessRate": "3",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\webenum\\w3b3num.py",
+    "scriptFlags": [
+      {
+        "name": "Target URL",
+        "description": "Provide the URL using the following format \"https://{domain}.com\".",
+        "type": "argument",
+        "required": true
+      }
+    ],
+    "scriptColumns": [
+      { "name": "Subdomains", "type": "string" },
+      { "name": "Certificate Information", "type": "string" },
+      { "name": "DNS Record", "type": "string" },
+      { "name": "Whois Information", "type": "string" }
+    ],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "0",
+    "scriptOutputColsSeparator": "[^;]+",
+    "scriptVisualizers": [
+      {
+        "type": "table",
+        "labelXColumn": "Subdomains",
+        "labelYColumn": "Certificate Information",
+        "labelZColumn": "DNS Record"
+      }
+    ],
+    "scriptOutputFormat": { "type": "file", "name": "output.txt" }
   }
 ]
