@@ -2,9 +2,9 @@
   {
     "scriptPage": "https://github.com/m8sec/CrossLinked",
     "scriptName": "CrossPwned",
-    "scriptDescription": "CrossLinked is a LinkedIn enumeration tool that uses search engine scraping to collect valid employee names from an organization. This technique provides accurate results without the use of API keys.",
+    "scriptDescription": "Uses CrossLinked and the API of Have-I-Been-Pwned to check if an employee address has been in a public breach. This information can be used to query the reuse of passwords across accounts or for phishing purposes.",
     "scriptInputTags": ["domain", "company", "email"],
-    "scriptOutputTags": ["emails", "linkedin", "position", "full-name"],
+    "scriptOutputTags": ["emails", "breached"],
     "scriptSpeed": "1",
     "scriptSuccessRate": "3",
     "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py",
@@ -67,9 +67,9 @@
   {
     "scriptPage": "https://github.com/m8sec/CrossLinked",
     "scriptName": "CrossPoastal",
-    "scriptDescription": "CrossLinked is a LinkedIn enumeration tool that uses search engine scraping to collect valid employee names from an organization. This technique provides accurate results without the use of API keys.",
+    "scriptDescription": "Uses CrossLinked and Poastal to check if an employee uses the email address on other social accounts.",
     "scriptInputTags": ["domain", "company", "email"],
-    "scriptOutputTags": ["emails", "linkedin", "position", "full-name"],
+    "scriptOutputTags": ["emails", "socials"],
     "scriptSpeed": "3",
     "scriptSuccessRate": "3",
     "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py",
@@ -109,6 +109,90 @@
       { "name": "Twitter", "type": "string" },
       { "name": "Instagram", "type": "string" },
       { "name": "LastFM", "type": "string" }
+    ],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "1",
+    "scriptOutputColsSeparator": "\"([^\"]*)\"",
+    "scriptVisualizers": [
+      {
+        "type": "table",
+        "labelXColumn": "Email",
+        "labelYColumn": "Is Breached",
+        "labelZColumn": "Email"
+      }
+    ],
+    "scriptOutputFormat": { "type": "file", "name": "names.csv" }
+  },
+  {
+    "scriptPage": "https://github.com/m8sec/CrossLinked",
+    "scriptName": "FullSiteMap",
+    "scriptDescription": "Performs a full site enumeration using MsDorkDump, Photon and Webenum.",
+    "scriptInputTags": ["domain", "company", "email"],
+    "scriptOutputTags": ["documents", "files", "info", "setup", "domains"],
+    "scriptSpeed": "1",
+    "scriptSuccessRate": "4",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py",
+    "scriptFlags": [
+      {
+        "flag": "-t",
+        "name": "Domain",
+        "description": "Provide the domain you wish to query.",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [
+      { "name": "Document", "type": "string" },
+      { "name": "External Links", "type": "string" },
+      { "name": "Images", "type": "string" },
+      { "name": "Fuzzable Links", "type": "string" },
+      { "name": "Internal Links", "type": "string" },
+      { "name": "Subdomains", "type": "string" },
+      { "name": "Certificate Information", "type": "string" },
+      { "name": "DNS Record", "type": "string" },
+      { "name": "Whois Information", "type": "string" }
+    ],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "1",
+    "scriptOutputColsSeparator": "\"([^\"]*)\"",
+    "scriptVisualizers": [
+      {
+        "type": "table",
+        "labelXColumn": "Email",
+        "labelYColumn": "Is Breached",
+        "labelZColumn": "Email"
+      }
+    ],
+    "scriptOutputFormat": { "type": "file", "name": "names.csv" }
+  },
+  {
+    "scriptPage": "https://github.com/m8sec/CrossLinked",
+    "scriptName": "CrossPhish",
+    "scriptDescription": "Performs a full phishing scenario by getting the employee addresses, generating templates and sending them. Uses CrossLinked, PhishMailer and Bait.",
+    "scriptInputTags": ["domain", "company", "email"],
+    "scriptOutputTags": ["status", "template"],
+    "scriptSpeed": "1",
+    "scriptSuccessRate": "4",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py",
+    "scriptFlags": [
+      {
+        "flag": "-t",
+        "name": "Domain",
+        "description": "Provide the domain you wish to query.",
+        "type": "flag",
+        "required": true
+      }
+    ],
+    "scriptColumns": [
+      { "name": "Document", "type": "string" },
+      { "name": "External Links", "type": "string" },
+      { "name": "Images", "type": "string" },
+      { "name": "Fuzzable Links", "type": "string" },
+      { "name": "Internal Links", "type": "string" },
+      { "name": "Subdomains", "type": "string" },
+      { "name": "Certificate Information", "type": "string" },
+      { "name": "DNS Record", "type": "string" },
+      { "name": "Whois Information", "type": "string" }
     ],
     "scriptExecutable": "python",
     "scriptOutputSkipRows": "1",

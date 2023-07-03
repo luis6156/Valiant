@@ -317,6 +317,140 @@ const runScript = async (
 };
 
 ipcMain.on(
+  'run-scenario-fullsitemap',
+  async (event, { executionName, scriptName, args, visualizers }) => {
+    const startTime = new Date().toLocaleString();
+
+    win?.webContents.send('scenario-status', {
+      scriptName,
+      executionName: executionName,
+      startTime,
+      endTime: '-',
+      isRunning: true,
+      output: [],
+      outputColumns: [
+        { name: 'Document', type: 'string' },
+        { name: 'External Links', type: 'string' },
+        { name: 'Images', type: 'string' },
+        { name: 'Fuzzable Links', type: 'string' },
+        { name: 'Internal Links', type: 'string' },
+        { name: 'Subdomains', type: 'string' },
+        { name: 'Certificate Information', type: 'string' },
+        { name: 'DNS Record', type: 'string' },
+        { name: 'Whois Information', type: 'string' },
+      ],
+      visualizers,
+    });
+
+    console.log("args:::::::::", args);
+
+    const msdorkdumpArgs = args[0]['value'];
+    const transformedURL = msdorkdumpArgs.replace(/^(https?:\/\/)?(www\.)?/, '');
+
+    let resmsdorkdump: any = await runScript(
+      executionName,
+      'python',
+      'C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\msdorkdump\\msdorkdump.py',
+      'MsDorkDump',
+      [{ name: '-t', value: transformedURL }],
+      '0',
+      'https?://(.+?)*',
+      [{ name: 'Document', type: 'string' }],
+      'stdout'
+    );
+
+    // console.log("resmsdorkdump:::::::::", resmsdorkdump)
+
+    resmsdorkdump = resmsdorkdump['output'];
+
+    let resphoton: any = await runScript(
+      executionName,
+      'python',
+      'C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\photon\\photon.py',
+      'Photon',
+      [{ name: '-u', value: args[0]['value'] }],
+      '5',
+      '(https?://\\S+)|None',
+      [
+        { name: 'External Links', type: 'string' },
+        { name: 'Images', type: 'string' },
+        { name: 'Fuzzable Links', type: 'string' },
+        { name: 'Internal Links', type: 'string' },
+      ],
+      'stdout'
+    );
+
+    resphoton = resphoton['output'];
+
+    let reswebenum: any = await runScript(
+      executionName,
+      'python',
+      'C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\websites\\webenum\\w3b3num.py',
+      'Webenum',
+      [{ value: args[0]['value'] }],
+      '0',
+      '[^;]+',
+      [
+        { name: 'Subdomains', type: 'string' },
+        { name: 'Certificate Information', type: 'string' },
+        { name: 'DNS Record', type: 'string' },
+        { name: 'Whois Information', type: 'string' },
+      ],
+      'output.txt'
+    );
+
+    reswebenum = reswebenum['output'];
+
+    let res: any = [];
+    // console.log("length::::::", resmsdorkdump.length);
+    // Combine all results
+    // const min = Math.min(resmsdorkdump.length, resphoton.length, reswebenum.length);
+    for (let i = 0; i < resphoton.length; i++) {
+      if (i > resmsdorkdump.length) {
+        resmsdorkdump[i] = {};
+      }
+      if (i > resphoton.length) {
+        resphoton[i] = {};
+      }
+      if (i > reswebenum.length) {
+        reswebenum[i] = {};
+      }
+      res.push({
+        ...resmsdorkdump[i],
+        ...resphoton[i],
+        ...reswebenum[i],
+      });
+    }
+
+    console.log('results: ', res);
+
+    console.log('SCENARIO DONE!');
+
+    // Send message to the renderer process
+    win?.webContents.send('scenario-status', {
+      scriptName,
+      executionName: executionName,
+      startTime,
+      endTime: new Date().toLocaleString(),
+      isRunning: false,
+      output: res,
+      outputColumns: [
+        { name: 'Document', type: 'string' },
+        { name: 'External Links', type: 'string' },
+        { name: 'Images', type: 'string' },
+        { name: 'Fuzzable Links', type: 'string' },
+        { name: 'Internal Links', type: 'string' },
+        { name: 'Subdomains', type: 'string' },
+        { name: 'Certificate Information', type: 'string' },
+        { name: 'DNS Record', type: 'string' },
+        { name: 'Whois Information', type: 'string' },
+      ],
+      visualizers,
+    });
+  }
+);
+
+ipcMain.on(
   'run-scenario-crosspoastal',
   async (event, { executionName, scriptName, args, visualizers }) => {
     const startTime = new Date().toLocaleString();
@@ -373,19 +507,19 @@ ipcMain.on(
         const resCrossPoastal = await runScript(
           executionName,
           'python',
-          "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\socialscan\\socialscan\\__main__.py",
+          'C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\socialscan\\socialscan\\__main__.py',
           'SocialScan',
           [{ value: item['Email'] }],
           '3',
-          "(?<=(?:Firefox|GitHub|Pinterest|Tumblr|Twitter|Instagram|Lastfm): )[^,]+",
+          '(?<=(?:Firefox|GitHub|Pinterest|Tumblr|Twitter|Instagram|Lastfm): )[^,]+',
           [
-            { "name": "Firefox", "type": "string" },
-            { "name": "GitHub", "type": "string" },
-            { "name": "Pinterest", "type": "string" },
-            { "name": "Tumblr", "type": "string" },
-            { "name": "Twitter", "type": "string" },
-            { "name": "Instagram", "type": "string" },
-            { "name": "LastFM", "type": "string" }
+            { name: 'Firefox', type: 'string' },
+            { name: 'GitHub', type: 'string' },
+            { name: 'Pinterest', type: 'string' },
+            { name: 'Tumblr', type: 'string' },
+            { name: 'Twitter', type: 'string' },
+            { name: 'Instagram', type: 'string' },
+            { name: 'LastFM', type: 'string' },
           ],
           'stdout'
         );
@@ -420,14 +554,14 @@ ipcMain.on(
       isRunning: false,
       output: res,
       outputColumns: [
-        { "name": "Email", "type": "string" },
-        { "name": "Firefox", "type": "string" },
-        { "name": "GitHub", "type": "string" },
-        { "name": "Pinterest", "type": "string" },
-        { "name": "Tumblr", "type": "string" },
-        { "name": "Twitter", "type": "string" },
-        { "name": "Instagram", "type": "string" },
-        { "name": "LastFM", "type": "string" }
+        { name: 'Email', type: 'string' },
+        { name: 'Firefox', type: 'string' },
+        { name: 'GitHub', type: 'string' },
+        { name: 'Pinterest', type: 'string' },
+        { name: 'Tumblr', type: 'string' },
+        { name: 'Twitter', type: 'string' },
+        { name: 'Instagram', type: 'string' },
+        { name: 'LastFM', type: 'string' },
       ],
       visualizers,
     });

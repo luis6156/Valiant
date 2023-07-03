@@ -161,6 +161,8 @@ const ScenarioSearch = () => {
               ? 'crosspwned'
               : scripts[selectedScript].scriptName === 'CrossPoastal'
               ? 'crosspoastal'
+              : scripts[selectedScript].scriptName === 'FullSiteMap'
+              ? 'fullsitemap'
               : 'normal'
           }
           scriptExecutable={scripts[selectedScript].scriptExecutable}
