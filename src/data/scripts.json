@@ -505,35 +505,5 @@
       }
     ],
     "scriptOutputFormat": { "type": "file", "name": "output_stats.txt" }
-  },
-  {
-    "scriptPage": "n",
-    "scriptName": "n",
-    "scriptDescription": "n",
-    "scriptInputTags": ["n"],
-    "scriptOutputTags": ["n"],
-    "scriptSpeed": "2",
-    "scriptSuccessRate": "2",
-    "scriptPath": "C:\\Users\\micul\\AppData\\Roaming\\utorrent\\uTorrent.exe",
-    "scriptFlags": [
-      {
-        "flag": "-i",
-        "name": "i",
-        "description": "in",
-        "type": "flag",
-        "required": false
-      }
-    ],
-    "scriptColumns": [
-      { "name": "col1", "type": "string" },
-      { "name": "col2", "type": "string" }
-    ],
-    "scriptExecutable": "py",
-    "scriptOutputSkipRows": "0",
-    "scriptOutputColsSeparator": "col",
-    "scriptVisualizers": [
-      { "type": "line-chart", "labelXColumn": "col1", "labelYColumn": "count" }
-    ],
-    "scriptOutputFormat": { "type": "stdout", "name": "" }
   }
 ]

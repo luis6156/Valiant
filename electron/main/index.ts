@@ -317,11 +317,126 @@ const runScript = async (
 };
 
 ipcMain.on(
+  'run-scenario-crosspoastal',
+  async (event, { executionName, scriptName, args, visualizers }) => {
+    const startTime = new Date().toLocaleString();
+
+    win?.webContents.send('scenario-status', {
+      scriptName,
+      executionName: executionName,
+      startTime,
+      endTime: '-',
+      isRunning: true,
+      output: [],
+      outputColumns: [
+        { name: 'Email', type: 'string' },
+        { name: 'Firefox', type: 'string' },
+        { name: 'GitHub', type: 'string' },
+        { name: 'Pinterest', type: 'string' },
+        { name: 'Tumblr', type: 'string' },
+        { name: 'Twitter', type: 'string' },
+        { name: 'Instagram', type: 'string' },
+        { name: 'LastFM', type: 'string' },
+      ],
+      visualizers,
+    });
+
+    const argsCrossLinked = args;
+
+    let resCrossLinked: any = await runScript(
+      executionName,
+      'python',
+      'C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py',
+      'CrossLinked',
+      argsCrossLinked,
+      '1',
+      '"([^"]*)"',
+      [
+        { name: 'Datetime', type: 'string' },
+        { name: 'Search', type: 'string' },
+        { name: 'First Name', type: 'string' },
+        { name: 'Last Name', type: 'string' },
+        { name: 'Title', type: 'string' },
+        { name: 'URL', type: 'string' },
+        { name: 'Raw Text', type: 'string' },
+        { name: 'Email', type: 'string' },
+      ],
+      'names.csv'
+    );
+
+    resCrossLinked = resCrossLinked['output'];
+
+    const callScripts = async () => {
+      const crossPoastal = [];
+
+      for (const item of resCrossLinked) {
+        const resCrossPoastal = await runScript(
+          executionName,
+          'python',
+          "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\socialscan\\socialscan\\__main__.py",
+          'SocialScan',
+          [{ value: item['Email'] }],
+          '3',
+          "(?<=(?:Firefox|GitHub|Pinterest|Tumblr|Twitter|Instagram|Lastfm): )[^,]+",
+          [
+            { "name": "Firefox", "type": "string" },
+            { "name": "GitHub", "type": "string" },
+            { "name": "Pinterest", "type": "string" },
+            { "name": "Tumblr", "type": "string" },
+            { "name": "Twitter", "type": "string" },
+            { "name": "Instagram", "type": "string" },
+            { "name": "LastFM", "type": "string" }
+          ],
+          'stdout'
+        );
+
+        if (resCrossPoastal['output'].length === 0) {
+          continue;
+        }
+
+        resCrossPoastal['output'][0].email = item['Email'];
+
+        crossPoastal.push(resCrossPoastal['output'][0]);
+
+        // Delay for 6 seconds before making the next call
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+
+      return crossPoastal;
+    };
+
+    const res = await callScripts();
+
+    console.log('results: ', res);
+
+    console.log('SCENARIO DONE!');
+
+    // Send message to the renderer process
+    win?.webContents.send('scenario-status', {
+      scriptName,
+      executionName: executionName,
+      startTime,
+      endTime: new Date().toLocaleString(),
+      isRunning: false,
+      output: res,
+      outputColumns: [
+        { "name": "Email", "type": "string" },
+        { "name": "Firefox", "type": "string" },
+        { "name": "GitHub", "type": "string" },
+        { "name": "Pinterest", "type": "string" },
+        { "name": "Tumblr", "type": "string" },
+        { "name": "Twitter", "type": "string" },
+        { "name": "Instagram", "type": "string" },
+        { "name": "LastFM", "type": "string" }
+      ],
+      visualizers,
+    });
+  }
+);
+
+ipcMain.on(
   'run-scenario-crosspwned',
-  async (
-    event,
-    { executionName, scriptName, args, visualizers }
-  ) => {
+  async (event, { executionName, scriptName, args, visualizers }) => {
     const startTime = new Date().toLocaleString();
 
     win?.webContents.send('scenario-status', {

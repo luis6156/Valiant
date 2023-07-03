@@ -18,7 +18,7 @@ import {
 import ScriptsImportPageOne, { RefsStepOne } from './ScriptsImportPageOne';
 import ScriptsImportPageTwo, { RefsStepTwo } from './ScriptsImportPageTwo';
 
-const FILENAME = 'scripts.json';
+const FILENAME = 'custom_scripts.json';
 
 const ScriptsImport = () => {
   const [step, setStep] = useState<number>(1);

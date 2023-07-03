@@ -5,7 +5,7 @@
     "scriptDescription": "CrossLinked is a LinkedIn enumeration tool that uses search engine scraping to collect valid employee names from an organization. This technique provides accurate results without the use of API keys.",
     "scriptInputTags": ["domain", "company", "email"],
     "scriptOutputTags": ["emails", "linkedin", "position", "full-name"],
-    "scriptSpeed": "4",
+    "scriptSpeed": "1",
     "scriptSuccessRate": "3",
     "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py",
     "scriptFlags": [
@@ -59,6 +59,65 @@
         "type": "bar-chart",
         "labelXColumn": "Is Breached",
         "labelYColumn": "count",
+        "labelZColumn": "Email"
+      }
+    ],
+    "scriptOutputFormat": { "type": "file", "name": "names.csv" }
+  },
+  {
+    "scriptPage": "https://github.com/m8sec/CrossLinked",
+    "scriptName": "CrossPoastal",
+    "scriptDescription": "CrossLinked is a LinkedIn enumeration tool that uses search engine scraping to collect valid employee names from an organization. This technique provides accurate results without the use of API keys.",
+    "scriptInputTags": ["domain", "company", "email"],
+    "scriptOutputTags": ["emails", "linkedin", "position", "full-name"],
+    "scriptSpeed": "3",
+    "scriptSuccessRate": "3",
+    "scriptPath": "C:\\Users\\micul\\Desktop\\license\\product\\data-pilots\\valiant\\tools\\social\\crosslinked\\crosslinked.py",
+    "scriptFlags": [
+      {
+        "flag": "-f",
+        "name": "Email Format",
+        "description": "Provide the email format of the company like in this example '{first}.{last}@domain.com'. Do not forget the quotation marks.",
+        "type": "flag",
+        "required": true
+      },
+      {
+        "name": "Timeout",
+        "description": "Max timeout per search (Default=15)",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "Jitter",
+        "description": "Jitter between requests (Default=1)",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "Company Name",
+        "description": "Provide the company name as used on LinkedIn.",
+        "type": "argument",
+        "required": true
+      }
+    ],
+    "scriptColumns": [
+      { "name": "Email", "type": "string" },
+      { "name": "Firefox", "type": "string" },
+      { "name": "GitHub", "type": "string" },
+      { "name": "Pinterest", "type": "string" },
+      { "name": "Tumblr", "type": "string" },
+      { "name": "Twitter", "type": "string" },
+      { "name": "Instagram", "type": "string" },
+      { "name": "LastFM", "type": "string" }
+    ],
+    "scriptExecutable": "python",
+    "scriptOutputSkipRows": "1",
+    "scriptOutputColsSeparator": "\"([^\"]*)\"",
+    "scriptVisualizers": [
+      {
+        "type": "table",
+        "labelXColumn": "Email",
+        "labelYColumn": "Is Breached",
         "labelZColumn": "Email"
       }
     ],

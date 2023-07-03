@@ -8,7 +8,7 @@ import ScriptCard from '@/components/ScriptSearch/ScriptCard';
 import ScriptRun from './ScriptRun';
 
 const FILENAME = 'scripts.json';
-const FILENAME_CUSTOM = 'scripts_custom.json';
+const FILENAME_CUSTOM = 'custom_scripts.json';
 
 const ScriptsSearch = () => {
   const [showCustomScripts, setShowCustomScripts] = useState<boolean>(false);

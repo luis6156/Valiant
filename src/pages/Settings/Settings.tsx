@@ -125,6 +125,11 @@ const Settings = () => {
           Download files from Cloud
         </button>
       </div>
+      {message && (
+        <div className='mt-3'>
+          <AttentionText text={message} />
+        </div>
+      )}
       <p className='settings-title mt-4'>Change Account Password</p>
       <form className='mt-3' onSubmit={handleSubmit}>
         <div className='mb-3'>
@@ -197,11 +202,6 @@ const Settings = () => {
       {error && (
         <div className='mt-3'>
           <AttentionText text='' danger={error} />
-        </div>
-      )}
-      {message && (
-        <div className='mt-3'>
-          <AttentionText text={message} />
         </div>
       )}
       <p className='settings-title mt-4 mb-3'>Dashboard Theme</p>

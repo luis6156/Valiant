@@ -9,7 +9,7 @@ import ScriptRun from '../ScriptsSearch/ScriptRun';
 import ScenarioRun from './ScenarioRun';
 
 const FILENAME = 'scenarios.json';
-const FILENAME_CUSTOM = 'scenarios_custom.json';
+const FILENAME_CUSTOM = 'custom_scenarios.json';
 
 const ScenarioSearch = () => {
   const [showCustomScripts, setShowCustomScripts] = useState<boolean>(false);
@@ -156,7 +156,13 @@ const ScenarioSearch = () => {
         </>
       ) : (
         <ScenarioRun
-          scenarioType={scripts[selectedScript].scriptName === 'CrossPwned' ? 'crosspwned' : 'normal'}
+          scenarioType={
+            scripts[selectedScript].scriptName === 'CrossPwned'
+              ? 'crosspwned'
+              : scripts[selectedScript].scriptName === 'CrossPoastal'
+              ? 'crosspoastal'
+              : 'normal'
+          }
           scriptExecutable={scripts[selectedScript].scriptExecutable}
           scriptPath={scripts[selectedScript].scriptPath}
           name={scripts[selectedScript].scriptName}
